@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -55,6 +57,8 @@ public class ArchiverController implements Initializable {
     ProgressBar extractorProgressBar;
     @FXML
     TextArea extractorLogOutput;
+    @FXML
+    Label extractorArchiveLabel;
 
     /**
      * Initializes the controller class.
@@ -119,7 +123,21 @@ public class ArchiverController implements Initializable {
         log("to: " + targetDir.getPath());
         //[FIXED] cannot extract multiform archive ".tar.xxx"
         //[DONE]TODO: determine if is multiformat then extract approprietely else just unarchive()
-        aex.unarchive(zipFile.getPath(), targetDir.getPath());
+        extractorArchiveLabel.setText("Almost There...");
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //extractorProgressBar.setProgress(extractorProgressBar.getProgress() + 0.1);
+                if (extractorProgressBar.getProgress() != 1.0) {
+                    extractorProgressBar.setProgress(extractorProgressBar.getProgress() + 0.1);
+                }
+            }
+        }, 0, 1000);
+        new Thread(() -> {
+            aex.unarchive(zipFile.getPath(), targetDir.getPath());
+        }).start();
+        extractorArchiveLabel.setText("Done!");
         log("Done!");
     }
 

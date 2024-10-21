@@ -144,6 +144,8 @@ public class FXMLDocumentController implements Initializable {
     TreeView dupeTree;
     @FXML
     TextField dupefinderInput;
+    @FXML
+    ProgressBar compressorProgressBar;
     String[] types = {".zip", ".tar", ".gz", ".7z", ".rar", ".tar.sz", ".tar.gz", ".tar.deflate", ".tar.xz", ".tar.bz2"};
     String archFolder = "";
     public static String pd = "https://paypal.com/donate/?hosted_button_id=A88GCN8R382B6";
@@ -204,7 +206,7 @@ public class FXMLDocumentController implements Initializable {
                 logger.Log(mi.getText());
                 switch (mi.getText()) {
                     case "Share":
-                        String smailto = "mailto:?subject=" + encodeUrl("Check Out This App!") + "&body=" + encodeUrl("I use FileStudio" + sfUrl);
+                        String smailto = "mailto:?subject=" + encodeUrl("Advanced file handler.") + "&body=" + encodeUrl("I use FileStudio" + sfUrl);
                         try {
                             Desktop dt = Desktop.getDesktop();
                             dt.mail(new URI(smailto));
@@ -769,6 +771,16 @@ public class FXMLDocumentController implements Initializable {
                     ArchiverController archController = loader.getController();
                     archController.setCurrentPathAndDest(extractorFilePath.getText(), extractorDestinationLabel.getText());
                     Stage extractorStage = new Stage();
+                    switch (uss.theme) {
+                        case "dark":
+                            root.getStylesheets().add("filestudio/style.css");
+                            break;
+                        case "light":
+                            root.getStylesheets().add("filestudio/light.css");
+                            break;
+                        default:
+                            root.getStylesheets().add("filestudio/style.css");
+                    }
                     extractorStage.setScene(new Scene(root));
                     extractorStage.initStyle(StageStyle.UNDECORATED);
                     extractorStage.show();
@@ -853,6 +865,16 @@ public class FXMLDocumentController implements Initializable {
         return;
     }
 
+    public void compressorThread() {
+        new Thread(() -> {
+            try {
+                compressorStart();
+            } catch (IOException ioe) {
+                alert("Compressor", "An error is stopping the task from executing normally!", ioe.getMessage(), Alert.AlertType.ERROR);
+            }
+        }).start();
+    }
+
     public void compressorStart() throws IOException {
         ArchiveExtractor aext = new ArchiveExtractor();
         String theDir = compressorPath.getText();
@@ -912,6 +934,7 @@ public class FXMLDocumentController implements Initializable {
                     aext.archive(theDir, multiFormFirstFile);
                     aext.createTarBZip2File(multiFormFirstFile, outputDir);
                     Files.delete(Paths.get(multiFormFirstFile));
+                    break;
             }
             //notify(compressorNotif, "Done!");
         } else {

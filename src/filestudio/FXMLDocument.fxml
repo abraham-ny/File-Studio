@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainWindowHandle" prefHeight="598.0" prefWidth="762.0" style="-fx-border-color: dodgerblue;" styleClass="linear-grad"  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="mainWindowHandle" prefHeight="598.0" prefWidth="762.0" style="-fx-border-color: dodgerblue;" styleClass="linear-grad" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
         <Pane fx:id="mainWindowHandleMini" layoutX="11.0" layoutY="14.0" prefHeight="24.0" prefWidth="740.0" styleClass="cell" AnchorPane.bottomAnchor="538.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="14.0">
@@ -93,7 +93,7 @@
                                 <TextField fx:id="dupefinderInput" layoutX="132.0" layoutY="25.0" prefWidth="422.0" promptText="Enter path to folder to be scanned." />
                                 <Button layoutX="563.0" layoutY="25.0" mnemonicParsing="false" onAction="#showFileChooser" text="Change" />
                                 <TreeView fx:id="dupeTree" layoutX="132.0" layoutY="66.0" prefHeight="387.0" prefWidth="561.0" />
-                                <Button onAction="#deleteDupes"  fx:id="deleteDupesBtn" layoutX="592.0" layoutY="469.0" mnemonicParsing="false" text="Delete Selected" />
+                                <Button fx:id="deleteDupesBtn" layoutX="592.0" layoutY="469.0" mnemonicParsing="false" onAction="#deleteDupes" text="Delete Selected" />
                                 <Button fx:id="scanDupeBtn" layoutX="631.0" layoutY="25.0" mnemonicParsing="false" onAction="#scan" prefWidth="61.0" text="Scan" />
                             </children>
                         </AnchorPane>
@@ -149,9 +149,10 @@
                                                         <TextField fx:id="compressorPath" layoutX="34.0" layoutY="54.0" prefWidth="510.0" promptText="Path to the folder you want to compress." />
                                                         <Button fx:id="compressorChangeDirBtn" layoutX="560.0" layoutY="54.0" mnemonicParsing="false" onMouseClicked="#compressorChangeDir" text="Select" />
                                                         <ComboBox fx:id="compressorType" layoutX="34.0" layoutY="152.0" prefWidth="150.0" promptText="File Type" />
-                                                        <Button fx:id="compressorStartBtn" layoutX="34.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#compressorStart" text="Start" />
+                                                        <Button fx:id="compressorStartBtn" layoutX="34.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#compressorThread" text="Start" />
                                                         <TextField fx:id="compressorDest" layoutX="35.0" layoutY="103.0" prefWidth="509.0" promptText="Where to place the resulting file." />
                                                         <Button fx:id="compressorDestBtn" layoutX="559.0" layoutY="103.0" mnemonicParsing="false" onMouseClicked="#compressorChangeDest" text="Change" />
+                                                        <ProgressBar fx:id="compressorProgressBar" layoutX="34.0" layoutY="251.0" prefHeight="18.0" prefWidth="688.0" progress="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
