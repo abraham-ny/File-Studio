@@ -152,7 +152,7 @@
                                                         <Button fx:id="compressorStartBtn" layoutX="34.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#compressorThread" text="Start" />
                                                         <TextField fx:id="compressorDest" layoutX="35.0" layoutY="103.0" prefWidth="509.0" promptText="Where to place the resulting file." />
                                                         <Button fx:id="compressorDestBtn" layoutX="559.0" layoutY="103.0" mnemonicParsing="false" onMouseClicked="#compressorChangeDest" text="Change" />
-                                                        <ProgressBar fx:id="compressorProgressBar" layoutX="34.0" layoutY="251.0" prefHeight="18.0" prefWidth="688.0" progress="0.0" />
+                                                        <ProgressBar fx:id="compressorProgressBar" style="-fx-background-color: gray;" layoutX="34.0" layoutY="251.0" prefHeight="18.0" prefWidth="688.0" progress="0.0" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>

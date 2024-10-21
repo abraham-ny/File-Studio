@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
@@ -866,6 +868,16 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void compressorThread() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //extractorProgressBar.setProgress(extractorProgressBar.getProgress() + 0.1);
+                if (compressorProgressBar.getProgress() != 1.0) {
+                    compressorProgressBar.setProgress(compressorProgressBar.getProgress() + 0.1);
+                }
+            }
+        }, 0, 1000);
         new Thread(() -> {
             try {
                 compressorStart();
@@ -880,10 +892,11 @@ public class FXMLDocumentController implements Initializable {
         String theDir = compressorPath.getText();
         File theDirObj = new File(theDir);
         theDir = theDirObj.getAbsolutePath();
+        System.out.println("ABU: compressor start is running " + theDir);
         String outputDir = compressorDest.getText() + "\\" + theDirObj.getName() + ext;
         String multiFormFirstFile = compressorDest.getText() + "\\" + theDirObj.getName() + ".tar";
-//        System.out.println("TheDir: " + theDir);
-//        System.out.println("Compressing to: " + outputDir);
+        //System.out.println("TheDir: " + theDir);
+        //System.out.println("Compressing to: " + outputDir);
         //notify(compressorNotif, "Almost There...");
         if (new File(compressorPath.getText()).exists()) {
             switch (ext) {
