@@ -258,7 +258,7 @@ public class FXMLDocumentController implements Initializable {
                     + " GB\nFree Space: " + Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100
                     + " GB\nDescription: " + di.getDescription());
             //double p = (double) ((Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100) - (Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100)) / 1000;
-            double np = Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundred GB
+            double np = Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundreds (GB)
             diskProgress.setProgress(np / 1000);//divide by 1000 to get "0.x" value for progress bar
         });
         checkHistory();
