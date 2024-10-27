@@ -83,6 +83,6 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <Button layoutX="417.0" layoutY="417.0" mnemonicParsing="false" onAction="#resetToDefault" style="-fx-background-color: black;" text="Reset" textFill="WHITE" />
+        <Button layoutX="417.0" layoutY="417.0" mnemonicParsing="false" onAction="#resetToDefault" text="Reset" />
     </children>
 </AnchorPane>
