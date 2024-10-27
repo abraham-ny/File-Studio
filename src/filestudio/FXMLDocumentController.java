@@ -253,8 +253,6 @@ public class FXMLDocumentController implements Initializable {
         diskList.getSelectionModel().selectedItemProperty().addListener(ov -> {
             DiskInfo di = disksListObservable.get(diskList.getSelectionModel().getSelectedIndex());
             logger.Log(di.path);
-            int space = (int) di.disk.getTotalSpace();
-            int used = (int) di.getUsableSpace() - space;
             dirProperties.setText(di.path + "\nName: " + di.getName() + "\nTotal Space: " + Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100 + " GB\nFree Space: " + Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100 + " GB");
             //double p = (double) ((Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100) - (Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100)) / 1000;
             double np = Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundred GB

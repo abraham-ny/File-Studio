@@ -23,7 +23,7 @@ public class DiskInfo {
     }
 
     public double getTotalSpace() {
-        return (double) disk.getTotalSpace() / 1073741824;
+        return (double) disk.getTotalSpace() / 1024;
     }
 
     public double getFreeSpace() {
