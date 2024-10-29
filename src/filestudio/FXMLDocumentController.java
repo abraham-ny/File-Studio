@@ -153,7 +153,7 @@ public class FXMLDocumentController implements Initializable {
     String[] types = {".zip", ".tar", ".gz", ".7z", ".rar", ".tar.sz", ".tar.gz", ".tar.deflate", ".tar.xz", ".tar.bz2"};
     String archFolder = "";
     public static String pd = "https://paypal.com/donate/?hosted_button_id=A88GCN8R382B6";
-    String sfUrl = "https://sourceforge.net/projects/filestudio/";//source forge update url
+    String sfUrl = "https://sourceforge.net/projects/filestudio/";//source update url
     //@FXML Button autoGenerateWordToRemove;
     //@FXML ListView<DiskInfo> diskList;
     ObservableList<DiskInfo> disksListObservable = FXCollections.observableArrayList();
