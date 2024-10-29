@@ -152,7 +152,7 @@
                                                         <Button fx:id="compressorStartBtn" layoutX="34.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#compressorThread" text="Start" />
                                                         <TextField fx:id="compressorDest" layoutX="35.0" layoutY="103.0" prefWidth="509.0" promptText="Where to place the resulting file." />
                                                         <Button fx:id="compressorDestBtn" layoutX="559.0" layoutY="103.0" mnemonicParsing="false" onMouseClicked="#compressorChangeDest" text="Change" />
-                                                        <ProgressBar fx:id="compressorProgressBar" style="-fx-background-color: gray;" layoutX="34.0" layoutY="251.0" prefHeight="18.0" prefWidth="688.0" progress="0.0" />
+                                                        <ProgressBar fx:id="compressorProgressBar" layoutX="34.0" layoutY="251.0" prefHeight="18.0" prefWidth="688.0" progress="0.0" style="-fx-background-color: gray;" />
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -185,7 +185,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Image Upscale">
+                <Tab text="Media Upscale">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -207,21 +207,12 @@
                                     </image>
                                 </ImageView>
                                 <Label layoutX="582.0" layoutY="365.0" prefHeight="17.0" prefWidth="166.0" text="JPG Out Only" />
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Video Upscale">
-                    <content>
-
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <ImageView fitHeight="140.0" fitWidth="140.0" layoutX="309.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@FileStudioWarning.png" />
-                                    </image>
-                                </ImageView>
-                                <Label layoutX="287.0" layoutY="275.0" text="Feature is in development. Will be available soon." />
+                        <Label layoutX="43.0" layoutY="474.0" text="For the full upscaler experience click Launch Upscaler">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="launchUpscalerBtn" layoutX="582.0" layoutY="477.0" mnemonicParsing="false" text="Launch Upscaler" />
                             </children>
                         </AnchorPane>
                     </content>
