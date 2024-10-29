@@ -17,12 +17,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainWindowHandle" prefHeight="598.0" prefWidth="762.0" style="-fx-border-color: dodgerblue;" styleClass="linear-grad" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.FXMLDocumentController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" fx:id="mainWindowHandle" prefHeight="598.0" prefWidth="762.0" style="-fx-border-color: dodgerblue;" styleClass="linear-grad" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
         <Pane fx:id="mainWindowHandleMini" layoutX="11.0" layoutY="14.0" prefHeight="24.0" prefWidth="740.0" styleClass="cell" AnchorPane.bottomAnchor="538.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="14.0">
             <children>
-                <Label layoutX="15.0" layoutY="4.0" text="User:" />
+                <Label fx:id="topBarLabel"  layoutX="15.0" layoutY="4.0" text="User:" />
                 <Button id="minimizeButton" layoutX="685.0" mnemonicParsing="false" onAction="#minimize" style="-fx-background-color: yellow;" />
                 <Button id="closeButton" layoutX="714.0" mnemonicParsing="false" onAction="#close" prefHeight="17.0" prefWidth="16.0" style="-fx-background-color: red;" textFill="RED" />
                 <Button fx:id="settingsButton" layoutX="647.0" mnemonicParsing="false" onAction="#launchSettings" text="">
