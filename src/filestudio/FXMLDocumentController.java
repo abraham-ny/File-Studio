@@ -83,7 +83,7 @@ import org.imgscalr.Scalr;
  */
 public class FXMLDocumentController implements Initializable {
 
-    public final static String ver = "1.2.0-beta6";
+    public final static String ver = "1.2.3";
     @FXML
     Label userTitle;
     @FXML
@@ -148,6 +148,8 @@ public class FXMLDocumentController implements Initializable {
     TextField dupefinderInput;
     @FXML
     ProgressBar compressorProgressBar;
+    @FXML
+    Label topBarLabel;
     String[] types = {".zip", ".tar", ".gz", ".7z", ".rar", ".tar.sz", ".tar.gz", ".tar.deflate", ".tar.xz", ".tar.bz2"};
     String archFolder = "";
     public static String pd = "https://paypal.com/donate/?hosted_button_id=A88GCN8R382B6";
@@ -524,6 +526,7 @@ public class FXMLDocumentController implements Initializable {
             organizerDirTextField.setText(activeDir);
             compressorPath.setText(activeDir);
             dupefinderInput.setText(activeDir);
+            topBarLabel.setText(activeDir + " - File Studio " + ver);
             compressorDest.setText(selectedFolder.getParent());
             JsonHandler jh = new JsonHandler();
             List<String> sel = new ArrayList<>();
