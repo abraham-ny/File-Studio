@@ -38,7 +38,7 @@ public class JsonHandler {
         JsonArray jsonArray = new JsonArray();
         for (String name : names) {
             jsonArray.add(name);
-            System.out.println("ADDED: " + name);
+            //System.out.println("ADDED: " + name);
         }
 
         FileWriter fileWriter = null;

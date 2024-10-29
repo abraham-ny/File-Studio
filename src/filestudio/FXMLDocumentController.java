@@ -542,7 +542,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    //[UNFINISHED&BUGGY] Method to get 'recent directories' list on Welcome Screen
+    //[Finished] Method to get 'recent directories' list on Welcome Screen
     public void checkHistory() {
         histList.getItems().clear();
         try {
