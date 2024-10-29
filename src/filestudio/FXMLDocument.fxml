@@ -207,12 +207,12 @@
                                     </image>
                                 </ImageView>
                                 <Label layoutX="582.0" layoutY="365.0" prefHeight="17.0" prefWidth="166.0" text="JPG Out Only" />
-                        <Label layoutX="43.0" layoutY="474.0" text="For the full upscaler experience click Launch Upscaler">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="launchUpscalerBtn" layoutX="582.0" layoutY="477.0" mnemonicParsing="false" text="Launch Upscaler" />
+                                <Label layoutX="43.0" layoutY="474.0" text="For the full upscaler experience click Launch Upscaler">
+                                    <font>
+                                        <Font name="System Bold" size="20.0" />
+                                    </font>
+                                </Label>
+                                <Button fx:id="launchUpscalerBtn" onAction="#launchUpscaler"  layoutX="582.0" layoutY="477.0" mnemonicParsing="false" text="Launch Upscaler" />
                             </children>
                         </AnchorPane>
                     </content>

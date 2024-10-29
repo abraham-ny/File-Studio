@@ -426,6 +426,18 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
+    void launchUpscaler() {
+        ProcessBuilder pb = new ProcessBuilder("OpenUpscaler.exe");
+        pb.directory(new File(System.getProperty("user.dir")));
+        try {
+            Process proc = pb.start();
+        } catch (IOException ex) {
+            alert("PB -r proc IOE", "Failed to launch upscaler.", ex.getMessage(), Alert.AlertType.ERROR);
+            logger.Log("PB -r proc IOE", ex.getMessage());
+        }
+    }
+
+    @FXML
     void launchSettings() {
         Stage stage = new Stage();
         try {
