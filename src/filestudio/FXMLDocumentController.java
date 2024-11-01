@@ -300,6 +300,13 @@ public class FXMLDocumentController implements Initializable {
 
     void processDisk(String action, DiskInfo disk) {
         switch (action) {
+            case "Open In Explorer":
+                try {
+                    Runtime.getRuntime().exec("explorer " + disk.path + "\\");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
 
         }
     }
