@@ -313,7 +313,7 @@ public class FXMLDocumentController implements Initializable {
                 eject(disk);
                 break;
             case "Rename":
-                rename(disk);
+                rename(disk, "newn");
 
         }
     }
@@ -1197,7 +1197,28 @@ public class FXMLDocumentController implements Initializable {
         new Thread(task).start();
     }
 
-    private void rename(DiskInfo disk) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void rename(DiskInfo disk, String newLabel) {
+        Task<Void> task = new Task() {
+            @Override
+            protected Void call() throws IOException, InterruptedException {
+                // Execute label command to rename the disk
+                String command = "label " + disk.path + " " + newLabel;
+                ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+                processBuilder.redirectErrorStream(true);
+                Process process = processBuilder.start();
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String finalLine = line;
+                        Platform.runLater(() -> alert("Rename", finalLine + "\n", disk.getDescription(), Alert.AlertType.INFORMATION));
+                    }
+                }
+                process.waitFor();
+                return null;
+            }
+        };
+
+        new Thread(task).start();
     }
 }
