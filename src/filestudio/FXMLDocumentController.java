@@ -10,10 +10,13 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -39,6 +42,7 @@ import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,10 +58,8 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -257,7 +259,7 @@ public class FXMLDocumentController implements Initializable {
             if (event.getButton() == MouseButton.SECONDARY) {
                 DiskInfo di = disksListObservable.get(diskList.getSelectionModel().getSelectedIndex());
                 ContextMenu diskMenu = new ContextMenu();
-                String[] options = {"Open In Explorer", "Properties", "Eject", "Format", "Scan For Errors", "Defragment", "Compress"};
+                String[] options = {"Open In Explorer", "Properties", "Rename", "Eject", "Format", "Scan For Errors", "Defragment", "Compress"};
                 for (String s : options) {
                     MenuItem mi = new MenuItem(s);
                     mi.addEventHandler(EventType.ROOT, eventHandler -> {
@@ -307,6 +309,11 @@ public class FXMLDocumentController implements Initializable {
                     e.printStackTrace();
                 }
                 break;
+            case "Eject":
+                eject(disk);
+                break;
+            case "Rename":
+                rename(disk);
 
         }
     }
@@ -1156,5 +1163,41 @@ public class FXMLDocumentController implements Initializable {
             selectedItems.addAll(getSelectedItems((CheckBoxTreeItem<String>) child));
         }
         return selectedItems;
+    }
+
+    private void eject(DiskInfo disk) {
+        Task<Void> task = new Task() {
+            @Override
+            protected Void call() throws IOException, InterruptedException {
+                // Create a diskpart script file
+                File script = File.createTempFile("ejectDiskScript", ".txt");
+                try (FileWriter writer = new FileWriter(script)) {
+                    writer.write("select volume " + disk.path.charAt(0) + "\n");
+                    writer.write("remove\n");
+                }
+
+                // Run diskpart with the script
+                ProcessBuilder processBuilder = new ProcessBuilder("diskpart", "/s", script.getAbsolutePath());
+                processBuilder.redirectErrorStream(true);
+                Process process = processBuilder.start();
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String finalLine = line;
+                        Platform.runLater(() -> alert("Eject", finalLine + "\n", disk.getDescription(), Alert.AlertType.INFORMATION));
+                    }
+                }
+                process.waitFor();
+                script.delete(); // Clean up script file
+                return null;
+            }
+        };
+
+        new Thread(task).start();
+    }
+
+    private void rename(DiskInfo disk) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
