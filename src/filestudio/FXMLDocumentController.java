@@ -320,6 +320,9 @@ public class FXMLDocumentController implements Initializable {
                 break;
             case "Scan For Errors":
                 runCommand("chkdsk " + disk.path);
+            case "Compress":
+                compressDisk(disk);
+                break;
 
         }
     }
