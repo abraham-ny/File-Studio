@@ -51,6 +51,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ComboBox;
@@ -61,6 +62,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
@@ -260,7 +262,7 @@ public class FXMLDocumentController implements Initializable {
             if (event.getButton() == MouseButton.SECONDARY) {
                 DiskInfo di = disksListObservable.get(diskList.getSelectionModel().getSelectedIndex());
                 ContextMenu diskMenu = new ContextMenu();
-                String[] options = {"Open In Explorer", "Properties", "Rename", "Eject", "Format", "Scan For Errors", "Defragment", "Compress"};
+                String[] options = {"Open In Explorer", "Rename", "Eject", "Format", "Scan For Errors", "Defragment", "Compress"};
                 for (String s : options) {
                     MenuItem mi = new MenuItem(s);
                     mi.addEventHandler(EventType.ROOT, eventHandler -> {
@@ -305,7 +307,7 @@ public class FXMLDocumentController implements Initializable {
         switch (action) {
             case "Open In Explorer":
                 try {
-                    Runtime.getRuntime().exec("explorer " + disk.path + "\\");
+                    Runtime.getRuntime().exec("explorer " + disk.path);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -314,16 +316,21 @@ public class FXMLDocumentController implements Initializable {
                 eject(disk);
                 break;
             case "Rename":
-                String newName = JOptionPane.showInputDialog("Enter a new name for " + disk.getName(), JOptionPane.OK_CANCEL_OPTION);
-                if (!newName.equals(null)) {
+                TextInputDialog tiDlg = new TextInputDialog();
+                tiDlg.setTitle("Enter a new name for the disk");
+                tiDlg.setHeaderText("Renaming " + disk.getName());
+                tiDlg.setContentText("Enter a new name:");
+                ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+                ButtonType cancelButtonType = new ButtonType("CANCEL", ButtonBar.ButtonData.CANCEL_CLOSE);
+                tiDlg.getDialogPane().getButtonTypes().setAll(okButtonType, cancelButtonType);
+                Optional<String> result = tiDlg.showAndWait();
+                result.ifPresent(input -> {
                     try {
-                        rename(disk, newName);
+                        rename(disk, input);
                     } catch (Exception e) {
                         alert("Disk Renamer Error", "Failed to rename disk", e.getMessage(), Alert.AlertType.ERROR);
                     }
-                } else {
-                    alert("Error", "Please enter a valid name for the disk", "Name can not be blank", Alert.AlertType.WARNING);
-                }
+                });
                 break;
             case "Defragment":
                 runCommand("defrag " + disk.path);
