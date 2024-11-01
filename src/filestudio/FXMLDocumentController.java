@@ -74,6 +74,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.imgscalr.Scalr;
@@ -313,7 +314,16 @@ public class FXMLDocumentController implements Initializable {
                 eject(disk);
                 break;
             case "Rename":
-                rename(disk, "newn");
+                String newName = JOptionPane.showInputDialog("Enter a new name for " + disk.getName(), JOptionPane.OK_CANCEL_OPTION);
+                if (!newName.equals(null)) {
+                    try {
+                        rename(disk, "newn");
+                    } catch (Exception e) {
+
+                    }
+                } else {
+                    alert("Error", "Please enter a valid name for the disk", "Name can not be blank", Alert.AlertType.WARNING);
+                }
                 break;
             case "Defragment":
                 runCommand("defrag " + disk.path);
@@ -415,10 +425,14 @@ public class FXMLDocumentController implements Initializable {
                 Desktop.getDesktop().browse(new URI(url));
             } catch (URISyntaxException ex) {
                 donateAlert(url);
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger
+                        .getLogger(FXMLDocumentController.class
+                                .getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 donateAlert(url);
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger
+                        .getLogger(FXMLDocumentController.class
+                                .getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             donateAlert(url);
@@ -688,7 +702,9 @@ public class FXMLDocumentController implements Initializable {
             redoBtn.setDisable(true);
         } catch (IOException ex) {
             logger.Log("Err Abu, " + ex.getMessage());
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(FXMLDocumentController.class
+                            .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -740,7 +756,9 @@ public class FXMLDocumentController implements Initializable {
             showNotification("FileStudio:Organizer", "Finished processing dir.");
         } catch (IOException ex) {
             logger.Log("ProcessDir : " + ex.getMessage());
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger
+                    .getLogger(FXMLDocumentController.class
+                            .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -847,7 +865,9 @@ public class FXMLDocumentController implements Initializable {
                     extractorStage.show();
                 } catch (IOException ex) {
                     logger.Log("extractFile " + ex.getMessage());
-                    Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger
+                            .getLogger(FXMLDocumentController.class
+                                    .getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 alert("Error", "Failed To Extract Files", "The File Does Not Exist!", Alert.AlertType.ERROR);
@@ -895,10 +915,14 @@ public class FXMLDocumentController implements Initializable {
                 proc = pb.start();
                 //proc = Runtime.getRuntime().exec(command);
                 exitcode = proc.waitFor();
+
             } catch (IOException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FXMLDocumentController.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             } catch (InterruptedException ex) {
-                Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FXMLDocumentController.class
+                        .getName()).log(Level.SEVERE, null, ex);
             } finally {
                 if (proc != null) {
                     proc.destroy();
@@ -918,10 +942,14 @@ public class FXMLDocumentController implements Initializable {
             try {
             proc = Runtime.getRuntime().exec(command);
             exitcode = proc.waitFor();
+
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (InterruptedException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return;
     }
@@ -1034,10 +1062,14 @@ public class FXMLDocumentController implements Initializable {
             try {
             proc = Runtime.getRuntime().exec(command);
             exitcode = proc.waitFor();
+
         } catch (IOException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
         } catch (InterruptedException ex) {
-            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
         return;
     }
