@@ -317,9 +317,9 @@ public class FXMLDocumentController implements Initializable {
                 String newName = JOptionPane.showInputDialog("Enter a new name for " + disk.getName(), JOptionPane.OK_CANCEL_OPTION);
                 if (!newName.equals(null)) {
                     try {
-                        rename(disk, "newn");
+                        rename(disk, newName);
                     } catch (Exception e) {
-
+                        alert("Disk Renamer Error", "Failed to rename disk", e.getMessage(), Alert.AlertType.ERROR);
                     }
                 } else {
                     alert("Error", "Please enter a valid name for the disk", "Name can not be blank", Alert.AlertType.WARNING);
