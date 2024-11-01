@@ -314,6 +314,10 @@ public class FXMLDocumentController implements Initializable {
                 break;
             case "Rename":
                 rename(disk, "newn");
+                break;
+            case "Defragment":
+                runCommand("defrag " + disk.path);
+                break;
 
         }
     }
@@ -1221,4 +1225,56 @@ public class FXMLDocumentController implements Initializable {
 
         new Thread(task).start();
     }
+
+    private void compressDisk(DiskInfo disk) {
+        Task<Void> task = new Task() {
+            @Override
+            protected Void call() throws IOException, InterruptedException {
+                // Enable compression on the entire drive using compact
+                String command = "compact /c /s:" + disk.path + "\\*";
+                ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+                processBuilder.redirectErrorStream(true);
+                Process process = processBuilder.start();
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String finalLine = line;
+                        Platform.runLater(() -> alert("Disk Compression", finalLine + "\n", disk.getDescription(), Alert.AlertType.INFORMATION));
+                    }
+                }
+                process.waitFor();
+                return null;
+            }
+        };
+
+        new Thread(task).start();
+    }
+
+    private void runCommand(String command) {
+        //outputArea.clear();
+        Task<Void> task = new Task() {
+            @Override
+            protected Void call() throws IOException {
+                ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+                processBuilder.redirectErrorStream(true);
+                Process process = processBuilder.start();
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String finalLine = line;
+                        // Append each line to the TextArea
+                        javafx.application.Platform.runLater(() -> alert("Exec", finalLine + "\n", command, Alert.AlertType.INFORMATION));
+                    }
+                }
+                return null;
+            }
+        };
+
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
+    }
+
 }
