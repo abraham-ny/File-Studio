@@ -318,6 +318,8 @@ public class FXMLDocumentController implements Initializable {
             case "Defragment":
                 runCommand("defrag " + disk.path);
                 break;
+            case "Scan For Errors":
+                runCommand("chkdsk " + disk.path);
 
         }
     }
