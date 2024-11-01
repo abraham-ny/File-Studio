@@ -64,6 +64,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
@@ -252,16 +253,30 @@ public class FXMLDocumentController implements Initializable {
             logger.Log(ext);
             //String ext = (String)compressorType.getItems()[compressorType.getSelectionModel().getSelectedIndex()]
         });
-        diskList.getSelectionModel().selectedItemProperty().addListener(ov -> {
-            DiskInfo di = disksListObservable.get(diskList.getSelectionModel().getSelectedIndex());
-            logger.Log(di.path);
-            dirProperties.setText(di.path + "\nName: " + di.getName()
-                    + "\nTotal Space: " + Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100
-                    + " GB\nFree Space: " + Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100
-                    + " GB\nDescription: " + di.getDescription());
-            //double p = (double) ((Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100) - (Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100)) / 1000;
-            double np = Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundreds (GB)
-            diskProgress.setProgress(np / 1000);//divide by 1000 to get "0.x" value for progress bar
+        diskList.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                DiskInfo di = disksListObservable.get(diskList.getSelectionModel().getSelectedIndex());
+                ContextMenu diskMenu = new ContextMenu();
+                String[] options = {"Open In Explorer", "Properties", "Eject", "Format", "Scan For Errors", "Defragment", "Compress"};
+                for (String s : options) {
+                    MenuItem mi = new MenuItem(s);
+                    mi.addEventHandler(EventType.ROOT, eventHandler -> {
+                        processDisk(mi.getText(), di);
+                    });
+                    diskMenu.getItems().add(mi);
+                }
+                diskMenu.show(diskList, event.getScreenX(), event.getScreenY());
+            } else {
+                DiskInfo di = disksListObservable.get(diskList.getSelectionModel().getSelectedIndex());
+                logger.Log(di.path);
+                dirProperties.setText(di.path + "\nName: " + di.getName()
+                        + "\nTotal Space: " + Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100
+                        + " GB\nFree Space: " + Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100
+                        + " GB\nDescription: " + di.getDescription());
+                //double p = (double) ((Math.round((di.getTotalSpace() / 1024 / 1024) * 100) / 100) - (Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100)) / 1000;
+                double np = Math.round((di.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundreds (GB)
+                diskProgress.setProgress(np / 1000);//divide by 1000 to get "0.x" value for progress bar
+            }
         });
         checkHistory();
         histList.getSelectionModel().selectedItemProperty().addListener(listener -> {
@@ -281,6 +296,12 @@ public class FXMLDocumentController implements Initializable {
             });
         });
 
+    }
+
+    void processDisk(String action, DiskInfo disk) {
+        switch (action) {
+
+        }
     }
 
     private String encodeUrl(String text) {
