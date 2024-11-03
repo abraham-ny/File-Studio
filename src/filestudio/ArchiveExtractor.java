@@ -186,43 +186,43 @@ public class ArchiveExtractor {
     }
 
     //unfinnished & NOT USABLE [ABU]
-    public static void unGZipUnTarFile() {
-        /*
-	 * Un GZip file to extract TAR file.
-         */
-        try (GzipCompressorInputStream archive = new GzipCompressorInputStream(
-                new BufferedInputStream(new FileInputStream("output/sample.tar.gz")))) {
-
-            OutputStream out = Files.newOutputStream(Paths.get("output/un-gzipped.tar"));
-            IOUtils.copy(archive, out);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /*
-	 * Untar extracted TAR file
-         */
-        try (TarArchiveInputStream archive = new TarArchiveInputStream(
-                new BufferedInputStream(new FileInputStream("output/un-gzipped.tar")))) {
-
-            TarArchiveEntry entry;
-            while ((entry = archive.getNextTarEntry()) != null) {
-
-                File file = new File("output/" + entry.getName());
-                System.out.println("Untaring - " + file);
-                // Create directory before streaming files.
-                String dir = file.toPath().toString().substring(0, file.toPath().toString().lastIndexOf("\\"));
-                Files.createDirectories(new File(dir).toPath());
-                // Stream file content
-                IOUtils.copy(archive, new FileOutputStream(file));
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+//    public static void unGZipUnTarFile() {
+//        /*
+//	 * Un GZip file to extract TAR file.
+//         */
+//        try (GzipCompressorInputStream archive = new GzipCompressorInputStream(
+//                new BufferedInputStream(new FileInputStream("output/sample.tar.gz")))) {
+//
+//            OutputStream out = Files.newOutputStream(Paths.get("output/un-gzipped.tar"));
+//            IOUtils.copy(archive, out);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        /*
+//	 * Untar extracted TAR file
+//         */
+//        try (TarArchiveInputStream archive = new TarArchiveInputStream(
+//                new BufferedInputStream(new FileInputStream("output/un-gzipped.tar")))) {
+//
+//            TarArchiveEntry entry;
+//            while ((entry = archive.getNextTarEntry()) != null) {
+//
+//                File file = new File("output/" + entry.getName());
+//                System.out.println("Untaring - " + file);
+//                // Create directory before streaming files.
+//                String dir = file.toPath().toString().substring(0, file.toPath().toString().lastIndexOf("\\"));
+//                Files.createDirectories(new File(dir).toPath());
+//                // Stream file content
+//                IOUtils.copy(archive, new FileOutputStream(file));
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
     //cannot extract multifomat archiver such as ".tar.xxx"
     public void unarchive(String theFile, String outputDir) {
         Path arch = Paths.get(theFile);
