@@ -4,11 +4,9 @@
 
 File Studio handles advanced file operations such as bulk renaming and organizing folders...
 <br/>
-Built on a celeron machine so it can run on any windows machine.
 
 - Custom GUI
-- Small runtime ensures smooth UX<br/>
-![File Studio banner](fs.png)<br/>
+![File Studio banner](fs-1-2.png)<br/>
 
 # Building
 - Java fx
