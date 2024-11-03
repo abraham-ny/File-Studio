@@ -2,13 +2,23 @@
 [![Download File-Studio](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/filestudio/files/latest/download)
 [![Download File-Studio](https://img.shields.io/sourceforge/dt/filestudio.svg)](https://sourceforge.net/projects/filestudio/files/latest/download)
 
-File Studio handles advanced file operations such as bulk renaming and organizing folders...
+File Studio handles advanced file operations<br/>
+- bulk renaming
+- organizing folders
+- image upscale
+- video upscale
+- duplicate finder
+- file compression
+- archiving directories
+- disk compression
+- disk scanner
+- formatting disk
 <br/>
 
 - Custom GUI
 ![File Studio banner](fs-1-2.png)<br/>
 
-# Building
+# Development
 - Java fx
 - Ant
 - Netbeans(configure for your IDE)
