@@ -1321,4 +1321,7 @@ public class FXMLDocumentController implements Initializable {
         thread.start();
     }
 
+    private void setUniversalPath(String path) {
+
+    }
 }
