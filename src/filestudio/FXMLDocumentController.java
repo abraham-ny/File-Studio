@@ -584,8 +584,8 @@ public class FXMLDocumentController implements Initializable {
         dirChooser.setInitialDirectory(new File("C://Users/" + Util.user));
         File selectedFolder = dirChooser.showDialog(userTitle.getScene().getWindow());
         if (selectedFolder != null && selectedFolder.exists()) {
-            dirProperties.setText(selectedFolder.getAbsolutePath());
             activeDir = selectedFolder.getAbsolutePath();
+            dirProperties.setText(selectedFolder.getAbsolutePath());
             organizerDirTextField.setText(activeDir);
             compressorPath.setText(activeDir);
             dupefinderInput.setText(activeDir);
