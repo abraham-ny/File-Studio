@@ -54,7 +54,7 @@
                                     </font>
                                 </Label>
                                 <ListView fx:id="diskList" layoutX="369.0" layoutY="31.0" prefHeight="237.0" prefWidth="367.0" styleClass="chart" />
-                                <Label layoutX="369.0" layoutY="6.0" text="Disk Usage Statistics" />
+                                <Label layoutX="369.0" layoutY="6.0" text="right click a disk/drive for more options" />
                                 <Label layoutX="369.0" layoutY="280.0" text="Recent Workspaces" />
                                 <ListView fx:id="histList" layoutX="369.0" layoutY="297.0" prefHeight="200.0" prefWidth="372.0" styleClass="chart" />
                                 <Button layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#showFileChooser" styleClass="button4" text="Select Folder" />
