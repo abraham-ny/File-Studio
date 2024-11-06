@@ -585,11 +585,7 @@ public class FXMLDocumentController implements Initializable {
         File selectedFolder = dirChooser.showDialog(userTitle.getScene().getWindow());
         if (selectedFolder != null && selectedFolder.exists()) {
             activeDir = selectedFolder.getAbsolutePath();
-            dirProperties.setText(selectedFolder.getAbsolutePath());
-            organizerDirTextField.setText(activeDir);
-            compressorPath.setText(activeDir);
-            dupefinderInput.setText(activeDir);
-            compressorDest.setText(selectedFolder.getParent());
+            setUniversalPath(activeDir);
             JsonHandler jh = new JsonHandler();
             List<String> sel = new ArrayList<>();
             sel.add(activeDir);
@@ -1318,6 +1314,10 @@ public class FXMLDocumentController implements Initializable {
     }
 
     private void setUniversalPath(String path) {
-
+        dirProperties.setText(path + "\n" + new File(path).listFiles().length + " Items");
+        organizerDirTextField.setText(activeDir);
+        compressorPath.setText(activeDir);
+        dupefinderInput.setText(activeDir);
+        compressorDest.setText(new File(path).getParent());
     }
 }
