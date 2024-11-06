@@ -696,7 +696,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    public void generateCopies() {
+    /*public void generateCopies() {
         File toMultiply = new File(fileToDuplicateTextBox.getText());
         File parentDir = new File(toMultiply.getParent());
         FileMultiplier multiplier = new FileMultiplier();
@@ -732,8 +732,7 @@ public class FXMLDocumentController implements Initializable {
 
     public void redoDuplicator() {
         generateCopies();
-    }
-
+    }*/
     public void processDir() {
         String dirToOrganize = organizerDirTextField.getText();
         if (dirToOrganize.equals("") || dirToOrganize.equals(null)) {

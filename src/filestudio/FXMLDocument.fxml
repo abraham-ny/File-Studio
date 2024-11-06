@@ -17,12 +17,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" fx:id="mainWindowHandle" prefHeight="598.0" prefWidth="762.0" style="-fx-border-color: dodgerblue;" styleClass="linear-grad" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="mainWindowHandle" prefHeight="598.0" prefWidth="762.0" style="-fx-border-color: dodgerblue;" styleClass="linear-grad" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.FXMLDocumentController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
         <Pane fx:id="mainWindowHandleMini" layoutX="11.0" layoutY="14.0" prefHeight="24.0" prefWidth="740.0" styleClass="cell" AnchorPane.bottomAnchor="538.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="14.0">
             <children>
-                <Label fx:id="topBarLabel"  layoutX="15.0" layoutY="4.0" text="File Studio" />
+                <Label fx:id="topBarLabel" layoutX="15.0" layoutY="4.0" text="File Studio" />
                 <Button id="minimizeButton" layoutX="685.0" mnemonicParsing="false" onAction="#minimize" style="-fx-background-color: yellow;" />
                 <Button id="closeButton" layoutX="714.0" mnemonicParsing="false" onAction="#close" prefHeight="17.0" prefWidth="16.0" style="-fx-background-color: red;" textFill="RED" />
                 <Button fx:id="settingsButton" layoutX="647.0" mnemonicParsing="false" onAction="#launchSettings" text="">
@@ -95,28 +95,6 @@
                                 <TreeView fx:id="dupeTree" layoutX="132.0" layoutY="66.0" prefHeight="387.0" prefWidth="561.0" />
                                 <Button fx:id="deleteDupesBtn" layoutX="592.0" layoutY="469.0" mnemonicParsing="false" onAction="#deleteDupes" text="Delete Selected" />
                                 <Button fx:id="scanDupeBtn" layoutX="631.0" layoutY="25.0" mnemonicParsing="false" onAction="#scan" prefWidth="61.0" text="Scan" />
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab text="Duplicator">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TextField fx:id="fileToDuplicateTextBox" alignment="CENTER" layoutX="97.0" layoutY="14.0" prefHeight="25.0" prefWidth="511.0" promptText="Path To File" />
-                                <TextField fx:id="numberOfCopiesTextBox" layoutX="97.0" layoutY="52.0" prefHeight="25.0" prefWidth="227.0" promptText="Number of copies" />
-                                <Button fx:id="generateCopiesBtn" layoutX="97.0" layoutY="89.0" mnemonicParsing="false" onMouseClicked="#generateCopies" text="Generate" />
-                                <Label layoutX="327.0" layoutY="56.0" text="&lt;- The number of copies directly affects duration of duplicating." textFill="#bf1515" />
-                                <Label layoutX="184.0" layoutY="93.0" text="&lt;- This action may take time to complete based on your machine." />
-                                <ListView fx:id="duplicatorListView" layoutX="97.0" layoutY="128.0" prefHeight="266.0" prefWidth="580.0" />
-                                <Button fx:id="undoBtn" disable="true" layoutX="97.0" layoutY="421.0" mnemonicParsing="false" onMouseClicked="#undoDuplicator" text="Undo" />
-                                <Button fx:id="redoBtn" disable="true" layoutX="162.0" layoutY="421.0" mnemonicParsing="false" onMouseClicked="#redoDuplicator" text="Redo" />
-                                <Button fx:id="selectFileDuplicatorBtn" layoutX="625.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#selectFile" text="Select" />
-                                <Label layoutX="97.0" layoutY="466.0" prefHeight="17.0" prefWidth="579.0" text="This feature will be removed soon. Express interest through feedback." textFill="#ff7300">
-                                    <font>
-                                        <Font name="System Bold" size="17.0" />
-                                    </font>
-                                </Label>
                             </children>
                         </AnchorPane>
                     </content>
@@ -212,7 +190,7 @@
                                         <Font name="System Bold" size="20.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="launchUpscalerBtn" onAction="#launchUpscaler"  layoutX="582.0" layoutY="477.0" mnemonicParsing="false" text="Launch Upscaler" />
+                                <Button fx:id="launchUpscalerBtn" layoutX="582.0" layoutY="477.0" mnemonicParsing="false" onAction="#launchUpscaler" text="Launch Upscaler" />
                             </children>
                         </AnchorPane>
                     </content>
