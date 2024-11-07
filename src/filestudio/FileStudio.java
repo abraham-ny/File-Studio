@@ -26,6 +26,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
  *
@@ -72,7 +74,7 @@ public class FileStudio extends Application {
             });
             stage.show();
         } catch (IOException e) {
-            System.out.println("Fxml err Abu, " + e.getMessage() + e.getCause().toString());
+            System.out.println("File-Studio init Fxml err Abu, " + e.getMessage() + e.getCause().toString());
         }
     }
 
