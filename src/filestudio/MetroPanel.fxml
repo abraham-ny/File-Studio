@@ -7,24 +7,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="444.0" prefWidth="745.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.MetroPanelController">
-   <children>
-      <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="432.0" promptText="File or Folder path" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-      <Button layoutX="452.0" layoutY="14.0" mnemonicParsing="false" text="Browse" AnchorPane.topAnchor="14.0" />
-      <TextField layoutX="518.0" layoutY="14.0" prefHeight="25.0" prefWidth="216.0" promptText="Search..." />
-      <TabPane layoutY="47.0" prefHeight="397.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
-        <tabs>
-          <Tab text="Untitled Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+<AnchorPane id="AnchorPane" fx:id="metroAnchor" prefHeight="444.0" prefWidth="745.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.MetroPanelController">
+    <children>
+        <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="432.0" promptText="File or Folder path" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="14.0" />
+        <Button layoutX="452.0" layoutY="14.0" mnemonicParsing="false" text="Browse" AnchorPane.leftAnchor="452.0" AnchorPane.rightAnchor="238.0" AnchorPane.topAnchor="14.0" />
+        <TextField layoutX="518.0" layoutY="14.0" prefHeight="25.0" prefWidth="216.0" promptText="Search..." AnchorPane.leftAnchor="518.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="14.0" />
+        <TabPane layoutY="47.0" prefHeight="397.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+            <tabs>
+                <Tab text="Untitled Tab 1">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+                <Tab text="Untitled Tab 2">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>
