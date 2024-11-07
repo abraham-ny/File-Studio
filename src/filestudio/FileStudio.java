@@ -49,6 +49,7 @@ public class FileStudio extends Application {
             metro.setScene(scene);
             Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
             stage.getIcons().add(i);
+            stage.setTitle("FileStudio v2");
             stage.show();
         } else {
             try {
