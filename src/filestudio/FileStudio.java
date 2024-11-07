@@ -41,40 +41,49 @@ public class FileStudio extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //TO-DO: Read prefs to check if user has selected newUI or just launch old Ui
-        //if prefs newui(...try(load newui))else (try...old ui)
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        if (uss.useMetro.equals("yes")) {
+            Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
             Scene scene = new Scene(root);
-            //stylesheets="@style.css"
-            switch (uss.theme) {
-                case "dark":
-                    scene.getStylesheets().add("filestudio/style.css");
-                    break;
-                case "light":
-                    scene.getStylesheets().add("filestudio/light.css");
-                    break;
-                default:
-                    scene.getStylesheets().add("filestudio/style.css");
-            }
-
-            //getClass().getResource("style.css").getFile()
             stage.setScene(scene);
-            //stage.setIconified(true); //launches the app in minimized state
-            //File f = new File(getClass().getResource("FileStudioMain.ico").getFile());
-            //.ico files don't work, use .png or .jpg
+            JMetro metro = new JMetro(Style.DARK);
+            metro.setScene(scene);
             Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
             stage.getIcons().add(i);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setResizable(false);
-            stage.maximizedProperty().addListener((obs, oldv, newv) -> {
-                if (newv) {
-                    stage.setMaximized(false);
-                }
-            });
             stage.show();
-        } catch (IOException e) {
-            System.out.println("File-Studio init Fxml err Abu, " + e.getMessage() + e.getCause().toString());
+        } else {
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+                Scene scene = new Scene(root);
+                //stylesheets="@style.css"
+                switch (uss.theme) {
+                    case "dark":
+                        scene.getStylesheets().add("filestudio/style.css");
+                        break;
+                    case "light":
+                        scene.getStylesheets().add("filestudio/light.css");
+                        break;
+                    default:
+                        scene.getStylesheets().add("filestudio/style.css");
+                }
+
+                //getClass().getResource("style.css").getFile()
+                stage.setScene(scene);
+                //stage.setIconified(true); //launches the app in minimized state
+                //File f = new File(getClass().getResource("FileStudioMain.ico").getFile());
+                //.ico files don't work, use .png or .jpg
+                Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
+                stage.getIcons().add(i);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setResizable(false);
+                stage.maximizedProperty().addListener((obs, oldv, newv) -> {
+                    if (newv) {
+                        stage.setMaximized(false);
+                    }
+                });
+                stage.show();
+            } catch (IOException e) {
+                System.out.println("File-Studio init Fxml err Abu, " + e.getMessage() + e.getCause().toString());
+            }
         }
     }
 
