@@ -22,8 +22,8 @@ public class HomeGridItemController implements Initializable {
     private Label itemDescription;
 
     // Set data for each item
-    public void setData(Image image, String title, String description) {
-        itemImage.setImage(image);
+    public void setData(String image, String title, String description) {
+        itemImage.setImage(new Image(getClass().getResourceAsStream(image)));
         itemTitle.setText(title);
         itemDescription.setText(description);
     }
