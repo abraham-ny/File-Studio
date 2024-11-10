@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 
 /**
@@ -20,10 +21,13 @@ public class MetroPanelController implements Initializable {
 
     @FXML
     AnchorPane metroAnchor;
+    @FXML
+    GridPane homeGrid;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+        //homeGrid.set
     }
 
 }

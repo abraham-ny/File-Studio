@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="95.0" prefWidth="378.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
+   <children>
+      <ImageView fitHeight="81.0" fitWidth="81.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="95.0" layoutY="7.0" prefHeight="32.0" prefWidth="254.0" text="Task">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="95.0" layoutY="39.0" prefHeight="51.0" prefWidth="279.0" text="Task description" />
+   </children>
 </AnchorPane>
