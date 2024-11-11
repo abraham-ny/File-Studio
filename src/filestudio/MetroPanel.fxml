@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="metroAnchor" prefHeight="444.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.MetroPanelController">
     <children>
-        <TabPane layoutY="47.0" prefHeight="397.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+        <TabPane fx:id="tabHolder" layoutY="47.0" prefHeight="397.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
             <tabs>
                 <Tab text="Home">
                     <content>
@@ -53,31 +53,6 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab text="Bulk Renamer">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Duplicate Finder">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="File Organizer">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Archive Handler">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-                <Tab text="Upscale">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
             </tabs>
         </TabPane>
         <ToolBar prefHeight="47.0" prefWidth="745.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -86,15 +61,16 @@
                 <Button mnemonicParsing="false" text="Browse" />
                 <TextField promptText="Search files" />
                 <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: dodgerblue;" text="Donate">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-               <effect>
-                  <Bloom />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <effect>
+                        <Bloom />
+                    </effect>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
             </items>
         </ToolBar>
     </children>

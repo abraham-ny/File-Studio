@@ -18,6 +18,8 @@ public class BulkRenamerController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    public static String path;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
