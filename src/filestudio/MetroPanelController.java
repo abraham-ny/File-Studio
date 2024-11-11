@@ -12,8 +12,10 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -33,6 +35,10 @@ public class MetroPanelController implements Initializable {
     GridPane homeGrid;
     @FXML
     TabPane tabHolder;
+    @FXML
+    TextField topBarPath;
+
+    public static String activeDir;
 
     String[] titles = {"Bulk Renamer", "Duplicate Finder", "File Organizer", "Archive Handler", "Media Upscale"};
     String[] descriptions = {"Rename multiple files based on custom or default criteria", "Find and optionally delete duplicate files occupying useful space on your storage device",
@@ -44,7 +50,9 @@ public class MetroPanelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
-        //homeGrid.set
+        homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
+        MenuBar menuBar = new MenuBar();
+        //metroAnchor.getParent().getScene().getWindow().
 
         try {
             for (int i = 0; i < titles.length; i++) {
@@ -67,7 +75,6 @@ public class MetroPanelController implements Initializable {
 
                 // Place the item in the GridPane at the correct position
                 homeGrid.add(itemBox, i % 3, i / 3); // adjust columns and rows as needed
-                homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
             }
         } catch (IOException e) {
             e.printStackTrace();

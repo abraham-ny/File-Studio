@@ -57,7 +57,7 @@
         </TabPane>
         <ToolBar prefHeight="47.0" prefWidth="745.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <TextField prefHeight="25.0" prefWidth="425.0" promptText="Enter folder name..." />
+                <TextField fx:id="topBarPath" prefHeight="25.0" prefWidth="425.0" promptText="Enter folder name..." />
                 <Button mnemonicParsing="false" text="Browse" />
                 <TextField promptText="Search files" />
                 <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: dodgerblue;" text="Donate">

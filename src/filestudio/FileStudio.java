@@ -55,7 +55,6 @@ public class FileStudio extends Application {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
                 Scene scene = new Scene(root);
-                //stylesheets="@style.css"
                 switch (uss.theme) {
                     case "dark":
                         scene.getStylesheets().add("filestudio/style.css");
@@ -66,12 +65,8 @@ public class FileStudio extends Application {
                     default:
                         scene.getStylesheets().add("filestudio/style.css");
                 }
-
-                //getClass().getResource("style.css").getFile()
                 stage.setScene(scene);
                 //stage.setIconified(true); //launches the app in minimized state
-                //File f = new File(getClass().getResource("FileStudioMain.ico").getFile());
-                //.ico files don't work, use .png or .jpg
                 Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
                 stage.getIcons().add(i);
                 stage.initStyle(StageStyle.UNDECORATED);
@@ -84,6 +79,7 @@ public class FileStudio extends Application {
                 stage.show();
             } catch (IOException e) {
                 System.out.println("File-Studio init Fxml err Abu, " + e.getMessage() + e.getCause().toString());
+                alert("File-Studio init Fxml err Abu - " + e.getMessage(), e.getMessage() + System.lineSeparator() + e.getLocalizedMessage(), e.getCause().toString(), Alert.AlertType.ERROR);
             }
         }
     }
