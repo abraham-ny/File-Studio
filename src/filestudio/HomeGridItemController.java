@@ -42,6 +42,7 @@ public class HomeGridItemController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //itemTitle.styleProperty().set("-fx-background-color: dodgerblue;");
         homeGridParent.setOnMouseEntered(value -> {
             homeGridParent.styleProperty().set("-fx-background-color: dodgerblue;");
         });

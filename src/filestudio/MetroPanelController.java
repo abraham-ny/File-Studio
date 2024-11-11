@@ -32,9 +32,12 @@ public class MetroPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         //homeGrid.set
-        String[] titles = {"Item 1", "Item 2", "Item 3"};
-        String[] descriptions = {"Description 1", "Description 2", "Description 3"};
-        String[] imagePaths = {"FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png"};
+        String[] titles = {"Bulk Renamer", "Duplicate Finder", "File Organizer", "Archive Handler", "Media Upscale"};
+        String[] descriptions = {"Rename multiple files based on custom or default criteria", "Find and optionally delete duplicate files occupying useful space on your storage device",
+            "Organize files based on custom or default criteria (move files of a certain type such as videos into a common folder etc.), helps to find files faster",
+            "Compress/Archive and Extract/Unarchive files and folders into all archive formats, supports ultra compression",
+            "Improve video/image quality using advanced image processing technology and OpenUpscaler (improve videos from 360p to 1080p or 4K)"};
+        String[] imagePaths = {"FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png"};
 
         try {
             for (int i = 0; i < titles.length; i++) {
