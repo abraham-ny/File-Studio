@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="95.0" prefWidth="378.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.HomeGridItemController"  xmlns="http://javafx.com/javafx/19">
+<AnchorPane id="AnchorPane" fx:id="homeGridParent" prefHeight="95.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.HomeGridItemController">
     <children>
-        <ImageView fx:id="itemImage" fitHeight="81.0" fitWidth="81.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="itemImage" fitHeight="65.0" fitWidth="65.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
         <Label fx:id="itemTitle" layoutX="95.0" layoutY="7.0" prefHeight="32.0" prefWidth="254.0" text="Task">
             <font>
                 <Font name="System Bold" size="19.0" />

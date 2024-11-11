@@ -11,6 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class HomeGridItemController implements Initializable {
 
@@ -20,6 +25,8 @@ public class HomeGridItemController implements Initializable {
     private Label itemTitle;
     @FXML
     private Label itemDescription;
+    @FXML
+    AnchorPane homeGridParent;
 
     // Set data for each item
     public void setData(String image, String title, String description) {
@@ -35,6 +42,11 @@ public class HomeGridItemController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        homeGridParent.setOnMouseEntered(value -> {
+            homeGridParent.styleProperty().set("-fx-background-color: dodgerblue;");
+        });
+        homeGridParent.setOnMouseExited(value -> {
+            homeGridParent.styleProperty().set("-fx-background-color: transparent;");
+        });
     }
 }

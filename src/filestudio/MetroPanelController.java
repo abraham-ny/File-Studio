@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 
 /**
@@ -49,6 +50,8 @@ public class MetroPanelController implements Initializable {
 
                 // Place the item in the GridPane at the correct position
                 homeGrid.add(itemBox, i % 3, i / 3); // adjust columns and rows as needed
+                JMetro gItem = new JMetro();
+                homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
             }
         } catch (IOException e) {
             e.printStackTrace();
