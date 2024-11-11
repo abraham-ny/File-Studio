@@ -37,7 +37,7 @@ public class MetroPanelController implements Initializable {
             "Organize files based on custom or default criteria (move files of a certain type such as videos into a common folder etc.), helps to find files faster",
             "Compress/Archive and Extract/Unarchive files and folders into all archive formats, supports ultra compression",
             "Improve video/image quality using advanced image processing technology and OpenUpscaler (improve videos from 360p to 1080p or 4K)"};
-        String[] imagePaths = {"FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png", "FileStudioMainIcon.png"};
+        String[] imagePaths = {"renamer.png", "duplicate.png", "organizer.png", "task_archiver.png", "upscaler.png"};
 
         try {
             for (int i = 0; i < titles.length; i++) {
