@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.DiskItemController">
-    
+
+<AnchorPane id="AnchorPane" fx:id="diskAnchorPane" prefHeight="123.0" prefWidth="379.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.DiskItemController">
+   <children>
+      <ImageView fx:id="diskIcon" fitHeight="83.0" fitWidth="83.0" layoutX="14.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="2.0" />
+      <Label fx:id="diskNameLabel" layoutX="97.0" layoutY="5.0" prefHeight="30.0" prefWidth="280.0" text="Disk Name" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="diskDescriptionLabel" alignment="TOP_LEFT" layoutX="97.0" layoutY="35.0" prefHeight="58.0" prefWidth="280.0" text="Description" AnchorPane.rightAnchor="2.0" />
+      <ProgressBar fx:id="diskProgressBar" layoutX="97.0" layoutY="100.0" prefHeight="18.0" prefWidth="379.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   </children>
 </AnchorPane>

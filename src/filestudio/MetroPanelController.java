@@ -62,7 +62,6 @@ public class MetroPanelController implements Initializable {
         homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
         homeAccordion.expandedPaneProperty().setValue(homeAccordion.getPanes().get(0));
         notify("process \"File-Studio\" started", false);
-        notify("This is an error", true);
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         //Menu tasksMenu = new Menu("Quick Actions");//add shortcuts to stuff like create arch, bulk delete and other tasks
