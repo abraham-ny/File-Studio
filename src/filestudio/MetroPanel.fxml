@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="metroAnchor" prefHeight="444.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.MetroPanelController">
+<AnchorPane id="AnchorPane" fx:id="metroAnchor" prefHeight="444.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.MetroPanelController">
     <children>
-        <TabPane fx:id="tabHolder" layoutY="47.0" prefHeight="397.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="47.0">
+        <TabPane fx:id="tabHolder" layoutY="68.0" prefHeight="376.0" prefWidth="745.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="68.0">
             <tabs>
                 <Tab text="Home">
                     <content>
@@ -55,11 +55,11 @@
                 </Tab>
             </tabs>
         </TabPane>
-        <ToolBar prefHeight="47.0" prefWidth="745.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ToolBar layoutY="21.0" prefHeight="47.0" prefWidth="745.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
             <items>
                 <TextField fx:id="topBarPath" prefHeight="25.0" prefWidth="425.0" promptText="Enter folder name..." />
                 <Button mnemonicParsing="false" text="Browse" />
-                <TextField promptText="Search files" />
+                <TextField prefHeight="25.0" prefWidth="208.0" promptText="Search files" />
                 <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: dodgerblue;" text="Donate">
                     <font>
                         <Font name="System Bold" size="12.0" />

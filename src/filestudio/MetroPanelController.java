@@ -4,6 +4,7 @@
  */
 package filestudio;
 
+import com.jfoenix.controls.JFXSnackbar;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -124,5 +126,9 @@ public class MetroPanelController implements Initializable {
         nT.setTooltip(toolTip);
         // nT.setGraphic(itm.getGraphic());
         tabHolder.getTabs().add(nT);
+    }
+
+    void notify(String message, boolean err) {
+
     }
 }
