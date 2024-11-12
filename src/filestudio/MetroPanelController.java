@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 
@@ -55,6 +56,7 @@ public class MetroPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
+        notify("process \"File-Studio\" started", false);
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         //Menu tasksMenu = new Menu("Quick Actions");//add shortcuts to stuff like create arch, bulk delete and other tasks
@@ -129,6 +131,14 @@ public class MetroPanelController implements Initializable {
     }
 
     void notify(String message, boolean err) {
+        JFXSnackbar snackbar = new JFXSnackbar(metroAnchor);
+        String style = "-fx-background-color: green;";
+        if (err) {
+            style = "-fx-background-color: red;";
+        }
+        Label lb = new Label(message);
+        lb.styleProperty().set(style);
 
+        snackbar.enqueue(new JFXSnackbar.SnackbarEvent(lb));
     }
 }
