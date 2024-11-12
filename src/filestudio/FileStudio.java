@@ -50,6 +50,7 @@ public class FileStudio extends Application {
             Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
             stage.getIcons().add(i);
             stage.setTitle("FileStudio v2");
+            stage.setMaximized(true);
             stage.show();
         } else {
             try {
