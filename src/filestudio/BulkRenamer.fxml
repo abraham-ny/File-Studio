@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.BulkRenamerController">
-    
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.BulkRenamerController">
+   <children>
+      <TextField fx:id="dirPathTbx" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="465.0" promptText="Path to folder" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="14.0" />
+      <TextField fx:id="oldWordsTbx" layoutX="14.0" layoutY="51.0" prefHeight="25.0" prefWidth="465.0" promptText="Comma separated word(s) to remove e.g y3mate.com, x2videos.com ..." AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="51.0" />
+      <Button fx:id="browseBtn" layoutX="488.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Browse" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0" />
+      <Button fx:id="autoWordBtn" layoutX="488.0" layoutY="51.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Auto" AnchorPane.rightAnchor="8.0" />
+      <ComboBox fx:id="fileTypesCbx" layoutX="14.0" layoutY="126.0" prefWidth="150.0" promptText="Files of Type" AnchorPane.leftAnchor="14.0" />
+      <ComboBox fx:id="fileSizeCbx" layoutX="172.0" layoutY="126.0" prefWidth="150.0" promptText="File size" />
+      <ComboBox fx:id="fileDateCbx" layoutX="329.0" layoutY="126.0" prefWidth="150.0" promptText="Date Modified" />
+      <ListView fx:id="listView" layoutX="14.0" layoutY="167.0" prefHeight="200.0" prefWidth="465.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="167.0" />
+      <TextField fx:id="newWordTbx" layoutX="15.0" layoutY="85.0" prefHeight="25.0" prefWidth="465.0" promptText="Enter new word or leave blank to just remove" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="85.0" />
+      <Button fx:id="newNameBtn" layoutX="488.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Parent Folder Name" AnchorPane.rightAnchor="8.0" />
+      <CheckBox fx:id="renameDirsCheck" layoutX="488.0" layoutY="167.0" mnemonicParsing="false" text="Rename Folders" AnchorPane.rightAnchor="6.0" />
+      <CheckBox fx:id="renameHiddenCheck" layoutX="488.0" layoutY="192.0" mnemonicParsing="false" text="Hidden Files" AnchorPane.rightAnchor="26.0" />
+      <Button fx:id="renameBtn" layoutX="488.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: dodgerblue;" text="Rename" textFill="WHITE" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="6.0" />
+      <ProgressBar fx:id="progressBar" layoutX="15.0" layoutY="377.0" prefHeight="18.0" prefWidth="465.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="120.0" />
+      <Label fx:id="progressLbl" layoutX="488.0" layoutY="378.0" prefHeight="17.0" prefWidth="106.0" text="x of n" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0" />
+   </children>
 </AnchorPane>

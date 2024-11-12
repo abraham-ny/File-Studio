@@ -13,6 +13,6 @@
                 <Font name="System Bold" size="19.0" />
             </font>
         </Label>
-        <Label fx:id="itemDescription" alignment="TOP_LEFT" layoutX="95.0" layoutY="39.0" prefHeight="51.0" prefWidth="279.0" text="Task description" />
+        <Label fx:id="itemDescription" alignment="TOP_LEFT" layoutX="95.0" layoutY="39.0" prefHeight="51.0" prefWidth="279.0" text="Task description" wrapText="true" />
     </children>
 </AnchorPane>

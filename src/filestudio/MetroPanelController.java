@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -57,11 +58,13 @@ public class MetroPanelController implements Initializable {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
         notify("process \"File-Studio\" started", false);
+        notify("This is an error", true);
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         //Menu tasksMenu = new Menu("Quick Actions");//add shortcuts to stuff like create arch, bulk delete and other tasks
         Menu windowMenu = new Menu("Window");
         Menu helpMenu = new Menu("Help");
+        SeparatorMenuItem sm = new SeparatorMenuItem();
         //file menu
         MenuItem openDirMenu = new MenuItem("Open Folder");
         MenuItem createArchMenu = new MenuItem("Create Archive (Compress folder)");
@@ -86,7 +89,7 @@ public class MetroPanelController implements Initializable {
         AnchorPane.setLeftAnchor(menuBar, 0.0);
         AnchorPane.setRightAnchor(menuBar, 0.0);
         metroAnchor.getChildren().add(menuBar);
-
+        //files of type combobox, use array of regex alongside array of combo items
         try {
             for (int i = 0; i < titles.length; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeGridItem.fxml"));
@@ -101,7 +104,9 @@ public class MetroPanelController implements Initializable {
                 controller.setOnItemClicked(() -> {
                     try {
                         addTab(itemName, desc);
+                        notify(String.format("Opened %s : %s", itemName, desc), false);
                     } catch (IOException ex) {
+                        notify(ex.getMessage(), true);
                         Logger.getLogger(MetroPanelController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
@@ -110,6 +115,7 @@ public class MetroPanelController implements Initializable {
                 homeGrid.add(itemBox, i % 3, i / 3); // adjust columns and rows as needed
             }
         } catch (IOException e) {
+            notify(e.getMessage(), true);
             e.printStackTrace();
         }
     }
@@ -130,7 +136,7 @@ public class MetroPanelController implements Initializable {
         tabHolder.getTabs().add(nT);
     }
 
-    void notify(String message, boolean err) {
+    public void notify(String message, boolean err) {
         JFXSnackbar snackbar = new JFXSnackbar(metroAnchor);
         String style = "-fx-background-color: green;";
         if (err) {
