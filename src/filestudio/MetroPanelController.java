@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -43,6 +44,8 @@ public class MetroPanelController implements Initializable {
     TabPane tabHolder;
     @FXML
     TextField topBarPath;
+    @FXML
+    Accordion homeAccordion;
 
     public static String activeDir;
 
@@ -57,6 +60,7 @@ public class MetroPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
+        homeAccordion.expandedPaneProperty().setValue(homeAccordion.getPanes().get(0));
         notify("process \"File-Studio\" started", false);
         notify("This is an error", true);
         MenuBar menuBar = new MenuBar();
