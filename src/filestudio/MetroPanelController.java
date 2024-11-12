@@ -12,7 +12,9 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -52,7 +54,34 @@ public class MetroPanelController implements Initializable {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
         MenuBar menuBar = new MenuBar();
-        //metroAnchor.getParent().getScene().getWindow().
+        Menu fileMenu = new Menu("File");
+        //Menu tasksMenu = new Menu("Quick Actions");//add shortcuts to stuff like create arch, bulk delete and other tasks
+        Menu windowMenu = new Menu("Window");
+        Menu helpMenu = new Menu("Help");
+        //file menu
+        MenuItem openDirMenu = new MenuItem("Open Folder");
+        MenuItem createArchMenu = new MenuItem("Create Archive (Compress folder)");
+        MenuItem extractArchMenu = new MenuItem("Extract Archive");
+        MenuItem exitMenu = new MenuItem("Exit");
+        fileMenu.getItems().addAll(openDirMenu, createArchMenu, extractArchMenu, exitMenu);
+        //window menu
+        MenuItem maximizeMenu = new MenuItem("Maximize");
+        MenuItem restoreMenu = new MenuItem("Restore");
+        MenuItem prefMenu = new MenuItem("Settings");
+        windowMenu.getItems().addAll(maximizeMenu, restoreMenu, prefMenu);
+        //help menu [how to, source, check updates, about]
+        MenuItem howMenu = new MenuItem("How To");
+        MenuItem srcMenu = new MenuItem("View Source");
+        MenuItem updatesMenu = new MenuItem("Check for Updates");
+        MenuItem donateMenu = new MenuItem("Donate");
+        MenuItem aboutMenu = new MenuItem("About");
+        helpMenu.getItems().addAll(howMenu, srcMenu, updatesMenu, donateMenu, aboutMenu);
+        //menu bar
+        menuBar.getMenus().addAll(fileMenu, windowMenu, helpMenu);
+        AnchorPane.setTopAnchor(menuBar, 0.0);
+        AnchorPane.setLeftAnchor(menuBar, 0.0);
+        AnchorPane.setRightAnchor(menuBar, 0.0);
+        metroAnchor.getChildren().add(menuBar);
 
         try {
             for (int i = 0; i < titles.length; i++) {
