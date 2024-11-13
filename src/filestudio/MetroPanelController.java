@@ -5,6 +5,7 @@
 package filestudio;
 
 import com.jfoenix.controls.JFXSnackbar;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,11 +14,13 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -40,6 +43,8 @@ public class MetroPanelController implements Initializable {
     AnchorPane metroAnchor;
     @FXML
     GridPane homeGrid;
+    @FXML
+    GridPane diskGrid;
     @FXML
     TabPane tabHolder;
     @FXML
@@ -93,6 +98,11 @@ public class MetroPanelController implements Initializable {
         AnchorPane.setRightAnchor(menuBar, 0.0);
         metroAnchor.getChildren().add(menuBar);
         //files of type combobox, use array of regex alongside array of combo items
+        try {
+            loadDisks();
+        } catch (IOException ex) {
+            notify("Disk load error : " + ex.getMessage(), true);
+        }
         try {
             for (int i = 0; i < titles.length; i++) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("HomeGridItem.fxml"));
@@ -149,5 +159,37 @@ public class MetroPanelController implements Initializable {
         lb.styleProperty().set(style);
 
         snackbar.enqueue(new JFXSnackbar.SnackbarEvent(lb));
+    }
+
+    public void notifyWithNode(Node node) {
+        JFXSnackbar snackbar = new JFXSnackbar(metroAnchor);
+        Node clone = node;
+        snackbar.enqueue(new JFXSnackbar.SnackbarEvent(clone));
+    }
+
+    void loadDisks() throws IOException {
+        File[] drives = File.listRoots();
+        int i = 0;
+        for (File drive : drives) {
+            if (drive.getPath().equalsIgnoreCase(null) || drive.canRead() == false) {
+                return;
+            }
+            i++;
+            DiskInfo diskInfo = new DiskInfo(drive.getPath());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DiskItem.fxml"));
+            AnchorPane itemBox = loader.load();
+
+            DiskItemController controller = loader.getController();
+            double np = Math.round((diskInfo.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundreds (GB)
+            String desc = diskInfo.path + "\n" + diskInfo.getName() + "\n" + np + " GB free";
+            controller.setData("hdd.png", diskInfo.getDescription(), desc, np / 1000);
+            // Add click event to print the name
+            controller.setOnItemClicked(() -> {
+                notify(desc, false);
+            });
+
+            // Place the item in the GridPane at the correct position
+            diskGrid.add(itemBox, i % 3, i / 3); // adjust columns and rows as needed
+        }
     }
 }
