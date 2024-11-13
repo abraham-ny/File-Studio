@@ -100,6 +100,7 @@ public class MetroPanelController implements Initializable {
         //files of type combobox, use array of regex alongside array of combo items
         try {
             loadDisks();
+            notify("Done loading disks", false);
         } catch (IOException ex) {
             notify("Disk load error : " + ex.getMessage(), true);
         }
@@ -183,13 +184,10 @@ public class MetroPanelController implements Initializable {
             double np = Math.round((diskInfo.getFreeSpace() / 1024 / 1024) * 100) / 100; //ree space in hundreds (GB)
             String desc = diskInfo.path + "\n" + diskInfo.getName() + "\n" + np + " GB free";
             controller.setData("hdd.png", diskInfo.getDescription(), desc, np / 1000);
-            // Add click event to print the name
             controller.setOnItemClicked(() -> {
                 notify(desc, false);
             });
-
-            // Place the item in the GridPane at the correct position
-            diskGrid.add(itemBox, i % 3, i / 3); // adjust columns and rows as needed
+            diskGrid.add(itemBox, i % 3, i / 3);
         }
     }
 }
