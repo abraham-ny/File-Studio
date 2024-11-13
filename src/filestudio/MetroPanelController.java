@@ -64,7 +64,7 @@ public class MetroPanelController implements Initializable {
         notify("process \"File-Studio\" started", false);
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
-        //Menu tasksMenu = new Menu("Quick Actions");//add shortcuts to stuff like create arch, bulk delete and other tasks
+        Menu tasksMenu = new Menu("Tools");//add shortcuts to stuff like create arch, bulk delete and other tasks
         Menu windowMenu = new Menu("Window");
         Menu helpMenu = new Menu("Help");
         SeparatorMenuItem sm = new SeparatorMenuItem();
@@ -87,7 +87,7 @@ public class MetroPanelController implements Initializable {
         MenuItem aboutMenu = new MenuItem("About");
         helpMenu.getItems().addAll(howMenu, srcMenu, updatesMenu, donateMenu, aboutMenu);
         //menu bar
-        menuBar.getMenus().addAll(fileMenu, windowMenu, helpMenu);
+        menuBar.getMenus().addAll(fileMenu, tasksMenu, windowMenu, helpMenu);
         AnchorPane.setTopAnchor(menuBar, 0.0);
         AnchorPane.setLeftAnchor(menuBar, 0.0);
         AnchorPane.setRightAnchor(menuBar, 0.0);
