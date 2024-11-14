@@ -70,7 +70,7 @@ public class FileStudio extends Application {
             stage.setScene(scene);
             JMetro metro = new JMetro(Style.DARK);
             metro.setScene(scene);
-            Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
+            Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);
             stage.setTitle("FileStudio v2");
             stage.setMaximized(true);
