@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
@@ -44,6 +46,27 @@ public class FileStudio extends Application {
         if (uss.useMetro.equals("yes")) {
             Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
             Scene scene = new Scene(root);
+            scene.setOnDragOver(evt -> {
+                if (evt.getDragboard().hasFiles() || evt.getDragboard().hasString() || evt.getDragboard().hasUrl()) {
+                    evt.acceptTransferModes(TransferMode.COPY);
+                }
+                evt.consume();
+            });
+            scene.setOnDragDropped(evt -> {
+                Dragboard dboard = evt.getDragboard();
+                if (dboard.hasFiles()) {
+                    File firstDir = new File(dboard.getFiles().get(0).getPath());
+                    if (new File(dboard.getFiles().get(0).getPath()).isDirectory()) {
+                        MetroPanelController.updatePath(firstDir.getAbsolutePath());
+                    }
+                } else if (dboard.hasString()) {
+                    MetroPanelController.updatePath(dboard.getString());
+                } else if (dboard.hasUrl()) {
+                    MetroPanelController.updatePath(dboard.getUrl());
+                }
+                evt.setDropCompleted(true);
+                evt.consume();
+            });
             stage.setScene(scene);
             JMetro metro = new JMetro(Style.DARK);
             metro.setScene(scene);
