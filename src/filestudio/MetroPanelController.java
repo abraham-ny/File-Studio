@@ -145,6 +145,13 @@ public class MetroPanelController implements Initializable {
                 AnchorPane renamerParent = FXMLLoader.load(getClass().getResource("BulkRenamer.fxml"));
                 nT.setContent(renamerParent);
                 break;
+            //"Onedrive", "Dropbox", "Google Drive"
+            case "Onedrive":
+            case "Dropbox":
+            case "Google Drive":
+                AnchorPane serviceParent = FXMLLoader.load(getClass().getResource("../modules/LoadingService.fxml"));
+                nT.setContent(serviceParent);
+                break;
         }
         //after switch
         Tooltip toolTip = new Tooltip(desc);
