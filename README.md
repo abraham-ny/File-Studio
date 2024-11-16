@@ -2,7 +2,8 @@
 [![Download File-Studio](https://a.fsdn.com/con/app/sf-download-button)](https://sourceforge.net/projects/filestudio/files/latest/download)
 [![Download File-Studio](https://img.shields.io/sourceforge/dt/filestudio.svg)](https://sourceforge.net/projects/filestudio/files/latest/download)
 
-![File Studio icon](ic_launcher.png)<br/>
+![Coming up](newFS.PNG)<br/>
+
 File Studio handles advanced file operations<br/>
 - bulk renaming
 - organizing folders
