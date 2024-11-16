@@ -15,7 +15,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -28,6 +30,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
@@ -149,7 +153,7 @@ public class MetroPanelController implements Initializable {
             case "Onedrive":
             case "Dropbox":
             case "Google Drive":
-                AnchorPane serviceParent = FXMLLoader.load(getClass().getResource("../modules/LoadingService.fxml"));
+                AnchorPane serviceParent = FXMLLoader.load(getClass().getResource("modules/LoadingService.fxml"));
                 nT.setContent(serviceParent);
                 break;
         }
@@ -157,7 +161,25 @@ public class MetroPanelController implements Initializable {
         Tooltip toolTip = new Tooltip(desc);
         nT.setTooltip(toolTip);
         // nT.setGraphic(itm.getGraphic());
+        nT.setClosable(true);
         tabHolder.getTabs().add(nT);
+        tabHolder.getSelectionModel().select(nT);
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem detachItem = new MenuItem("Detach");
+        detachItem.setOnAction(event -> {
+            detachTab(nT);
+            tabHolder.getTabs().remove(nT);
+        });
+        MenuItem closeItem = new MenuItem("Close");
+        closeItem.setOnAction(event -> {
+            tabHolder.getTabs().remove(nT);
+        });
+        MenuItem closeOthers = new MenuItem("Close Other Tabs");
+        closeItem.setOnAction(event -> {
+            tabHolder.getTabs().retainAll(tabHolder.getTabs().get(0), nT);
+        });
+        contextMenu.getItems().addAll(detachItem, closeOthers, closeItem);
+        nT.contextMenuProperty().set(contextMenu);
     }
 
     public void notify(String message, boolean err) {
@@ -205,4 +227,15 @@ public class MetroPanelController implements Initializable {
         topBarPath.setText(newPath);
         new MetroPanelController().notify(newPath, false);
     }
+
+    //TO-OD: Apply theme based on prefs
+    private void detachTab(Tab tab) {
+        Stage detachedStage = new Stage();
+        detachedStage.setTitle(tab.getText() + " - Detached");
+        VBox content = new VBox(tab.getContent());
+        Scene detachedScene = new Scene(content, 500, 400);
+        detachedStage.setScene(detachedScene);
+        detachedStage.show();
+    }
+
 }
