@@ -27,7 +27,10 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -55,6 +58,10 @@ public class MetroPanelController implements Initializable {
     static TextField topBarPath;
     @FXML
     Accordion homeAccordion;
+    @FXML
+    TitledPane taskTitlePane;
+    @FXML
+    TitledPane diskTitlePane;
 
     public static String activeDir;
 
@@ -122,9 +129,10 @@ public class MetroPanelController implements Initializable {
                 // Add click event to print the name
                 String itemName = titles[i];
                 String desc = descriptions[i];
+                String icon = imagePaths[i];
                 controller.setOnItemClicked(() -> {
                     try {
-                        addTab(itemName, desc);
+                        addTab(itemName, desc, icon);
                         notify(String.format("Opened %s : %s", itemName, desc), false);
                     } catch (IOException ex) {
                         notify(ex.getMessage(), true);
@@ -141,7 +149,7 @@ public class MetroPanelController implements Initializable {
         }
     }
 
-    void addTab(String name, String desc) throws IOException {
+    void addTab(String name, String desc, String icon) throws IOException {
         Tab nT = new Tab(name);
         switch (name) {
             case "Bulk Renamer":
@@ -157,10 +165,13 @@ public class MetroPanelController implements Initializable {
                 nT.setContent(serviceParent);
                 break;
         }
-        //after switch
         Tooltip toolTip = new Tooltip(desc);
         nT.setTooltip(toolTip);
-        // nT.setGraphic(itm.getGraphic());
+        ImageView ic = new ImageView();
+        ic.setFitWidth(20);
+        ic.setFitHeight(20);
+        ic.setImage(new Image(getClass().getResourceAsStream(icon)));
+        nT.setGraphic(ic);
         nT.setClosable(true);
         tabHolder.getTabs().add(nT);
         tabHolder.getSelectionModel().select(nT);

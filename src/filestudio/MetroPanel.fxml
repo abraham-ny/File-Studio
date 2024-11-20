@@ -32,7 +32,7 @@
                                                     <children>
                                                         <Accordion fx:id="homeAccordion" prefHeight="406.0" prefWidth="823.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                             <panes>
-                                                                <TitledPane animated="false" prefHeight="393.0" prefWidth="823.0" text="Tasks &amp; Features">
+                                                                <TitledPane fx:id="taskTitlePane" animated="false" prefHeight="393.0" prefWidth="823.0" text="Tasks &amp; Features">
                                                                     <content>
                                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                             <children>
@@ -51,7 +51,7 @@
                                                                         </AnchorPane>
                                                                     </content>
                                                                 </TitledPane>
-                                                                <TitledPane animated="false" prefHeight="393.0" prefWidth="823.0" text="Disks &amp; Storage">
+                                                                <TitledPane fx:id="diskTitlePane" animated="false" prefHeight="393.0" prefWidth="823.0" text="Disks &amp; Storage">
                                                                     <content>
                                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                                             <children>
@@ -79,9 +79,10 @@
                                         <Tab text="Recents and Other...">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView fx:id="historyList" layoutX="14.0" layoutY="14.0" prefHeight="391.0" prefWidth="807.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children></AnchorPane>
+                                                    <children>
+                                                        <ListView fx:id="historyList" layoutX="14.0" layoutY="14.0" prefHeight="391.0" prefWidth="807.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                    </children>
+                                                </AnchorPane>
                                             </content>
                                         </Tab>
                                     </tabs>
