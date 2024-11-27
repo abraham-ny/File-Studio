@@ -9,8 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.BulkRenamerController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.BulkRenamerController">
    <children>
       <TextField fx:id="dirPathTbx" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="465.0" promptText="Path to folder" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="14.0" />
       <TextField fx:id="oldWordsTbx" layoutX="14.0" layoutY="51.0" prefHeight="25.0" prefWidth="465.0" promptText="Comma separated word(s) to remove e.g y3mate.com, x2videos.com ..." AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="51.0" />
@@ -25,7 +24,7 @@
       <CheckBox fx:id="renameDirsCheck" layoutX="488.0" layoutY="167.0" mnemonicParsing="false" text="Rename Folders" AnchorPane.rightAnchor="6.0" />
       <CheckBox fx:id="renameHiddenCheck" layoutX="488.0" layoutY="192.0" mnemonicParsing="false" text="Hidden Files" AnchorPane.rightAnchor="26.0" />
       <Button fx:id="renameBtn" layoutX="488.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: dodgerblue;" text="Rename" textFill="WHITE" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="6.0" />
-      <ProgressBar fx:id="progressBar" layoutX="15.0" layoutY="377.0" prefHeight="18.0" prefWidth="465.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="120.0" />
+      <ProgressBar fx:id="progressBar" layoutX="15.0" layoutY="377.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="465.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="120.0" />
       <Label fx:id="progressLbl" layoutX="488.0" layoutY="378.0" prefHeight="17.0" prefWidth="106.0" text="x of n" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0" />
    </children>
 </AnchorPane>
