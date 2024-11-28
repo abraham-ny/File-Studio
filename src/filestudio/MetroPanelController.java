@@ -101,6 +101,9 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem exitMenu = new MenuItem("Exit");
         fileMenu.getItems().addAll(openDirMenu, createArchMenu, extractArchMenu, exitMenu);
         //tool menu
+        MenuItem ignoreMenu = new MenuItem("Ignore List");
+        MenuItem watchMenu = new MenuItem("Watch List");
+        tasksMenu.getItems().addAll(ignoreMenu, watchMenu);
         //window menu
         MenuItem maximizeMenu = new MenuItem("Maximize");
         MenuItem restoreMenu = new MenuItem("Restore");
