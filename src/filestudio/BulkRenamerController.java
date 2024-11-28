@@ -6,14 +6,19 @@ package filestudio;
 
 import java.io.File;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -39,6 +44,10 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     Button newNameBtn;
     @FXML
     ListView listView;
+    @FXML
+    ComboBox fileDateCbx;
+    @FXML
+    ComboBox fileSizeCbx;
 
     public static String path;
     StringBuilder sBuilder = new StringBuilder();
@@ -46,9 +55,13 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dirPathTbx.setText(path);
+        fileSizeCbx.getItems().addAll("Small (<1 MB)", "Medium (1-100 MB)", "Large (>100 MB)");
+        if (dirPathTbx.getText() != null && new File(dirPathTbx.getText()).isDirectory()) {
+            updateFilters();
+        }
         autoWordBtn.setOnMouseClicked(value -> {
             if (dirPathTbx.getText() == null) {
-                alert("Empty Path", "Enter path to folder", "Folder path is null", AlertType.ERROR);
+                this.alert("Empty Path", "Enter path to folder", "Folder path is null", AlertType.ERROR);
             }
             if (new File(dirPathTbx.getText()).isDirectory()) {
                 for (File f : new File(dirPathTbx.getText()).listFiles()) {
@@ -59,6 +72,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         });
         browseBtn.setOnMouseClicked(val -> {
             pickDir(dirPathTbx, "Bulk Rename - Pick Folder", Util.home, dirPathTbx.getScene().getWindow());
+            updateFilters();
         });
         newNameBtn.setOnMouseClicked(value -> {
             newWordTbx.setText(new File(dirPathTbx.getText() != null ? dirPathTbx.getText() : Util.home).getName());
@@ -87,5 +101,12 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         }
 
         return mostCommon;
+    }
+
+    private void updateFilters() {
+        Path folderPath = Paths.get(dirPathTbx.getText());
+        // Extract unique dates from files
+        Set<LocalDate> uniqueDates = getUniqueFileDates(folderPath);
+        fileDateCbx.getItems().addAll(uniqueDates.stream().sorted().collect(Collectors.toList()));
     }
 }

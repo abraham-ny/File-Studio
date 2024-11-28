@@ -5,7 +5,16 @@
 package filestudio;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -50,5 +59,35 @@ public interface GlobalVars {
                 }
             }
         });
+    }
+
+    /**
+     * Extracts unique file dates from the given folder path.
+     *
+     * @param folderPath : the path to extract date from
+     */
+    default Set<LocalDate> getUniqueFileDates(Path folderPath) {
+        Set<LocalDate> uniqueDates = new TreeSet<>();
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath)) {
+            for (Path file : stream) {
+                if (Files.isRegularFile(file)) {
+                    // Get last modified time of the file
+                    BasicFileAttributes attrs = Files.readAttributes(file, BasicFileAttributes.class);
+                    LocalDate fileDate = attrs.lastModifiedTime()
+                            .toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate();
+
+                    // Add to the set to ensure uniqueness
+                    uniqueDates.add(fileDate);
+                    System.out.println(fileDate);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return uniqueDates;
     }
 }
