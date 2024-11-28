@@ -4,7 +4,6 @@
  */
 package filestudio;
 
-import static filestudio.GlobalVars.alert;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ import javafx.scene.control.TextField;
  *
  * @author Abraham Moruri : abummoja3@gmail.com
  */
-public class BulkRenamerController implements Initializable {
+public class BulkRenamerController implements Initializable, GlobalVars {
 //browseBtn, autoWordBtn, newNameBtn
 
     @FXML

@@ -11,12 +11,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -44,7 +46,7 @@ import jfxtras.styles.jmetro.JMetroStyleClass;
  *
  * @author Admin
  */
-public class MetroPanelController implements Initializable {
+public class MetroPanelController implements Initializable, GlobalVars {
 
     @FXML
     AnchorPane metroAnchor;
@@ -55,13 +57,15 @@ public class MetroPanelController implements Initializable {
     @FXML
     TabPane tabHolder;
     @FXML
-    static TextField topBarPath;
+    TextField topBarPath;
     @FXML
     Accordion homeAccordion;
     @FXML
     TitledPane taskTitlePane;
     @FXML
     TitledPane diskTitlePane;
+    @FXML
+    Button topBarBrowseBtn;
 
     public static String activeDir;
 
@@ -80,6 +84,9 @@ public class MetroPanelController implements Initializable {
         metroAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
         homeGrid.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
         homeAccordion.expandedPaneProperty().setValue(homeAccordion.getPanes().get(0));
+        topBarBrowseBtn.setOnAction(evt -> {
+            pickDir(topBarPath, "Pick Folder", Util.home, topBarPath.getScene().getWindow());
+        });
         notify("process \"File-Studio\" started", false);
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
@@ -93,6 +100,7 @@ public class MetroPanelController implements Initializable {
         MenuItem extractArchMenu = new MenuItem("Extract Archive");
         MenuItem exitMenu = new MenuItem("Exit");
         fileMenu.getItems().addAll(openDirMenu, createArchMenu, extractArchMenu, exitMenu);
+        //tool menu
         //window menu
         MenuItem maximizeMenu = new MenuItem("Maximize");
         MenuItem restoreMenu = new MenuItem("Restore");
@@ -234,9 +242,13 @@ public class MetroPanelController implements Initializable {
         }
     }
 
-    public static void updatePath(String newPath) {
+    void iUpdatePath(String newPath) {
         topBarPath.setText(newPath);
         new MetroPanelController().notify(newPath, false);
+    }
+
+    public static void updatePath(String path) {
+
     }
 
     //TO-OD: Apply theme based on prefs

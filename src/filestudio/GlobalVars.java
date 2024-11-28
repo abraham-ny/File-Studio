@@ -6,10 +6,12 @@ package filestudio;
 
 import java.io.File;
 import java.util.Optional;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Window;
 
 /**
  *
@@ -17,34 +19,36 @@ import javafx.stage.DirectoryChooser;
  */
 public interface GlobalVars {
 
-    public static void pickDir(TextField tf, String title, String initialD) {
+    default void pickDir(TextField tf, String title, String initialD, Window owner) {
         DirectoryChooser dirChooser = new DirectoryChooser();
         if (initialD != null || !"none".equals(initialD)) {
             dirChooser.setInitialDirectory(new File(initialD));
         }
         dirChooser.setTitle(title);
-        File selectedFolder = dirChooser.showDialog(tf.getScene().getWindow());
+        File selectedFolder = dirChooser.showDialog(owner);
         if (selectedFolder != null && selectedFolder.exists()) {
             tf.setText(selectedFolder.getPath());
         }
     }
 
-    public static void alert(String title, String header, String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(message);
-        ButtonType yesBtn = new ButtonType("Ok");
-        //ButtonType noBtn = new ButtonType("Close");
-        alert.getButtonTypes().setAll(yesBtn);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent()) {
-            if (result.get() == yesBtn) {
-                alert.close();
-            } else {
-                //return;
-                alert.close();
+    default void alert(String title, String header, String message, Alert.AlertType type) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(type);
+            alert.setTitle(title);
+            alert.setHeaderText(header);
+            alert.setContentText(message);
+            ButtonType yesBtn = new ButtonType("Ok");
+            //ButtonType noBtn = new ButtonType("Close");
+            alert.getButtonTypes().setAll(yesBtn);
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent()) {
+                if (result.get() == yesBtn) {
+                    alert.close();
+                } else {
+                    //return;
+                    alert.close();
+                }
             }
-        }
+        });
     }
 }
