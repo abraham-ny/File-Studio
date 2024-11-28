@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 /**
@@ -36,6 +37,9 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     Button autoWordBtn;
     @FXML
     Button newNameBtn;
+    @FXML
+    ListView listView;
+
     public static String path;
     StringBuilder sBuilder = new StringBuilder();
 
@@ -46,9 +50,9 @@ public class BulkRenamerController implements Initializable, GlobalVars {
             if (dirPathTbx.getText() == null) {
                 alert("Empty Path", "Enter path to folder", "Folder path is null", AlertType.ERROR);
             }
-            if (new File(path).isDirectory()) {
-                for (File f : new File(path).listFiles()) {
-                    sBuilder.append(f.getName()).append(" ");
+            if (new File(dirPathTbx.getText()).isDirectory()) {
+                for (File f : new File(dirPathTbx.getText()).listFiles()) {
+                    sBuilder.append(f.getName());
                 }
             }
             oldWordsTbx.setText(findMostCommonWord(sBuilder));
@@ -62,7 +66,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     }
 
     public static String findMostCommonWord(StringBuilder text) {
-        String[] words = text.toString().split(" (?=[^\\w])"); // Split non space if followed by a non word char
+        String[] words = text.toString().split("\\W+");
         Map<String, Integer> wordCount = new HashMap<>();
 
         // Count word frequency
