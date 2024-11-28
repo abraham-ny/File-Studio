@@ -48,15 +48,21 @@ public class BulkRenamerController implements Initializable, GlobalVars {
             }
             if (new File(path).isDirectory()) {
                 for (File f : new File(path).listFiles()) {
-                    sBuilder.append(f.getName());
+                    sBuilder.append(f.getName()).append(" ");
                 }
             }
             oldWordsTbx.setText(findMostCommonWord(sBuilder));
         });
+        browseBtn.setOnMouseClicked(val -> {
+            pickDir(dirPathTbx, "Bulk Rename - Pick Folder", Util.home, dirPathTbx.getScene().getWindow());
+        });
+        newNameBtn.setOnMouseClicked(value -> {
+            newWordTbx.setText(new File(dirPathTbx.getText() != null ? dirPathTbx.getText() : Util.home).getName());
+        });
     }
 
     public static String findMostCommonWord(StringBuilder text) {
-        String[] words = text.toString().split("\\W+"); // Split by non-word characters
+        String[] words = text.toString().split(" (?=[^\\w])"); // Split non space if followed by a non word char
         Map<String, Integer> wordCount = new HashMap<>();
 
         // Count word frequency
@@ -73,6 +79,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
                 mostCommon = entry.getKey();
                 maxCount = entry.getValue();
             }
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
 
         return mostCommon;

@@ -86,6 +86,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
         homeAccordion.expandedPaneProperty().setValue(homeAccordion.getPanes().get(0));
         topBarBrowseBtn.setOnAction(evt -> {
             pickDir(topBarPath, "Pick Folder", Util.home, topBarPath.getScene().getWindow());
+            activeDir = topBarPath.getText();
         });
         notify("process \"File-Studio\" started", false);
         MenuBar menuBar = new MenuBar();
@@ -164,7 +165,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
         Tab nT = new Tab(name);
         switch (name) {
             case "Bulk Renamer":
-                BulkRenamerController.path = "";
+                BulkRenamerController.path = topBarPath.getText();
                 AnchorPane renamerParent = FXMLLoader.load(getClass().getResource("BulkRenamer.fxml"));
                 nT.setContent(renamerParent);
                 break;
