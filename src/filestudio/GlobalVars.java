@@ -40,6 +40,19 @@ public interface GlobalVars {
         }
     }
 
+    default String pickFolder(String title, String initialD, Window owner) {
+        DirectoryChooser dirChooser = new DirectoryChooser();
+        if (initialD != null || !"none".equals(initialD)) {
+            dirChooser.setInitialDirectory(new File(initialD));
+        }
+        dirChooser.setTitle(title);
+        File selectedFolder = dirChooser.showDialog(owner);
+        if (selectedFolder == null && !selectedFolder.exists()) {
+            return null;
+        }
+        return selectedFolder.getAbsolutePath();
+    }
+
     default void alert(String title, String header, String message, Alert.AlertType type) {
         Platform.runLater(() -> {
             Alert alert = new Alert(type);
