@@ -7,6 +7,7 @@ package filestudio.modules;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 
 /**
@@ -22,6 +23,7 @@ public class RepoFinderController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
     }
 
     void findRepos(String idir) {
