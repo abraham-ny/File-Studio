@@ -5,6 +5,7 @@
 package filestudio;
 
 import com.jfoenix.controls.JFXSnackbar;
+import filestudio.modules.AddListController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -40,6 +42,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
+import jfxtras.styles.jmetro.Style;
 
 /**
  * FXML Controller class
@@ -105,6 +108,12 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem ignoreMenu = new MenuItem("Ignore List");
         MenuItem watchMenu = new MenuItem("Watch List");
         tasksMenu.getItems().addAll(ignoreMenu, watchMenu);
+        ignoreMenu.setOnAction(value -> {
+            openSesame("ignore");
+        });
+        watchMenu.setOnAction(value -> {
+            openSesame("watch");
+        });
         //window menu
         MenuItem maximizeMenu = new MenuItem("Maximize");
         MenuItem restoreMenu = new MenuItem("Restore");
@@ -265,4 +274,22 @@ public class MetroPanelController implements Initializable, GlobalVars {
         detachedStage.show();
     }
 
+    void openSesame(String str) {
+        try {
+            AddListController.mode = str;
+            Parent parent = FXMLLoader.load(getClass().getResource("modules/AddList.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            JMetro metro = new JMetro(Style.DARK);
+            metro.setScene(scene);
+            Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+            stage.getIcons().add(i);
+            stage.setTitle(str);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(MetroPanelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

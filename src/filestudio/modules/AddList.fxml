@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="333.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.modules.AddListController">
+<AnchorPane fx:id="mainAnchor" id="AnchorPane" prefHeight="400.0" prefWidth="333.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="filestudio.modules.AddListController">
     <children>
         <Label fx:id="titleLabel" layoutX="14.0" layoutY="14.0" text="Ignore List">
             <font>

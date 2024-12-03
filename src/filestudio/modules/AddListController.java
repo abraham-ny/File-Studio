@@ -26,6 +26,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import jfxtras.styles.jmetro.JMetroStyleClass;
 
 /**
  * FXML Controller class
@@ -42,6 +44,8 @@ public class AddListController implements Initializable, GlobalVars {
     ListView listView;
     @FXML
     Label titleLabel;
+    @FXML
+    AnchorPane mainAnchor;
     public static String mode;
     String modeFile = "defs.json";
 
@@ -52,6 +56,8 @@ public class AddListController implements Initializable, GlobalVars {
             write(s, modeFile);
             load(modeFile);
         });
+        mainAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+        listView.getStyleClass().add(JMetroStyleClass.ALTERNATING_ROW_COLORS);
         if (mode.equalsIgnoreCase("ignore")) {
             titleLabel.setText("Ignore List");
             load(Util.home + "\\" + "fs-ignore-list.json");
