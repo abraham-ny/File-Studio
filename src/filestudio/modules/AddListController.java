@@ -86,10 +86,10 @@ public class AddListController implements Initializable, GlobalVars {
                 for (int i = 0; i < jsonArray.size(); i++) {
                     items.add(jsonArray.get(i).getAsString());
                 }
-                listView.getItems().addAll(items);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(AddListController.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
+                listView.getItems().addAll(items.toArray());
                 try {
                     mReader.close();
                 } catch (IOException ex) {
