@@ -53,7 +53,10 @@ public class AddListController implements Initializable, GlobalVars {
     public void initialize(URL url, ResourceBundle rb) {
         addButton.setOnAction(value -> {
             String s = pickFolder("Add Folder", Util.home, addButton.getScene().getWindow());
-            write(s, modeFile);
+            List<String> ls = new ArrayList<>();
+            ls.addAll(listView.getItems());
+            ls.add(s);
+            write(ls, modeFile);
             load(modeFile);
         });
         mainAnchor.getStyleClass().add(JMetroStyleClass.BACKGROUND);
@@ -99,9 +102,11 @@ public class AddListController implements Initializable, GlobalVars {
         }
     }
 
-    void write(String toWrite, String path) {
+    void write(List<String> toWrite, String path) {
         JsonArray jsonArray = new JsonArray();
-        jsonArray.add(toWrite);
+        for (String s : toWrite) {
+            jsonArray.add(s);
+        }
 
         FileWriter fileWriter = null;
         try {
