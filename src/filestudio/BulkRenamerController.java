@@ -9,7 +9,9 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -49,6 +51,8 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     @FXML
     ComboBox fileSizeCbx;
 
+    List<File> wordRemoverFileList = new ArrayList<>();
+
     public static String path;
     StringBuilder sBuilder = new StringBuilder();
 
@@ -82,13 +86,11 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     public static String findMostCommonWord(StringBuilder text) {
         String[] words = text.toString().split("\\W+");
         Map<String, Integer> wordCount = new HashMap<>();
-
         // Count word frequency
         for (String word : words) {
             word = word.toLowerCase(); // Optional: To make it case-insensitive
             wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
         }
-
         // Find the most common word
         String mostCommon = null;
         int maxCount = 0;
@@ -97,9 +99,8 @@ public class BulkRenamerController implements Initializable, GlobalVars {
                 mostCommon = entry.getKey();
                 maxCount = entry.getValue();
             }
-            System.out.println(entry.getKey() + " : " + entry.getValue());
+            //System.out.println(entry.getKey() + " : " + entry.getValue());
         }
-
         return mostCommon;
     }
 
@@ -108,5 +109,35 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         // Extract unique dates from files
         Set<LocalDate> uniqueDates = getUniqueFileDates(folderPath);
         fileDateCbx.getItems().addAll(uniqueDates.stream().sorted().collect(Collectors.toList()));
+    }
+
+    public void removeWord() {
+        try {
+            FileRenamer renamer = new FileRenamer();
+            String status = renamer.removeWordFromList(wordRemoverFileList, newWordTbx.getText(), oldWordsTbx.getText());
+            //successOrNotRenamerLabel.setText(status);
+            listView.getItems().clear();
+        } catch (Exception f) {
+        }
+    }
+
+    public void search() {
+        //check if the String containing path to active dir is empty or null
+        String activeDir = dirPathTbx.getText();
+        if (activeDir != null && !activeDir.equals(" ")) {
+            String keyWord = newWordTbx.getText();
+            File directory = new File(activeDir);
+            File[] directoryToSearch = directory.listFiles();
+            //clear the list and listview as user types
+            wordRemoverFileList.clear();
+            listView.getItems().clear();
+            //then update the list and listview with dir contents matching search criteria
+            for (File file : directoryToSearch) {
+                if (file.getName().contains(keyWord)) {
+                    wordRemoverFileList.add(file);
+                    listView.getItems().add(file.getName());
+                }
+            }
+        }
     }
 }

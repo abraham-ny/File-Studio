@@ -4,6 +4,8 @@
  */
 package filestudio;
 
+import com.jfoenix.controls.JFXSnackbar;
+import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -18,9 +20,12 @@ import java.util.TreeSet;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Window;
+import javafx.util.Duration;
 
 /**
  *
@@ -102,5 +107,18 @@ public interface GlobalVars {
         }
 
         return uniqueDates;
+    }
+
+    default void notify(String message, boolean err, Pane view) {
+        JFXSnackbar snackbar = new JFXSnackbar(view);
+        String style = "-fx-background-color: green;";
+        if (err) {
+            style = "-fx-background-color: red;";
+        }
+        Label lb = new Label(message);
+        lb.styleProperty().set(style);
+        Duration d = Duration.seconds(3);
+        SnackbarEvent evt = new SnackbarEvent(lb, d);
+        snackbar.enqueue(evt);
     }
 }
