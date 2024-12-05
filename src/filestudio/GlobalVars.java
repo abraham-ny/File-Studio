@@ -52,7 +52,7 @@ public interface GlobalVars {
         }
         dirChooser.setTitle(title);
         File selectedFolder = dirChooser.showDialog(owner);
-        if (selectedFolder == null && !selectedFolder.exists()) {
+        if (selectedFolder == null) {
             return null;
         }
         return selectedFolder.getAbsolutePath();
@@ -82,7 +82,9 @@ public interface GlobalVars {
     /**
      * Extracts unique file dates from the given folder path.
      *
-     * @param folderPath : the path to extract date from
+     * @param folderPath : the path to extract date from.
+     * @return uniqueDates : A Set"<"LocalDate">" object containing unique file
+     * dates
      */
     default Set<LocalDate> getUniqueFileDates(Path folderPath) {
         Set<LocalDate> uniqueDates = new TreeSet<>();
@@ -99,7 +101,7 @@ public interface GlobalVars {
 
                     // Add to the set to ensure uniqueness
                     uniqueDates.add(fileDate);
-                    System.out.println(fileDate);
+                    //System.out.println(fileDate);
                 }
             }
         } catch (IOException e) {

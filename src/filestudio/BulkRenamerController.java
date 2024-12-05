@@ -5,9 +5,12 @@
 package filestudio;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -84,6 +89,27 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         newNameBtn.setOnMouseClicked(value -> {
             newWordTbx.setText(new File(dirPathTbx.getText() != null ? dirPathTbx.getText() : Util.home).getName());
         });
+        oldWordsTbx.textProperty().addListener(listener -> updateList());
+        fileDateCbx.valueProperty().addListener(listener -> {
+            try {
+                readCombos();
+            } catch (IOException ex) {
+                notify(ex.getMessage(), true, anchorPane);
+                Logger.getLogger(BulkRenamerController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        fileSizeCbx.valueProperty().addListener(listener -> {
+            try {
+                readCombos();
+            } catch (IOException ex) {
+                notify(ex.getMessage(), true, anchorPane);
+                Logger.getLogger(BulkRenamerController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+    }
+
+    void updateList() {
+        search();
     }
 
     public static String findMostCommonWord(StringBuilder text) {
@@ -121,6 +147,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
             notify(status, false, anchorPane);
             listView.getItems().clear();
         } catch (Exception f) {
+            notify(f.getMessage(), true, anchorPane);
         }
     }
 
@@ -150,6 +177,36 @@ public class BulkRenamerController implements Initializable, GlobalVars {
                 listView.getItems().add(file.getName());
             }
         }
-
     }
+
+    void readCombos() throws IOException {
+        for (File df : wordRemoverFileList) {
+            BasicFileAttributes attrs = Files.readAttributes(Paths.get(df.toURI()), BasicFileAttributes.class);
+            if (!localDateConverter(Paths.get(df.toURI())).equals(fileDateCbx.getValue()) && attrs.size() != fileSize((String) fileSizeCbx.getValue())) {
+                wordRemoverFileList.remove(df);
+                listView.getItems().remove(df.getName());
+            }
+        }
+    }
+
+    private long fileSize(String selectedSize) {
+        long xs = 0;
+        if (selectedSize != null) {
+            switch (selectedSize) {
+                case "Small (<1 MB)":
+                    xs = 1_000_000;
+                    break;
+                case "Medium (1-100 MB)":
+                    xs = 99_000_000;
+                    break;
+                case "Large (>100 MB)":
+                    xs = 100_000_000;
+                    break;
+                default:
+                    return 0;
+            }
+        }
+        return xs;
+    }
+
 }
