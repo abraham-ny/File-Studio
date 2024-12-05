@@ -121,4 +121,13 @@ public interface GlobalVars {
         SnackbarEvent evt = new SnackbarEvent(lb, d);
         snackbar.enqueue(evt);
     }
+
+    default LocalDate localDateConverter(Path file) throws IOException {
+        BasicFileAttributes attrs = Files.readAttributes(file, BasicFileAttributes.class);
+        LocalDate fileDate = attrs.lastModifiedTime()
+                .toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        return fileDate;
+    }
 }

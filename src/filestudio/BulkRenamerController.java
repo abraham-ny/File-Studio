@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * Bulk Renamer Controller class
@@ -50,6 +51,8 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     ComboBox fileDateCbx;
     @FXML
     ComboBox fileSizeCbx;
+    @FXML
+    AnchorPane anchorPane;
 
     List<File> wordRemoverFileList = new ArrayList<>();
 
@@ -115,7 +118,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         try {
             FileRenamer renamer = new FileRenamer();
             String status = renamer.removeWordFromList(wordRemoverFileList, newWordTbx.getText(), oldWordsTbx.getText());
-            //successOrNotRenamerLabel.setText(status);
+            notify(status, false, anchorPane);
             listView.getItems().clear();
         } catch (Exception f) {
         }
@@ -138,6 +141,15 @@ public class BulkRenamerController implements Initializable, GlobalVars {
                     listView.getItems().add(file.getName());
                 }
             }
+        } else {
+            notify("Enter a valid path name to continue", true, anchorPane);
+            wordRemoverFileList.clear();
+            listView.getItems().clear();
+            for (File file : new File(activeDir).listFiles()) {
+                wordRemoverFileList.add(file);
+                listView.getItems().add(file.getName());
+            }
         }
+
     }
 }
