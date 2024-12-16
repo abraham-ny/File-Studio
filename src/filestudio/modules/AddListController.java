@@ -57,7 +57,6 @@ public class AddListController implements Initializable, GlobalVars {
     public void initialize(URL url, ResourceBundle rb) {
         addButton.setOnAction(value -> {
             String s = pickFolder("Add Folder", Util.home, addButton.getScene().getWindow());
-
             ls.addAll(listView.getItems());
             ls.add(s);
             write(ls, modeFile);

@@ -154,9 +154,9 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     public void search() {
         //check if the String containing path to active dir is empty or null
         String activeDir = dirPathTbx.getText();
-        if (activeDir != null && !activeDir.equals(" ")) {
+        File directory = new File(activeDir);
+        if (directory.exists() && directory.isDirectory()) {
             String keyWord = newWordTbx.getText();
-            File directory = new File(activeDir);
             File[] directoryToSearch = directory.listFiles();
             //clear the list and listview as user types
             wordRemoverFileList.clear();
