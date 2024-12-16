@@ -51,12 +51,13 @@ public class AddListController implements Initializable, GlobalVars {
     AnchorPane mainAnchor;
     public static String mode;
     String modeFile = "defs.json";
+    List<String> ls = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         addButton.setOnAction(value -> {
             String s = pickFolder("Add Folder", Util.home, addButton.getScene().getWindow());
-            List<String> ls = new ArrayList<>();
+
             ls.addAll(listView.getItems());
             ls.add(s);
             write(ls, modeFile);
@@ -86,6 +87,17 @@ public class AddListController implements Initializable, GlobalVars {
             titleLabel.setText("Watch List");
             load(Util.home + "\\" + "fs-watch-list.json");
         }
+        listSearch.textProperty().addListener(listener -> {
+            if (listSearch.getText().length() < 2) {
+                return;
+            }
+            listView.getItems().clear();
+            for (String s : ls) {
+                if (s.contains(listSearch.getText().trim())) {
+                    listView.getItems().add(s);
+                }
+            }
+        });
     }
 
     void load(String str) {
