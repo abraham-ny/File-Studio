@@ -36,11 +36,11 @@
                                 <TextField fx:id="appsPathField" layoutX="14.0" layoutY="183.0" prefWidth="328.0" promptText="Preferred Applications Folder" />
                                 <TextField fx:id="documentsPathField" layoutX="14.0" layoutY="220.0" prefWidth="328.0" promptText="Preferred Documents Folder" />
                                 <Button fx:id="musicBtn" layoutX="346.0" layoutY="39.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Change Music Folder" />
-                                <Button fx:id="videosBtn" layoutX="346.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Change Videos Folder" />
-                                <Button fx:id="picturesBtn" layoutX="346.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Change Pictures Folder" />
-                                <Button fx:id="archivesBtn" layoutX="346.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Change Archives Folder" />
-                                <Button fx:id="appsBtn" layoutX="346.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Change Apps Folder" />
-                                <Button fx:id="documentsBtn" layoutX="346.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Change Documents Folder" />
+                                <Button fx:id="videosBtn" layoutX="346.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#handleClick" prefHeight="25.0" prefWidth="128.0" text="Change Videos Folder" />
+                                <Button fx:id="picturesBtn" layoutX="346.0" layoutY="111.0" mnemonicParsing="false" onMouseClicked="#handleClick" prefHeight="25.0" prefWidth="129.0" text="Change Pictures Folder" />
+                                <Button fx:id="archivesBtn" layoutX="346.0" layoutY="147.0" mnemonicParsing="false" onMouseClicked="#handleClick" prefHeight="25.0" prefWidth="129.0" text="Change Archives Folder" />
+                                <Button fx:id="appsBtn" layoutX="346.0" layoutY="183.0" mnemonicParsing="false" onMouseClicked="#handleClick" prefHeight="25.0" prefWidth="129.0" text="Change Apps Folder" />
+                                <Button fx:id="documentsBtn" layoutX="346.0" layoutY="220.0" mnemonicParsing="false" onMouseClicked="#handleClick" prefHeight="25.0" prefWidth="130.0" text="Change Documents Folder" />
                             </children>
                         </AnchorPane>
                     </content>
@@ -57,7 +57,7 @@
                                         <Font name="System Bold" size="18.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="clearHistBtn" onMouseClicked="#handleClick" layoutX="11.0" layoutY="146.0" mnemonicParsing="false" text="Clear History" />
+                                <Button fx:id="clearHistBtn" layoutX="11.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Clear History" />
                             </children>
                         </AnchorPane>
                     </content>
