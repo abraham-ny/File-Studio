@@ -5,34 +5,46 @@
 package filestudio;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
  * FXML Controller class
  *
  * @author Abraham Moruri (abummoja3@gmail.com)
  */
-public class SettingsUIController implements Initializable {
+public class SettingsUIController implements Initializable, GlobalVars {
 
     @FXML
     TextField musicPathField;
@@ -68,6 +80,8 @@ public class SettingsUIController implements Initializable {
     Label infoLabel;
     @FXML
     Button clearHistBtn;
+    @FXML
+    CheckBox metroSwitch;
 
     UserSettings uss = new UserSettings();
     boolean changesMade = false;
@@ -102,7 +116,7 @@ public class SettingsUIController implements Initializable {
         themeToggle.setTooltip(new Tooltip("The active theme is not written in the theme button."));
         switch (uss.theme) {
             case "light":
-                themeToggle.setText("Dark Mode");
+                themeToggle.setText("Dark Theme");
                 break;
             case "dark":
                 themeToggle.setText("Light Theme");
@@ -113,7 +127,7 @@ public class SettingsUIController implements Initializable {
         aboutLabel.setText("This Version : " + FXMLDocumentController.ver
                 + "\n (c)2024 Abraham Moruri"
                 + "\n Project License : Apache 2.0"
-                + "\n Project repository : https://github.com/abummoja/File-Studio"
+                + "\n Project repository : https://github.com/abraham-ny/File-Studio"
                 + "\n SourceForge (Download): https://sourceforge.net/projects/filestudio"
                 + "\n This is a free and open-source project and only profits from donations."
                 + "\n Consider donating through : " + FXMLDocumentController.pd);
@@ -122,12 +136,20 @@ public class SettingsUIController implements Initializable {
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 infoLabel.setText("Restart App For Theme Change");
                 if (themeToggle.getText().equals("Light Theme")) {
-                    themeToggle.setText("Dark Mode");
+                    themeToggle.setText("Dark Theme");
                     theme = "light";
-                } else if (themeToggle.getText().equals("Dark Mode")) {
+                } else if (themeToggle.getText().equals("Dark Theme")) {
                     themeToggle.setText("Light Theme");
                     theme = "dark";
                 }
+            }
+        });
+        metroSwitch.selectedProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                infoLabel.setText("The new interface is almost done.");
+                infoLabel.setTooltip(new Tooltip("But it is ready to use"));
+                infoLabel.getTooltip().show(infoLabel, infoLabel.getLayoutX(), infoLabel.getLayoutY());
             }
         });
     }
@@ -226,6 +248,11 @@ public class SettingsUIController implements Initializable {
         uss.setDir("archdir", archivesPathField.getText());
         uss.setDir("picdir", appsPathField.getText());
         uss.setDir("theme", theme);
+        if (metroSwitch.isSelected()) {
+            uss.setDir("metro", "yes");
+        } else if (!metroSwitch.isSelected()) {
+            uss.setDir("metro", "no");
+        }
         uss.saveSettings();
         if (changesMade) {
             changesMade = false;
@@ -263,5 +290,46 @@ public class SettingsUIController implements Initializable {
 
     public static void setStage(Stage st) {
         mStage = st;//this method receives the stage for closing purposes
+    }
+
+    public void launchMetro() {
+        Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
+            Scene scene = new Scene(root);
+            Platform.runLater(() -> {
+                scene.setOnDragOver(evt -> {
+                    if (evt.getDragboard().hasFiles() || evt.getDragboard().hasString() || evt.getDragboard().hasUrl()) {
+                        evt.acceptTransferModes(TransferMode.COPY);
+                    }
+                    evt.consume();
+                });
+                scene.setOnDragDropped(evt -> {
+                    Dragboard dboard = evt.getDragboard();
+                    if (dboard.hasFiles()) {
+                        File firstDir = new File(dboard.getFiles().get(0).getPath());
+                        if (new File(dboard.getFiles().get(0).getPath()).isDirectory()) {
+                            MetroPanelController.updatePath(firstDir.getAbsolutePath());
+                        }
+                    } else if (dboard.hasString()) {
+                        MetroPanelController.updatePath(dboard.getString());
+                    } else if (dboard.hasUrl()) {
+                        MetroPanelController.updatePath(dboard.getUrl());
+                    }
+                    evt.setDropCompleted(true);
+                    evt.consume();
+                });
+            });
+            stage.setScene(scene);
+            JMetro metro = new JMetro(Style.DARK);
+            metro.setScene(scene);
+            Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+            stage.getIcons().add(i);
+            stage.setTitle("FileStudio v2");
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(SettingsUIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
