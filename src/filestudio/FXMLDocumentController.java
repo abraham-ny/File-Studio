@@ -68,8 +68,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -77,6 +79,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.imgscalr.Scalr;
@@ -1319,5 +1323,46 @@ public class FXMLDocumentController implements Initializable {
         compressorPath.setText(activeDir);
         dupefinderInput.setText(activeDir);
         compressorDest.setText(new File(path).getParent());
+    }
+
+    public void metroTest() {
+        Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
+            Scene scene = new Scene(root);
+            Platform.runLater(() -> {
+                scene.setOnDragOver(evt -> {
+                    if (evt.getDragboard().hasFiles() || evt.getDragboard().hasString() || evt.getDragboard().hasUrl()) {
+                        evt.acceptTransferModes(TransferMode.COPY);
+                    }
+                    evt.consume();
+                });
+                scene.setOnDragDropped(evt -> {
+                    Dragboard dboard = evt.getDragboard();
+                    if (dboard.hasFiles()) {
+                        File firstDir = new File(dboard.getFiles().get(0).getPath());
+                        if (new File(dboard.getFiles().get(0).getPath()).isDirectory()) {
+                            MetroPanelController.updatePath(firstDir.getAbsolutePath());
+                        }
+                    } else if (dboard.hasString()) {
+                        MetroPanelController.updatePath(dboard.getString());
+                    } else if (dboard.hasUrl()) {
+                        MetroPanelController.updatePath(dboard.getUrl());
+                    }
+                    evt.setDropCompleted(true);
+                    evt.consume();
+                });
+            });
+            stage.setScene(scene);
+            JMetro metro = new JMetro(Style.DARK);
+            metro.setScene(scene);
+            Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+            stage.getIcons().add(i);
+            stage.setTitle("FileStudio v2");
+            stage.setMaximized(true);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
