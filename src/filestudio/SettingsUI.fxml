@@ -52,12 +52,13 @@
                                 <Label layoutX="14.0" layoutY="14.0" text="Choose your preffered GUI Options" />
                                 <ToggleButton fx:id="themeToggle" layoutX="11.0" layoutY="76.0" mnemonicParsing="false" text="Light Mode" />
                                 <CheckBox layoutX="11.0" layoutY="111.0" mnemonicParsing="false" text="Switch To New UI" />
-                                <Label fx:id="infoLabel" layoutX="14.0" layoutY="44.0" text="New Ui is not ready.">
+                                <Label fx:id="infoLabel" layoutX="14.0" layoutY="44.0" text="New Ui is ready.">
                                     <font>
                                         <Font name="System Bold" size="18.0" />
                                     </font>
                                 </Label>
                                 <Button fx:id="clearHistBtn" layoutX="11.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Clear History" />
+                        <Button layoutX="176.0" layoutY="45.0" mnemonicParsing="false" text="Try The New Interface" />
                             </children>
                         </AnchorPane>
                     </content>
