@@ -36,7 +36,7 @@
                         <Font name="Segoe MDL2 Assets" size="12.0" />
                     </font>
                 </Button>
-            <Button layoutX="378.0" layoutY="-2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: green;" text="New Ui" textFill="WHITE">
+            <Button layoutX="378.0" layoutY="-2.0" mnemonicParsing="false" onAction="#metroTest" prefHeight="25.0" prefWidth="117.0" style="-fx-background-color: green;" text="New Ui" textFill="WHITE">
                <effect>
                   <Glow />
                </effect>
@@ -44,6 +44,14 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <Label layoutX="183.0" layoutY="3.0" text="Try out the new interface! -&gt;" textFill="#e40505">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Label>
             </children>
         </Pane>
         <TabPane layoutY="38.0" prefHeight="538.0" prefWidth="762.0" styleClass="track" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
