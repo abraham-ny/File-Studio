@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -58,7 +59,11 @@
                                     </font>
                                 </Label>
                                 <Button fx:id="clearHistBtn" layoutX="11.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#handleClick" text="Clear History" />
-                        <Button layoutX="176.0" layoutY="45.0" mnemonicParsing="false" text="Try The New Interface" />
+                        <Button layoutX="176.0" layoutY="45.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Try The New Interface" textFill="#ffc300">
+                           <effect>
+                              <Bloom />
+                           </effect>
+                        </Button>
                             </children>
                         </AnchorPane>
                     </content>
