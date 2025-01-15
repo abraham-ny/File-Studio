@@ -26,7 +26,7 @@ public class UserSettings {
     public String appsdir = pref.get("appsdir", "C:\\Users\\" + unm + "\\Apps");
     public String docsdir = pref.get("docsdir", "C:\\Users\\" + unm + "\\Documents\\FileStudio");
     public String theme = pref.get("theme", "light");
-    public String useMetro = pref.get("metro", "yes");
+    public String useMetro = pref.get("metro", "no");
     public String[] dirs = {mp3dir, mp4dir, picdir, archdir, appsdir, docsdir};
     public boolean isSettingsPageOpen = false;
 
