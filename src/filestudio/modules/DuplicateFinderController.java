@@ -4,6 +4,7 @@
  */
 package filestudio.modules;
 
+import filestudio.GlobalVars;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -13,7 +14,7 @@ import javafx.fxml.Initializable;
  *
  * @author Admin
  */
-public class DuplicateFinderController implements Initializable {
+public class DuplicateFinderController implements Initializable, GlobalVars {
 
     /**
      * Initializes the controller class.
@@ -21,6 +22,7 @@ public class DuplicateFinderController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        System.out.println(iPath);
     }
 
 }

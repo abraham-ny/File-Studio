@@ -33,6 +33,27 @@ import javafx.util.Duration;
  */
 public interface GlobalVars {
 
+    /**
+     * @since v1.3.1 iPath by default is the dir from where the app was
+     * launched, usually ProgramFiles(?x86)/FileStudio unless modified by user
+     * on install. The purpose of this string is to hold the current selected
+     * dir that will be passed to a module on launch.
+     */
+    public static String iPath = System.getProperty("user.dir");
+
+    default String currPath() {
+        return iPath;
+    }
+
+    /**
+     *
+     * @param tf
+     * @param title
+     * @param initialD
+     * @param owner pickDir launches a folder picker bound to the owner window.
+     * initialD (INITIAL DIR) is optional. The function automatically updates
+     * the contents of text field tf to the path of selected dir.
+     */
     default void pickDir(TextField tf, String title, String initialD, Window owner) {
         DirectoryChooser dirChooser = new DirectoryChooser();
         if (initialD != null || !"none".equals(initialD)) {
@@ -45,6 +66,15 @@ public interface GlobalVars {
         }
     }
 
+    /**
+     * launches a directory chooser bound to the owner window and with the
+     * default location as the optional string initialD (INITIAL DIRECTORY)
+     *
+     * @param title
+     * @param initialD
+     * @param owner
+     * @return
+     */
     default String pickFolder(String title, String initialD, Window owner) {
         DirectoryChooser dirChooser = new DirectoryChooser();
         if (initialD != null || !"none".equals(initialD)) {
@@ -58,6 +88,16 @@ public interface GlobalVars {
         return selectedFolder.getAbsolutePath();
     }
 
+    /**
+     * Shows an alert dialog containing a header and message passed as
+     * arguments. The alert type is also passed as an argument and the dialog
+     * has a single button.
+     *
+     * @param title
+     * @param header
+     * @param message
+     * @param type
+     */
     default void alert(String title, String header, String message, Alert.AlertType type) {
         Platform.runLater(() -> {
             Alert alert = new Alert(type);
@@ -111,6 +151,15 @@ public interface GlobalVars {
         return uniqueDates;
     }
 
+    /**
+     * creates a mini snack bar at the bottom of window (pane) that can either
+     * be red (error) or green with the message passed and a true or false error
+     * status
+     *
+     * @param message
+     * @param err
+     * @param view
+     */
     default void notify(String message, boolean err, Pane view) {
         JFXSnackbar snackbar = new JFXSnackbar(view);
         String style = "-fx-background-color: green;";

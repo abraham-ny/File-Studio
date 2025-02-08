@@ -178,6 +178,8 @@ public class MetroPanelController implements Initializable, GlobalVars {
                 AnchorPane renamerParent = FXMLLoader.load(getClass().getResource("BulkRenamer.fxml"));
                 nT.setContent(renamerParent);
                 break;
+            case "Duplicate Finder":
+            //DuplicateFinderController
             //"Onedrive", "Dropbox", "Google Drive"
             case "Onedrive":
             case "Dropbox":

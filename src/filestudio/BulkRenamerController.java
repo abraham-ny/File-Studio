@@ -62,11 +62,13 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     List<File> wordRemoverFileList = new ArrayList<>();
 
     public static String path;
-    StringBuilder sBuilder = new StringBuilder();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        dirPathTbx.setText(path);
+        StringBuilder sBuilder = new StringBuilder();
+        if (path != null) {
+            dirPathTbx.setText(path);
+        }
         fileSizeCbx.getItems().addAll("Small (<1 MB)", "Medium (1-100 MB)", "Large (>100 MB)");
         if (dirPathTbx.getText() != null && new File(dirPathTbx.getText()).isDirectory()) {
             updateFilters();
@@ -89,7 +91,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         newNameBtn.setOnMouseClicked(value -> {
             newWordTbx.setText(new File(dirPathTbx.getText() != null ? dirPathTbx.getText() : Util.home).getName());
         });
-        oldWordsTbx.textProperty().addListener(listener -> updateList());
+        //oldWordsTbx.textProperty().addListener(listener -> updateList());
         fileDateCbx.valueProperty().addListener(listener -> {
             try {
                 readCombos();

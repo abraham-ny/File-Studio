@@ -12,7 +12,7 @@
 <AnchorPane fx:id="anchorPane" id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.BulkRenamerController">
     <children>
         <TextField fx:id="dirPathTbx" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="465.0" promptText="Path to folder" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="14.0" />
-        <TextField fx:id="oldWordsTbx" layoutX="14.0" layoutY="51.0" prefHeight="25.0" prefWidth="465.0" promptText="Comma separated word(s) to remove e.g y3mate.com, x2videos.com ..." AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="51.0" />
+        <TextField fx:id="oldWordsTbx" onInputMethodTextChanged="#search" onKeyTyped="#search" layoutX="14.0" layoutY="51.0" prefHeight="25.0" prefWidth="465.0" promptText="Comma separated word(s) to remove e.g y3mate.com, x2videos.com ..." AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="51.0" />
         <Button fx:id="browseBtn" layoutX="488.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Browse" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0" />
         <Button fx:id="autoWordBtn" layoutX="488.0" layoutY="51.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Auto" AnchorPane.rightAnchor="8.0" />
         <ComboBox fx:id="fileTypesCbx" layoutX="14.0" layoutY="126.0" prefWidth="150.0" promptText="Files of Type" AnchorPane.leftAnchor="14.0" />
