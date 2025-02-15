@@ -49,6 +49,11 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
 
     List<CheckBoxTreeItem<String>> selectedItems;
 
+    /**
+     * Scans the current path for duplicate files and adds them to the tree view
+     * while automatically selecting duplicates (non first items in a tree
+     * group).
+     */
     public void scan() {
         File directory = new File(dirPathTbx.getText());
         if (directory.exists() && directory.isDirectory()) {
@@ -93,6 +98,10 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
         }
     }
 
+    /**
+     * Deletes selected files (in the tree view) from the file system. Files do
+     * not go to recycle bin.
+     */
     public void deleteDupes() {
         System.out.println(dupeTree.getSelectionModel().getSelectedItems());
         for (TreeItem<String> itm : selectedItems) {
@@ -122,4 +131,15 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
         return selectedItems;
     }
 
+    /**
+     * Deselects selected items in the tree view
+     */
+    public void clearSelection() {
+        dupeTree.getSelectionModel().clearSelection();
+    }
+
+    public void pickFolder() {
+        pickDir(dirPathTbx, "Pick a Folder : Duplicate Finder", filestudio.Util.home, dirPathTbx.getScene().getWindow());
+        //alert("Click scan to update the list", false);
+    }
 }

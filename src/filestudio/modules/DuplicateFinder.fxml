@@ -20,8 +20,8 @@
         <ProgressBar fx:id="progressBar" layoutX="12.0" layoutY="368.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="465.0" progress="0.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" />
         <Label fx:id="progressLabel" layoutX="486.0" layoutY="369.0" prefHeight="17.0" prefWidth="104.0" text="n of total" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="10.0" />
         <Button fx:id="scanBtn" onAction="#scan"  layoutX="486.0" layoutY="334.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Scan Files" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="10.0" />
-        <Button fx:id="delBtn" layoutX="486.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Delete Selected" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="10.0" />
-        <Button fx:id="clearBtn" layoutX="219.0" layoutY="87.0" mnemonicParsing="false" text="Clear Selection" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="87.0" />
+        <Button fx:id="delBtn" onAction="#deleteDupes"  layoutX="486.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Delete Selected" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="10.0" />
+        <Button fx:id="clearBtn" onAction="#clearSelection" layoutX="219.0" layoutY="87.0" mnemonicParsing="false" text="Clear Selection" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="87.0" />
         <Button fx:id="selectDupesBtn" layoutX="329.0" layoutY="87.0" mnemonicParsing="false" text="Select Duplicates" AnchorPane.leftAnchor="329.0" AnchorPane.topAnchor="87.0" />
     </children>
 </AnchorPane>
