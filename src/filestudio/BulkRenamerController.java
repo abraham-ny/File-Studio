@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -58,6 +59,10 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     ComboBox fileSizeCbx;
     @FXML
     AnchorPane anchorPane;
+    @FXML
+    CheckBox renameDirsCheck;
+    @FXML
+    CheckBox renameHiddenCheck;
 
     List<File> wordRemoverFileList = new ArrayList<>();
 
@@ -148,6 +153,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
             String status = renamer.removeWordFromList(wordRemoverFileList, newWordTbx.getText(), oldWordsTbx.getText());
             notify(status, false, anchorPane);
             listView.getItems().clear();
+            search();
         } catch (Exception f) {
             notify(f.getMessage(), true, anchorPane);
         }
@@ -170,9 +176,12 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         //then update the list and listview with dir contents matching search criteria
         for (File file : directoryToSearch) {
             if (file.getName().contains(keyWord)) {
-                wordRemoverFileList.add(file);
-                listView.getItems().add(file.getName());
-                System.out.println("Found: " + file.getName());
+                if (file.isDirectory() && !renameDirsCheck.isSelected()) {
+                    System.out.println(file.getName() + " is dir and is selected? : " + renameDirsCheck.isSelected());
+                } else {
+                    wordRemoverFileList.add(file);
+                    listView.getItems().add(file.getName());
+                }
             }
         }
     }
