@@ -179,21 +179,25 @@ public class MetroPanelController implements Initializable, GlobalVars {
                 nT.setContent(renamerParent);
                 break;
             //File Organizer, Archive Handler, Media Upscale
-            case "Dulicate Finder":
-                AnchorPane dupeParent = FXMLLoader.load(getClass().getResource("DuplicateFinder.fxml"));
+            case "Duplicate Finder":
+                AnchorPane dupeParent = FXMLLoader.load(getClass().getResource("modules/DuplicateFinder.fxml"));
                 nT.setContent(dupeParent);
                 break;
             case "File Organizer":
-                AnchorPane orgParent = FXMLLoader.load(getClass().getResource("Organizer.fxml"));
+                AnchorPane orgParent = FXMLLoader.load(getClass().getResource("modules/Organizer.fxml"));
                 nT.setContent(orgParent);
                 break;
             case "Archive Handler":
-                AnchorPane archParent = FXMLLoader.load(getClass().getResource("Archiver.fxml"));
+                AnchorPane archParent = FXMLLoader.load(getClass().getResource("modules/Archiver.fxml"));
                 nT.setContent(archParent);
                 break;
             case "Media Upscale":
-                AnchorPane upscaleParent = FXMLLoader.load(getClass().getResource("DuplicateFinder.fxml"));
+                AnchorPane upscaleParent = FXMLLoader.load(getClass().getResource("modules/Upscaler.fxml"));
                 nT.setContent(upscaleParent);
+                break;
+            case "Repo Finder":
+                AnchorPane repoParent = FXMLLoader.load(getClass().getResource("modules/RepoMan.fxml"));
+                nT.setContent(repoParent);
                 break;
             //"Onedrive", "Dropbox", "Google Drive"
             case "Onedrive":
