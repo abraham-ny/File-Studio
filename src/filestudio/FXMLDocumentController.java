@@ -645,7 +645,7 @@ public class FXMLDocumentController implements Initializable {
         //check if the String containing path to active dir is empty or null
         if (activeDir != null && !activeDir.equals(" ")) {
             String keyWord = wordToRemoveLabel.getText();
-            /*@reoved check if the search text is longer than 3 chars to start searching*/
+            /*@removed check if the search text is longer than 3 chars to start searching*/
             File directory = new File(activeDir);
             File[] directoryToSearch = directory.listFiles();
             //clear the list and listview as user types

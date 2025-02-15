@@ -74,7 +74,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
             updateFilters();
         }
         autoWordBtn.setOnMouseClicked(value -> {
-            if (dirPathTbx.getText() == null) {
+            if (dirPathTbx.getText() == null || dirPathTbx.getText().equals(" ")) {
                 this.alert("Empty Path", "Enter path to folder", "Folder path is null", AlertType.ERROR);
             }
             if (new File(dirPathTbx.getText()).isDirectory()) {
@@ -154,29 +154,25 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     }
 
     public void search() {
+        System.out.println("Starting search for " + oldWordsTbx.getText());
         //check if the String containing path to active dir is empty or null
         String activeDir = dirPathTbx.getText();
         File directory = new File(activeDir);
-        if (directory.exists() && directory.isDirectory()) {
-            String keyWord = newWordTbx.getText();
-            File[] directoryToSearch = directory.listFiles();
-            //clear the list and listview as user types
-            wordRemoverFileList.clear();
-            listView.getItems().clear();
-            //then update the list and listview with dir contents matching search criteria
-            for (File file : directoryToSearch) {
-                if (file.getName().contains(keyWord)) {
-                    wordRemoverFileList.add(file);
-                    listView.getItems().add(file.getName());
-                }
-            }
-        } else {
-            notify("Enter a valid path name to continue", true, anchorPane);
-            wordRemoverFileList.clear();
-            listView.getItems().clear();
-            for (File file : new File(activeDir).listFiles()) {
+        if (!directory.exists() || !directory.isDirectory()) {
+            return;
+        }
+        String keyWord = oldWordsTbx.getText();
+        File[] directoryToSearch = directory.listFiles();
+        //clear the list and listview as user types
+        wordRemoverFileList.clear();
+        listView.getItems().clear();
+
+        //then update the list and listview with dir contents matching search criteria
+        for (File file : directoryToSearch) {
+            if (file.getName().contains(keyWord)) {
                 wordRemoverFileList.add(file);
                 listView.getItems().add(file.getName());
+                System.out.println("Found: " + file.getName());
             }
         }
     }
