@@ -29,6 +29,7 @@ import javafx.scene.control.cell.CheckBoxTreeCell;
  */
 public class DuplicateFinderController implements Initializable, GlobalVars {
 
+    public static String mPath;
     @FXML
     TreeView dupeTree;
     @FXML
@@ -37,7 +38,13 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        System.out.println(iPath);
+        if (mPath.equals("")) {
+            mPath = System.getProperty("user.home");
+        } else if (new File(mPath).isDirectory()) {
+            dirPathTbx.setText(mPath);
+            scan();
+
+        }
     }
 
     List<CheckBoxTreeItem<String>> selectedItems;

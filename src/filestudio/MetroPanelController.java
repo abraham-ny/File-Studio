@@ -6,6 +6,7 @@ package filestudio;
 
 import com.jfoenix.controls.JFXSnackbar;
 import filestudio.modules.AddListController;
+import filestudio.modules.DuplicateFinderController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -180,6 +181,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
                 break;
             //File Organizer, Archive Handler, Media Upscale
             case "Duplicate Finder":
+                DuplicateFinderController.mPath = topBarPath.getText();
                 AnchorPane dupeParent = FXMLLoader.load(getClass().getResource("modules/DuplicateFinder.fxml"));
                 nT.setContent(dupeParent);
                 break;

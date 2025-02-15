@@ -149,8 +149,9 @@ public class BulkRenamerController implements Initializable, GlobalVars {
 
     public void removeWord() {
         try {
+            System.out.println("Renaming...");
             FileRenamer renamer = new FileRenamer();
-            String status = renamer.removeWordFromList(wordRemoverFileList, newWordTbx.getText(), oldWordsTbx.getText());
+            String status = renamer.removeWordFromList(wordRemoverFileList, oldWordsTbx.getText(), newWordTbx.getText());
             notify(status, false, anchorPane);
             listView.getItems().clear();
             search();

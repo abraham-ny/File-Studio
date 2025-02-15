@@ -22,7 +22,7 @@
         <TextField fx:id="newWordTbx" layoutX="15.0" layoutY="85.0" prefHeight="25.0" prefWidth="465.0" promptText="Enter new word or leave blank to just remove" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="85.0" />
         <Button fx:id="newNameBtn" layoutX="488.0" layoutY="85.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Parent Folder Name" AnchorPane.rightAnchor="8.0" />
         <CheckBox fx:id="renameDirsCheck" onAction="#search"  layoutX="488.0" layoutY="167.0" mnemonicParsing="false" text="Rename Folders" AnchorPane.rightAnchor="6.0" />
-        <Button fx:id="renameBtn" layoutX="488.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: dodgerblue;" text="Rename" textFill="WHITE" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="6.0" />
+        <Button fx:id="renameBtn" onAction="#removeWord"  layoutX="488.0" layoutY="342.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" style="-fx-background-color: dodgerblue;" text="Rename" textFill="WHITE" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="6.0" />
         <ProgressBar fx:id="progressBar" layoutX="15.0" layoutY="377.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="465.0" progress="0.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="120.0" />
         <Label fx:id="progressLbl" layoutX="488.0" layoutY="378.0" prefHeight="17.0" prefWidth="106.0" text="x of n" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="6.0" />
     </children>

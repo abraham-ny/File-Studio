@@ -39,7 +39,7 @@ public interface GlobalVars {
      * on install. The purpose of this string is to hold the current selected
      * dir that will be passed to a module on launch.
      */
-    public static String iPath = System.getProperty("user.dir");
+    public String iPath = System.getProperty("user.dir");
 
     default String currPath() {
         return iPath;
@@ -47,12 +47,14 @@ public interface GlobalVars {
 
     /**
      *
+     * pickDir launches a folder picker bound to the owner window. initialD
+     * (INITIAL DIR) is optional. The function automatically updates the
+     * contents of text field tf to the path of selected dir.
+     *
      * @param tf
      * @param title
      * @param initialD
-     * @param owner pickDir launches a folder picker bound to the owner window.
-     * initialD (INITIAL DIR) is optional. The function automatically updates
-     * the contents of text field tf to the path of selected dir.
+     * @param owner
      */
     default void pickDir(TextField tf, String title, String initialD, Window owner) {
         DirectoryChooser dirChooser = new DirectoryChooser();
