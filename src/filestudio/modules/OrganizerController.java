@@ -4,6 +4,7 @@
  */
 package filestudio.modules;
 
+import filestudio.GlobalVars;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
@@ -13,14 +14,11 @@ import javafx.fxml.Initializable;
  *
  * @author Admin
  */
-public class OrganizerController implements Initializable {
+public class OrganizerController implements Initializable, GlobalVars {
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
 }
