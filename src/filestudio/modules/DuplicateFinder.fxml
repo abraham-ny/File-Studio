@@ -20,8 +20,8 @@
         <Button fx:id="scanBtn" layoutX="12.0" layoutY="87.0" mnemonicParsing="false" onAction="#scan" prefHeight="25.0" prefWidth="104.0" text="Scan Files" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="87.0" />
         <Button fx:id="delBtn" layoutX="365.0" layoutY="87.0" mnemonicParsing="false" onAction="#deleteDupes" prefHeight="25.0" prefWidth="104.0" text="Delete Selected" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="87.0" />
         <Button fx:id="clearBtn" layoutX="131.0" layoutY="87.0" mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="87.0" />
-        <Button fx:id="selectDupesBtn" layoutX="240.0" layoutY="87.0" mnemonicParsing="false" text="Select Duplicates" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="87.0" />
-      <CheckBox disable="true" layoutX="226.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Sub Folders" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="53.0" />
-      <CheckBox disable="true" layoutX="329.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Auto Select" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="53.0" />
+        <Button fx:id="selectDupesBtn" layoutX="240.0" layoutY="87.0" mnemonicParsing="false" onAction="#selectDupes" text="Select Duplicates" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="87.0" />
+        <CheckBox disable="true" layoutX="226.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Sub Folders" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="53.0" />
+        <CheckBox fx:id="autoSelectCheck" layoutX="329.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Auto Select" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="53.0" />
     </children>
 </AnchorPane>

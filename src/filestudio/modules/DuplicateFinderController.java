@@ -37,6 +37,10 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
     TextField dirPathTbx;
     @FXML
     CheckBox ecoCheck;
+    @FXML
+    CheckBox autoDelCheck;
+    @FXML
+    CheckBox autoSelectCheck;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,9 +89,12 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
                         CheckBoxTreeItem child = new CheckBoxTreeItem(name);
                         parent.getChildren().add(child);
                         if (pi >= 2) {
-                            child.setSelected(true);
+                            child.setSelected(autoSelectCheck.isSelected());
                         } else {
                             child.setSelected(false);
+                        }
+                        if (autoDelCheck.isSelected() == true) {
+                            new File(name).delete();
                         }
                     }
                     parent.setExpanded(true);
@@ -147,5 +154,11 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
     public void pickFolder() {
         pickDir(dirPathTbx, "Pick a Folder : Duplicate Finder", filestudio.Util.home, dirPathTbx.getScene().getWindow());
         //alert("Click scan to update the list", false);
+    }
+
+    public void selectDupes() {
+        for (CheckBoxTreeItem<String> cbt : selectedItems) {
+            cbt.setSelected(true);
+        }
     }
 }
