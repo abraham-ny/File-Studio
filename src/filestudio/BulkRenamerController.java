@@ -119,6 +119,12 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         search();
     }
 
+    /**
+     * Tries to find the most common word in the file list.
+     *
+     * @param text
+     * @return
+     */
     public static String findMostCommonWord(StringBuilder text) {
         String[] words = text.toString().split("\\W+");
         Map<String, Integer> wordCount = new HashMap<>();
@@ -147,6 +153,10 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         fileDateCbx.getItems().addAll(uniqueDates.stream().sorted().collect(Collectors.toList()));
     }
 
+    /**
+     * Removes the words in 'oldWordsTbx' and replaces them with new words from
+     * 'newWordTbx'
+     */
     public void removeWord() {
         try {
             System.out.println("Renaming...");
@@ -160,6 +170,14 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         }
     }
 
+    /**
+     * Searches for files containing words in 'oldWordsTbx' text field. The name
+     * 'oldWordsTbx' implies this are the words currently existing in the file
+     * names and will soon be replaced by new words or none at all
+     * (blank/removal). The files are added to a list and then to a list view in
+     * the User Interface
+     *
+     */
     public void search() {
         System.out.println("Starting search for " + oldWordsTbx.getText());
         //check if the String containing path to active dir is empty or null
