@@ -12,16 +12,16 @@
     <children>
         <TextField fx:id="dirPathTbx" layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="465.0" promptText="Path to folder" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="14.0" />
         <Button fx:id="browseBtn" layoutX="486.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Browse" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
-        <TextField fx:id="searchInput" layoutX="12.0" layoutY="52.0" prefHeight="25.0" prefWidth="465.0" promptText="Search files by name..." AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="52.0" />
-        <Button fx:id="searchBtn" layoutX="486.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Search" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="52.0" />
-        <CheckBox fx:id="ecoCheck" layoutX="14.0" layoutY="91.0" mnemonicParsing="false" text="Eco Mode" AnchorPane.leftAnchor="11.0" AnchorPane.topAnchor="91.0" />
-        <CheckBox fx:id="autoDelCheck" layoutX="117.0" layoutY="91.0" mnemonicParsing="false" text="Auto Delete" AnchorPane.leftAnchor="117.0" AnchorPane.topAnchor="91.0" />
+        <CheckBox fx:id="ecoCheck" layoutX="12.0" layoutY="53.0" mnemonicParsing="false" text="Eco Mode" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="53.0" />
+        <CheckBox fx:id="autoDelCheck" layoutX="118.0" layoutY="53.0" mnemonicParsing="false" text="Auto Delete" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="53.0" />
         <TreeView fx:id="dupeTree" layoutX="12.0" layoutY="122.0" prefHeight="237.0" prefWidth="465.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="122.0" />
         <ProgressBar fx:id="progressBar" layoutX="12.0" layoutY="368.0" minHeight="-Infinity" prefHeight="23.0" prefWidth="465.0" progress="0.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" />
         <Label fx:id="progressLabel" layoutX="486.0" layoutY="369.0" prefHeight="17.0" prefWidth="104.0" text="n of total" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="10.0" />
-        <Button fx:id="scanBtn" onAction="#scan"  layoutX="486.0" layoutY="334.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Scan Files" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="10.0" />
-        <Button fx:id="delBtn" onAction="#deleteDupes"  layoutX="486.0" layoutY="295.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Delete Selected" AnchorPane.bottomAnchor="90.0" AnchorPane.rightAnchor="10.0" />
-        <Button fx:id="clearBtn" onAction="#clearSelection" layoutX="219.0" layoutY="87.0" mnemonicParsing="false" text="Clear Selection" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="87.0" />
-        <Button fx:id="selectDupesBtn" layoutX="329.0" layoutY="87.0" mnemonicParsing="false" text="Select Duplicates" AnchorPane.leftAnchor="329.0" AnchorPane.topAnchor="87.0" />
+        <Button fx:id="scanBtn" layoutX="12.0" layoutY="87.0" mnemonicParsing="false" onAction="#scan" prefHeight="25.0" prefWidth="104.0" text="Scan Files" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="87.0" />
+        <Button fx:id="delBtn" layoutX="365.0" layoutY="87.0" mnemonicParsing="false" onAction="#deleteDupes" prefHeight="25.0" prefWidth="104.0" text="Delete Selected" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="87.0" />
+        <Button fx:id="clearBtn" layoutX="131.0" layoutY="87.0" mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" AnchorPane.leftAnchor="131.0" AnchorPane.topAnchor="87.0" />
+        <Button fx:id="selectDupesBtn" layoutX="240.0" layoutY="87.0" mnemonicParsing="false" text="Select Duplicates" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="87.0" />
+      <CheckBox disable="true" layoutX="226.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Sub Folders" AnchorPane.leftAnchor="226.0" AnchorPane.topAnchor="53.0" />
+      <CheckBox disable="true" layoutX="329.0" layoutY="53.0" mnemonicParsing="false" selected="true" text="Auto Select" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="53.0" />
     </children>
 </AnchorPane>

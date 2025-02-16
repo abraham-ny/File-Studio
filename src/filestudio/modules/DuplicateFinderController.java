@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -34,6 +35,8 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
     TreeView dupeTree;
     @FXML
     TextField dirPathTbx;
+    @FXML
+    CheckBox ecoCheck;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,7 +60,7 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
     public void scan() {
         File directory = new File(dirPathTbx.getText());
         if (directory.exists() && directory.isDirectory()) {
-            boolean hashType = false;
+            boolean hashType = ecoCheck.isSelected();
             Map<String, List<String>> duplicateList = new HashMap<String, List<String>>();
             try {
                 Finder.find(duplicateList, directory, hashType);									// FIND DUPLICATE FILES
@@ -135,7 +138,10 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
      * Deselects selected items in the tree view
      */
     public void clearSelection() {
-        dupeTree.getSelectionModel().clearSelection();
+        for (CheckBoxTreeItem<String> cbt : selectedItems) {
+            cbt.setSelected(false);
+        }
+        //dupeTree.getSelectionModel().clearSelection();
     }
 
     public void pickFolder() {
