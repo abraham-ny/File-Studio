@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -41,16 +43,19 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
     CheckBox autoDelCheck;
     @FXML
     CheckBox autoSelectCheck;
+    @FXML
+    ProgressBar progressBar;
+    @FXML
+    Label progressLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         if (mPath.equals("")) {
             mPath = System.getProperty("user.home");
         } else if (new File(mPath).isDirectory()) {
             dirPathTbx.setText(mPath);
-            scan();
-
+            //should run scan() here but due to startup speed of module, will ignore
+            //running scan() on init improves the ux since duplicates are automatically found but it slows down the module launch
         }
     }
 
@@ -96,12 +101,13 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
                         if (autoDelCheck.isSelected() == true) {
                             new File(name).delete();
                         }
+                        progressBar.setProgress(progressBar.getProgress() + 0.1);
                     }
                     parent.setExpanded(true);
                     rootitem.getChildren().add(parent);
                 }
                 selectedItems = getSelectedItems(rootitem);
-
+                progressLabel.setText(selectedItems.size() + " Duplicates");
             }
         } else {
             alert("PathScanner.exe[embedded] - Invalid Path", "The path was not found!", dirPathTbx.getText(), Alert.AlertType.ERROR);
@@ -148,7 +154,6 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
         for (CheckBoxTreeItem<String> cbt : selectedItems) {
             cbt.setSelected(false);
         }
-        //dupeTree.getSelectionModel().clearSelection();
     }
 
     public void pickFolder() {
