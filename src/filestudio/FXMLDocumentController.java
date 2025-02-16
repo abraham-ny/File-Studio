@@ -162,8 +162,6 @@ public class FXMLDocumentController implements Initializable {
     String archFolder = "";
     public static String pd = "https://paypal.com/donate/?hosted_button_id=A88GCN8R382B6";
     String sfUrl = "https://sourceforge.net/projects/filestudio/";//source update url
-    //@FXML Button autoGenerateWordToRemove;
-    //@FXML ListView<DiskInfo> diskList;
     ObservableList<DiskInfo> disksListObservable = FXCollections.observableArrayList();
     ObservableList<String> diskStringList = FXCollections.observableArrayList();
     String activeDir = "";
@@ -181,8 +179,7 @@ public class FXMLDocumentController implements Initializable {
     static String docex = "regex:.*(?i:pdf|doc|txt|pptx|xls|mhtml|html|ppt|mdb|accdb|docx)";
     static String archex = "regex:.*(?i:zip|rar|7z|aar|jar|gz|tar|xz|iso)";
     static String appex = "regex:.*(?i:exe|com|apk|bat|msi|iso|app|sh)";
-    //private String[] menuOptions = {"Share", "Update", "Help", "About"};
-    private static final String REPO_API_URL = "https://api.github.com/repos/abummoja/file-studio/releases/latest";
+    private static final String REPO_API_URL = "https://api.github.com/repos/abraham-ny/file-studio/releases/latest";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -693,43 +690,6 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
-    /*public void generateCopies() {
-        File toMultiply = new File(fileToDuplicateTextBox.getText());
-        File parentDir = new File(toMultiply.getParent());
-        FileMultiplier multiplier = new FileMultiplier();
-        try {
-            generatedList = multiplier.multiply(toMultiply.getAbsolutePath(), parentDir.getAbsolutePath(), Integer.parseInt(numberOfCopiesTextBox.getText()));
-            for (File f : generatedList) {
-                duplicatorListView.getItems().add(f.getName());
-            }
-            undoBtn.setDisable(false);
-            redoBtn.setDisable(true);
-        } catch (IOException ex) {
-            logger.Log("Err Abu, " + ex.getMessage());
-            Logger
-                    .getLogger(FXMLDocumentController.class
-                            .getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void undoDuplicator() {
-        File original = new File(fileToDuplicateTextBox.getText());
-        for (File f : generatedList) {
-            try {
-                f.delete();
-                duplicatorListView.getItems().clear();
-                duplicatorListView.getItems().add(original.getName());
-                redoBtn.setDisable(false);
-                undoBtn.setDisable(true);
-            } catch (Exception e) {
-                //show dialog (failed)
-            }
-        }
-    }
-
-    public void redoDuplicator() {
-        generateCopies();
-    }*/
     public void processDir() {
         String dirToOrganize = organizerDirTextField.getText();
         if (dirToOrganize.equals("") || dirToOrganize.equals(null)) {
