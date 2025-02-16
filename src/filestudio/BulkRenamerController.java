@@ -90,7 +90,7 @@ public class BulkRenamerController implements Initializable, GlobalVars {
             oldWordsTbx.setText(findMostCommonWord(sBuilder));
         });
         browseBtn.setOnMouseClicked(val -> {
-            pickDir(dirPathTbx, "Bulk Rename - Pick Folder", Util.home, dirPathTbx.getScene().getWindow());
+            pickDir(dirPathTbx, "Bulk Renamer - Pick Folder", Util.home, dirPathTbx.getScene().getWindow());
             updateFilters();
         });
         newNameBtn.setOnMouseClicked(value -> {
@@ -115,12 +115,8 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         });
     }
 
-    void updateList() {
-        search();
-    }
-
     /**
-     * Tries to find the most common word in the file list.
+     * Tries to find the most common word in the file list (string builder).
      *
      * @param text
      * @return
@@ -154,15 +150,16 @@ public class BulkRenamerController implements Initializable, GlobalVars {
     }
 
     /**
-     * Removes the words in 'oldWordsTbx' and replaces them with new words from
-     * 'newWordTbx'
+     * Removes the words in the file names in 'oldWordsTbx' and replaces them
+     * with new words from 'newWordTbx' hence the file names now contain new
+     * words or do not contain the old words if new words was blank.
      */
     public void removeWord() {
         try {
             //System.out.println("Renaming...");
             FileRenamer renamer = new FileRenamer();
             String status = renamer.removeWordFromList(wordRemoverFileList, oldWordsTbx.getText(), newWordTbx.getText());
-            notify(status, false, anchorPane);
+            //notify(status, false, anchorPane);
             listView.getItems().clear();
             search();
         } catch (Exception f) {
@@ -179,7 +176,6 @@ public class BulkRenamerController implements Initializable, GlobalVars {
      *
      */
     public void search() {
-        System.out.println("Starting search for " + oldWordsTbx.getText());
         //check if the String containing path to active dir is empty or null
         String activeDir = dirPathTbx.getText();
         File directory = new File(activeDir);
@@ -191,12 +187,11 @@ public class BulkRenamerController implements Initializable, GlobalVars {
         //clear the list and listview as user types
         wordRemoverFileList.clear();
         listView.getItems().clear();
-
         //then update the list and listview with dir contents matching search criteria
         for (File file : directoryToSearch) {
             if (file.getName().contains(keyWord)) {
-                if (file.isDirectory() && !renameDirsCheck.isSelected()) {
-                    System.out.println(file.getName() + " is dir and is selected? : " + renameDirsCheck.isSelected());
+                if (file.isDirectory() && renameDirsCheck.isSelected() == false) {
+                    //System.out.println(file.getName() + " is dir and is selected? : " + renameDirsCheck.isSelected());
                 } else {
                     wordRemoverFileList.add(file);
                     listView.getItems().add(file.getName());
