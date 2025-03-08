@@ -6,6 +6,7 @@ package filestudio;
 
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
+import filestudio.modules.AddListController;
 import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -26,21 +27,31 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 /**
+ * Class GlobalVars holds common functions that shall be reused across multiple
+ * classes. This reduces repetition.
  *
- * @author Admin
+ * @author Abraham Moruri (github: abraham-ny)
  */
 public interface GlobalVars {
 
+    FLogger fsLogger = new FLogger();
     /**
      * @since v1.3.1 iPath by default is the dir from where the app was
      * launched, usually ProgramFiles(?x86)/FileStudio unless modified by user
@@ -114,6 +125,7 @@ public interface GlobalVars {
             alert.setTitle(title);
             alert.setHeaderText(header);
             alert.setContentText(message);
+            fsLogger.Log(title, header, message);
             ButtonType yesBtn = new ButtonType("Ok");
             //ButtonType noBtn = new ButtonType("Close");
             alert.getButtonTypes().setAll(yesBtn);
@@ -173,6 +185,7 @@ public interface GlobalVars {
     default void notify(String message, boolean err, Pane view) {
         JFXSnackbar snackbar = new JFXSnackbar(view);
         String style = "-fx-background-color: green;";
+        fslog(message);
         if (err) {
             style = "-fx-background-color: red;";
         }
@@ -195,7 +208,7 @@ public interface GlobalVars {
     default void browse(String url) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("File Studio: Launch Browser?");
-        alert.setHeaderText("You are about to open the browser. We need your confirmation because browsers are sometimes resource intensive. If you wish to proceed, click the yes button.");
+        alert.setHeaderText("You are about to open the browser.\nWe need your confirmation because browsers are sometimes resource intensive.\nIf you wish to proceed, click the \"yes\" button.");
         alert.setContentText("Visit " + url + " ?");
         ButtonType yesBtn = new ButtonType("Yes");
         ButtonType copyBtn = new ButtonType("Copy Link To Clipboard");
@@ -228,13 +241,37 @@ public interface GlobalVars {
                                         .getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    alert("Unsurported Browser", "We could not find a browser", "Check that you have a browser", Alert.AlertType.ERROR);
+                    alert("Unsupported Browser", "We could not find a browser", "Check that you have a browser", Alert.AlertType.ERROR);
                 }
             } else {
                 //return;
                 alert.close();
             }
         }
+    }
+
+    default void listManager(String str) {
+        try {
+            AddListController.mode = str;
+            Parent parent = FXMLLoader.load(getClass().getResource("modules/AddList.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setScene(scene);
+            JMetro metro = new JMetro(Style.DARK);
+            metro.setScene(scene);
+            Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+            stage.getIcons().add(i);
+            stage.setTitle(str);
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            alert("listman[IOE]", "Failed to load List Manager for " + str, ex.getMessage(), Alert.AlertType.ERROR);
+            Logger.getLogger(MetroPanelController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    default void fslog(String... dat) {
+        fsLogger.Log(dat);
     }
 
 }

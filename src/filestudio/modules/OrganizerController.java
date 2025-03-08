@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -29,6 +30,7 @@ import javafx.scene.control.TreeView;
 public class OrganizerController implements Initializable, GlobalVars {
 
     Organizer iOrganizer = new Organizer();
+    public static String mPath;
     String[] docs, pics, vids, auds, exes, archs;
     FLogger logger = new FLogger();
     UserSettings uss = new UserSettings();
@@ -57,14 +59,13 @@ public class OrganizerController implements Initializable, GlobalVars {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        dirPathTbx.setText(mPath);
     }
 
     public void processDir() {
         String dirToOrganize = dirPathTbx.getText();
         if (dirToOrganize.equals("") || dirToOrganize.equals(null)) {
-            //warn user
-            //showNotification("FileStudio:Organizer", "Null directory!");
+            alert("FS-PROCDIR[FNF](null)", "Folder not found", "Please check the folder path again.", Alert.AlertType.WARNING);
             return;
         }
         try {
@@ -122,11 +123,15 @@ public class OrganizerController implements Initializable, GlobalVars {
 
     //TODO: on ignorelistbtn click, launch ignore list window
     public void launchIgnoreListApp() {
-
+        listManager("ignore");
     }
 
     //TODO: when destinationBtn is clicked, launch settins with dest params to allow user change organiser settings
     public void launchDestinationSettings() {
+        alert("FileStudio: NODEST", "In Development", "Come back after an update", Alert.AlertType.INFORMATION);
+    }
 
+    public void pdir() {
+        pickDir(dirPathTbx, "Pick a Folder : Duplicate Finder", filestudio.Util.home, dirPathTbx.getScene().getWindow());
     }
 }

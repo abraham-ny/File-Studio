@@ -7,6 +7,7 @@ package filestudio;
 import com.jfoenix.controls.JFXSnackbar;
 import filestudio.modules.AddListController;
 import filestudio.modules.DuplicateFinderController;
+import filestudio.modules.OrganizerController;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -198,6 +199,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
                 nT.setContent(dupeParent);
                 break;
             case "File Organizer":
+                OrganizerController.mPath = topBarPath.getText();
                 AnchorPane orgParent = FXMLLoader.load(getClass().getResource("modules/Organizer.fxml"));
                 nT.setContent(orgParent);
                 break;
