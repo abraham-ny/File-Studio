@@ -217,18 +217,18 @@ public interface GlobalVars {
                     try {
                         Desktop.getDesktop().browse(new URI(url));
                     } catch (URISyntaxException ex) {
-                        Alert("FSProc[URISE]", "Error", ex.getMessage(), Alert.AlertType.ERROR);
+                        alert("FSProc[URISE]", "Error", ex.getMessage(), Alert.AlertType.ERROR);
                         Logger
                                 .getLogger(FXMLDocumentController.class
                                         .getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
-                        Alert("FSProc[IOE]", "Error", ex.getMessage(), Alert.AlertType.ERROR);
+                        alert("FSProc[IOE]", "Error", ex.getMessage(), Alert.AlertType.ERROR);
                         Logger
                                 .getLogger(FXMLDocumentController.class
                                         .getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    Alert("Unsurported Browser", "We could not find a browser", "Check that you have a browser", Alert.AlertType.ERROR);
+                    alert("Unsurported Browser", "We could not find a browser", "Check that you have a browser", Alert.AlertType.ERROR);
                 }
             } else {
                 //return;
@@ -237,23 +237,4 @@ public interface GlobalVars {
         }
     }
 
-    default void Alert(String title, String header, String msg, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(msg);
-        //ButtonType yesBtn = new ButtonType("Copy Link To Clipboard");
-        ButtonType noBtn = new ButtonType("Ok");
-        alert.getButtonTypes().setAll(noBtn);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent()) {
-            if (result.get() == noBtn) {
-                //clode dlg
-                alert.close();
-            } else {
-                //return;
-                alert.close();
-            }
-        }
-    }
 }
