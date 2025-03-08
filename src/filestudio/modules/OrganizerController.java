@@ -15,8 +15,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
 
 /**
  * FXML Controller class
@@ -38,7 +41,19 @@ public class OrganizerController implements Initializable, GlobalVars {
     @FXML
     Label organizerPreviewText;
     @FXML
-    TextField organizerDirTextField;
+    TextField dirPathTbx;
+    @FXML
+    Button browseBtn;
+    @FXML
+    TextField regexInput;
+    @FXML
+    CheckBox regexCheck;
+    @FXML
+    TreeView organizerTree;
+    @FXML
+    Button scanBtn;
+    @FXML
+    Button organizeBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,7 +61,7 @@ public class OrganizerController implements Initializable, GlobalVars {
     }
 
     public void processDir() {
-        String dirToOrganize = organizerDirTextField.getText();
+        String dirToOrganize = dirPathTbx.getText();
         if (dirToOrganize.equals("") || dirToOrganize.equals(null)) {
             //warn user
             //showNotification("FileStudio:Organizer", "Null directory!");
@@ -80,6 +95,7 @@ public class OrganizerController implements Initializable, GlobalVars {
         }
     }
 
+    //TODO: add sublists to tree as leaves under file types branches (Music, Videos etc.)
     public void organizeDir() {
         //->showNotification("FileStudio:Organizer", "Organizing dir...");
         try {
@@ -102,5 +118,15 @@ public class OrganizerController implements Initializable, GlobalVars {
             //orgCmplete.setText(ex.getMessage());
             //Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    //TODO: on ignorelistbtn click, launch ignore list window
+    public void launchIgnoreListApp() {
+
+    }
+
+    //TODO: when destinationBtn is clicked, launch settins with dest params to allow user change organiser settings
+    public void launchDestinationSettings() {
+
     }
 }

@@ -126,6 +126,7 @@ public class DuplicateFinderController implements Initializable, GlobalVars {
                 iFile.delete();
             } else {
                 alert("InternalFS.o[embedded]", "The file " + itm.getValue() + " was not found!", "Will proceed with other available files.", Alert.AlertType.INFORMATION);
+                //continue;
             }
         }
         try {

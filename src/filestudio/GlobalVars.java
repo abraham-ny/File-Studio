@@ -6,8 +6,14 @@ package filestudio;
 
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSnackbar.SnackbarEvent;
+import java.awt.Desktop;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,6 +23,8 @@ import java.time.ZoneId;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -182,5 +190,70 @@ public interface GlobalVars {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
         return fileDate;
+    }
+
+    default void browse(String url) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("File Studio: Launch Browser?");
+        alert.setHeaderText("You are about to open the browser. We need your confirmation because browsers are sometimes resource intensive. If you wish to proceed, click the yes button.");
+        alert.setContentText("Visit " + url + " ?");
+        ButtonType yesBtn = new ButtonType("Yes");
+        ButtonType copyBtn = new ButtonType("Copy Link To Clipboard");
+        ButtonType noBtn = new ButtonType("No");
+        alert.getButtonTypes().setAll(yesBtn, copyBtn, noBtn);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()) {
+            if (result.get() == copyBtn) {
+                //copy to clipboard
+                StringSelection sel = new StringSelection(url);
+                Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
+                cb.setContents(sel, null);
+                //showNotification("FileStudio", "Link copied to clipboard!");
+            } else if (result.get() == noBtn) {
+                //clode dlg
+                alert.close();
+            } else if (result.get() == yesBtn) {
+                if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                    try {
+                        Desktop.getDesktop().browse(new URI(url));
+                    } catch (URISyntaxException ex) {
+                        Alert("FSProc[URISE]", "Error", ex.getMessage(), Alert.AlertType.ERROR);
+                        Logger
+                                .getLogger(FXMLDocumentController.class
+                                        .getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Alert("FSProc[IOE]", "Error", ex.getMessage(), Alert.AlertType.ERROR);
+                        Logger
+                                .getLogger(FXMLDocumentController.class
+                                        .getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    Alert("Unsurported Browser", "We could not find a browser", "Check that you have a browser", Alert.AlertType.ERROR);
+                }
+            } else {
+                //return;
+                alert.close();
+            }
+        }
+    }
+
+    default void Alert(String title, String header, String msg, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(msg);
+        //ButtonType yesBtn = new ButtonType("Copy Link To Clipboard");
+        ButtonType noBtn = new ButtonType("Ok");
+        alert.getButtonTypes().setAll(noBtn);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent()) {
+            if (result.get() == noBtn) {
+                //clode dlg
+                alert.close();
+            } else {
+                //return;
+                alert.close();
+            }
+        }
     }
 }

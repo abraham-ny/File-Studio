@@ -103,8 +103,9 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem openDirMenu = new MenuItem("Open Folder");
         MenuItem createArchMenu = new MenuItem("Create Archive (Compress folder)");
         MenuItem extractArchMenu = new MenuItem("Extract Archive");
+        MenuItem newWindow = new MenuItem("New Window");
         MenuItem exitMenu = new MenuItem("Exit");
-        fileMenu.getItems().addAll(openDirMenu, createArchMenu, extractArchMenu, exitMenu);
+        fileMenu.getItems().addAll(openDirMenu, createArchMenu, extractArchMenu, newWindow, exitMenu);
         //tool menu
         MenuItem ignoreMenu = new MenuItem("Ignore List");
         MenuItem watchMenu = new MenuItem("Watch List");
@@ -121,7 +122,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem prefMenu = new MenuItem("Settings");
         windowMenu.getItems().addAll(maximizeMenu, restoreMenu, prefMenu);
         //help menu [how to, source, check updates, about]
-        MenuItem howMenu = new MenuItem("How To");
+        MenuItem howMenu = new MenuItem("User Guide");
         MenuItem srcMenu = new MenuItem("View Source");
         MenuItem updatesMenu = new MenuItem("Check for Updates");
         MenuItem donateMenu = new MenuItem("Donate");
@@ -198,7 +199,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
                 nT.setContent(upscaleParent);
                 break;
             case "Repo Finder":
-                AnchorPane repoParent = FXMLLoader.load(getClass().getResource("modules/RepoMan.fxml"));
+                AnchorPane repoParent = FXMLLoader.load(getClass().getResource("modules/RepoFinder.fxml"));//repoman (repoman.exe)
                 nT.setContent(repoParent);
                 break;
             //"Onedrive", "Dropbox", "Google Drive"
@@ -290,7 +291,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
     //TO-OD: Apply theme based on prefs
     private void detachTab(Tab tab) {
         Stage detachedStage = new Stage();
-        detachedStage.setTitle(tab.getText() + " - Detached");
+        detachedStage.setTitle(tab.getText() + " - FileStudio: Detached");
         VBox content = new VBox(tab.getContent());
         Scene detachedScene = new Scene(content, 500, 400);
         detachedStage.setScene(detachedScene);
