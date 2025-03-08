@@ -33,8 +33,11 @@ import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
 
 /**
+ * Entry point/main launcher class responsible for receiving command line
+ * arguments(Files and other items or instructions) via main(String[]
+ * parameters)
  *
- * @author Admin
+ * @author Abraham Moruri
  */
 public class FileStudio extends Application {
 
@@ -76,12 +79,12 @@ public class FileStudio extends Application {
             Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);
             stage.setTitle("FileStudio v2");
-
-            stage.setMaximized(true);
-            stage.show();
             stage.resizableProperty().addListener(listener -> {
                 logger.Log("RESIZING -width " + stage.getWidth() + " -height " + stage.getHeight());
             });
+            stage.setMaximized(true);
+            stage.show();
+
         } else {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
@@ -115,7 +118,7 @@ public class FileStudio extends Application {
         }
     }
 
-    private static final String REPO_API_URL = "https://api.github.com/repos/abummoja/file-studio/releases/latest";
+    private static final String REPO_API_URL = "https://api.github.com/repos/abraham-ny/file-studio/releases/latest";
 
     private static String getLatestReleaseTag() throws IOException {
         URL url = new URL(REPO_API_URL);
@@ -258,6 +261,10 @@ public class FileStudio extends Application {
     }
 
     /**
+     * The entry point that receives commands entered via cmd passed to
+     * filestudio.exe as in {filestudio upscaler} or {filestudio organizer} or
+     * {filestudio C://File/Path/Dir}
+     *
      * @param args the command line arguments
      */
     public static void main(String[] args) {
