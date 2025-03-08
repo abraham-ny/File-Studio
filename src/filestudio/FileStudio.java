@@ -76,8 +76,12 @@ public class FileStudio extends Application {
             Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);
             stage.setTitle("FileStudio v2");
+
             stage.setMaximized(true);
             stage.show();
+            stage.resizableProperty().addListener(listener -> {
+                logger.Log("RESIZING -width " + stage.getWidth() + " -height " + stage.getHeight());
+            });
         } else {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
