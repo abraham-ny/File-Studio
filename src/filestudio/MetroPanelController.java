@@ -106,6 +106,14 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem newWindow = new MenuItem("New Window");
         MenuItem exitMenu = new MenuItem("Exit");
         fileMenu.getItems().addAll(openDirMenu, createArchMenu, extractArchMenu, newWindow, exitMenu);
+        openDirMenu.setOnAction(evt -> {
+            pickDir(topBarPath, "Pick Folder", Util.home, topBarPath.getScene().getWindow());
+            activeDir = topBarPath.getText();
+        });
+        exitMenu.setOnAction(value -> {
+            //TODO: check if tasks are running and optionally ask (Do you want to exit?) with a Dont show this again checkbox
+            System.exit(0);
+        });
         //tool menu
         MenuItem ignoreMenu = new MenuItem("Ignore List");
         MenuItem watchMenu = new MenuItem("Watch List");
@@ -128,6 +136,9 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem donateMenu = new MenuItem("Donate");
         MenuItem aboutMenu = new MenuItem("About");
         helpMenu.getItems().addAll(howMenu, srcMenu, updatesMenu, donateMenu, aboutMenu);
+        srcMenu.setOnAction(value -> {
+            browse("https://github.com/abraham-ny/File-Studio");
+        });
         //menu bar
         menuBar.getMenus().addAll(fileMenu, tasksMenu, windowMenu, helpMenu);
         AnchorPane.setTopAnchor(menuBar, 0.0);
