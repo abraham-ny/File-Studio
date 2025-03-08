@@ -18,9 +18,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.CheckBoxTreeCell;
 
 /**
  * FXML Controller class
@@ -63,6 +66,11 @@ public class OrganizerController implements Initializable, GlobalVars {
     }
 
     public void processDir() {
+        CheckBoxTreeItem<String> rootitem = new CheckBoxTreeItem<>("File Categories");
+        rootitem.setExpanded(true);
+        organizerTree.setRoot(rootitem);
+        //organizerTree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
+        organizerTree.setShowRoot(true);
         String dirToOrganize = dirPathTbx.getText();
         if (dirToOrganize.equals("") || dirToOrganize.equals(null)) {
             alert("FS-PROCDIR[FNF](null)", "Folder not found", "Please check the folder path again.", Alert.AlertType.WARNING);
@@ -71,21 +79,52 @@ public class OrganizerController implements Initializable, GlobalVars {
         try {
             auds = iOrganizer.iterateAndFilter(dirToOrganize, audex);
             organizerPreviewText.setText("Found: \n" + auds.length + " audio files\n");
+            TreeItem musicTree = new TreeItem<String>("Music");
+            //rootitem.getChildren().add(musicTree);
+            for (String s : auds) {
+                musicTree.getChildren().add(s);
+            }
             Organizer.clearList();
             vids = iOrganizer.iterateAndFilter(dirToOrganize, videx);
             organizerPreviewText.setText(organizerPreviewText.getText() + vids.length + " videos\n");
+            TreeItem vidTree = new TreeItem<String>("Videos");
+            //rootitem.getChildren().add(vidTree);
+            for (String s : vids) {
+                vidTree.getChildren().add(s);
+            }
             Organizer.clearList();
             pics = iOrganizer.iterateAndFilter(dirToOrganize, picex);
             organizerPreviewText.setText(organizerPreviewText.getText() + pics.length + " pictures\n");
+            TreeItem picTree = new TreeItem<String>("Pictures");
+            //rootitem.getChildren().add(picTree);
+            for (String s : pics) {
+                picTree.getChildren().add(s);
+            }
             Organizer.clearList();
             docs = iOrganizer.iterateAndFilter(dirToOrganize, docex);
             organizerPreviewText.setText(organizerPreviewText.getText() + docs.length + " documents\n");
+            TreeItem docTree = new TreeItem<String>("Documents");
+            //rootitem.getChildren().add(docTree);
+            for (String s : docs) {
+                docTree.getChildren().add(s);
+            }
             Organizer.clearList();
             exes = iOrganizer.iterateAndFilter(dirToOrganize, appex);
             organizerPreviewText.setText(organizerPreviewText.getText() + exes.length + " apps\n");
+            TreeItem appTree = new TreeItem<String>("Apps");
+            //rootitem.getChildren().add(musicTree);
+            for (String s : exes) {
+                appTree.getChildren().add(s);
+            }
             Organizer.clearList();
             archs = iOrganizer.iterateAndFilter(dirToOrganize, archex);
             organizerPreviewText.setText(organizerPreviewText.getText() + archs.length + " compressed (archived) files.");
+            TreeItem zipTree = new TreeItem<String>("Archived/Compressed Files");
+            //rootitem.getChildren().add(zipTree);
+            for (String s : archs) {
+                zipTree.getChildren().add(s);
+            }
+            rootitem.getChildren().addAll(musicTree, vidTree, picTree, docTree, appTree, zipTree);
             Organizer.clearList();
             //->showNotification("FileStudio:Organizer", "Finished processing dir.");
         } catch (IOException ex) {
