@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML.java to edit this template
- */
 package filestudio;
 
 import com.google.gson.JsonObject;
@@ -45,6 +41,13 @@ public class FileStudio extends Application {
     FLogger logger = new FLogger();
     Stage istage;
 
+    /**
+     * Starts the JavaFX application.
+     * Sets up the main stage with the appropriate UI based on user settings.
+     *
+     * @param stage The primary stage for this application.
+     * @throws Exception If loading the FXML or other initialization fails.
+     */
     @Override
     public void start(Stage stage) throws Exception {
         if (uss.useMetro.equals("yes")) {
@@ -100,7 +103,6 @@ public class FileStudio extends Application {
                         scene.getStylesheets().add("filestudio/style.css");
                 }
                 stage.setScene(scene);
-                //stage.setIconified(true); //launches the app in minimized state
                 Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
                 stage.getIcons().add(i);
                 stage.initStyle(StageStyle.UNDECORATED);
@@ -120,6 +122,12 @@ public class FileStudio extends Application {
 
     private static final String REPO_API_URL = "https://api.github.com/repos/abraham-ny/file-studio/releases/latest";
 
+    /**
+     * Retrieves the latest release tag from the GitHub repository.
+     *
+     * @return The latest release tag as a String.
+     * @throws IOException If an I/O error occurs during the HTTP request.
+     */
     private static String getLatestReleaseTag() throws IOException {
         URL url = new URL(REPO_API_URL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -140,9 +148,12 @@ public class FileStudio extends Application {
 
     String url = "https://sourceforge.net/projects/filestudio/";
 
+    /**
+     * Checks for updates by comparing the current version with the latest release.
+     * Displays alerts to the user about update availability.
+     */
     void checkForUpdates() {
         try {
-            // Get the latest release from GitHub
             String latestVersion = getLatestReleaseTag();
             logger.Log("Checking for updates on : " + ver);
             if (!ver.equals(latestVersion)) {
@@ -178,26 +189,26 @@ public class FileStudio extends Application {
                         }
                     }
                 }
-                // Download the filestudio.exe
-                //downloadFileFromRelease(latestVersion, "filestudio.exe");
             } else {
                 logger.Log("launcher - You are using the latest version: " + ver);
                 alert("Updater", "Latest version is : " + latestVersion, "You are using the latest version.", Alert.AlertType.INFORMATION);
             }
         } catch (IOException e) {
             logger.Log("launcher - FAILED TO CHECK FOR UPDATES!");
-            //e.printStackTrace();
             alert("Network Error", "Failed to check for updates!", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
+    /**
+     * Launches the main GUI stage.
+     *
+     * @param stage The stage to launch.
+     * @throws Exception If loading the FXML or other initialization fails.
+     */
     public void launchGUI(Stage stage) throws Exception {
-        //TO-DO: Read prefs to check if user has selected newUI or just launch old Ui
-        //if prefs newui(...try(load newui))else (try...old ui)
         try {
             Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
             Scene scene = new Scene(root);
-            //stylesheets="@style.css"
             switch (uss.theme) {
                 case "dark":
                     scene.getStylesheets().add("filestudio/style.css");
@@ -208,12 +219,7 @@ public class FileStudio extends Application {
                 default:
                     scene.getStylesheets().add("filestudio/style.css");
             }
-
-            //getClass().getResource("style.css").getFile()
             stage.setScene(scene);
-            //stage.setIconified(true); //launches the app in minimized state
-            //File f = new File(getClass().getResource("FileStudioMain.ico").getFile());
-            //.ico files don't work, use .png or .jpg
             Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
             stage.getIcons().add(i);
             stage.initStyle(StageStyle.UNDECORATED);
@@ -229,13 +235,20 @@ public class FileStudio extends Application {
         }
     }
 
+    /**
+     * Displays an alert dialog to the user.
+     *
+     * @param title The title of the alert.
+     * @param header The header text of the alert.
+     * @param message The content message of the alert.
+     * @param type The type of the alert.
+     */
     private void alert(String title, String header, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(message);
         ButtonType yesBtn = new ButtonType("Ok");
-        //ButtonType noBtn = new ButtonType("Close");
         alert.getButtonTypes().setAll(yesBtn);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {
@@ -249,7 +262,6 @@ public class FileStudio extends Application {
                 alert.close();
             } else {
                 try {
-                    //return;
                     launchGUI(istage);
                 } catch (Exception ex) {
                     Logger.getLogger(FileStudio.class.getName()).log(Level.WARNING, null, ex);
