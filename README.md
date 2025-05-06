@@ -6,106 +6,109 @@
 
 ---
 
-## Overview
+## Product Overview
 
-File Studio is a powerful Java-based desktop application designed to handle advanced file operations with a custom graphical user interface. It supports a variety of file management tasks such as bulk renaming, organizing folders, duplicate file detection, file compression, archiving, disk scanning, and media upscaling. The application offers both a classic and a modern Metro-style UI with theme support, drag-and-drop functionality, and automatic update checking.
+File Studio is a robust and versatile desktop application developed in Java, engineered to streamline and enhance file management tasks for end-users and professionals alike. Featuring an intuitive and customizable graphical user interface, File Studio empowers users to efficiently perform complex file operations with ease and precision.
 
----
-
-## Features
-
-- Bulk renaming of files by replacing specified substrings in filenames.
-- Organizing folders by filtering and moving files based on extensions.
-- Duplicate file finder with options for automatic selection and deletion.
-- Image and video upscaling (feature under development).
-- File compression and archiving directories.
-- Disk compression and disk scanning utilities.
-- Disk formatting capabilities.
-- Customizable GUI with dark and light themes.
-- Drag-and-drop support for easy file and folder input.
-- Automatic update checking with notifications.
-- Cross-platform support (Java 8 and JavaFX based).
+The application supports a comprehensive suite of functionalities including bulk file renaming, folder organization, duplicate file detection and removal, file compression and archiving, disk scanning and formatting, as well as media upscaling capabilities. With dual UI modes—classic and modern Metro style—alongside theme customization and drag-and-drop support, File Studio delivers a seamless and productive user experience.
 
 ---
 
-## Libraries Used
+## Key Features
 
-- gson 2.8.6
-- zstd jni 1.5.6-4
-- img scalr (4.2)
-- xz (tukaani.xz) 1.10
-- apache commons compress 1.25 (with javadoc jar)
-- json (org.json) [optional]
-- json-smart 2.x
-- json-path 2.x
-- JMetro (8.6.14)
-- jFoenix (8.0.10)
-
----
-
-## Test Libraries
-
-- testng-6.14.3
-- jcommander-1.78
+- **Bulk File Renaming:** Efficiently rename multiple files by replacing specified substrings within filenames.
+- **Folder Organization:** Automatically organize files by filtering and relocating them based on file extensions.
+- **Duplicate File Finder:** Detect and manage duplicate files with options for automatic selection and deletion.
+- **Media Upscaling:** Enhance image and video quality through advanced upscaling algorithms (feature under development).
+- **File Compression & Archiving:** Compress files and archive directories to optimize storage.
+- **Disk Utilities:** Perform disk compression, scanning, and formatting operations.
+- **Customizable User Interface:** Choose between classic and Metro-style UI with dark and light themes.
+- **Drag-and-Drop Support:** Simplify file and folder input via intuitive drag-and-drop functionality.
+- **Automatic Update Notifications:** Stay up-to-date with built-in update checking and notification system.
+- **Cross-Platform Compatibility:** Built on Java 8 and JavaFX, ensuring broad platform support.
 
 ---
 
-## Installation
+## Technology Stack & Libraries
 
-1. Ensure you have Java 8 or higher installed on your system.
-2. Download the latest release from the [SourceForge File Studio project page](https://sourceforge.net/projects/filestudio/files/latest/download).
-3. Extract the downloaded archive if necessary.
-4. Run the executable or launch the application via command line using the provided scripts or jar files.
-
----
-
-## Usage
-
-- Launch the application to open the GUI.
-- Use the drag-and-drop feature to add files or folders for processing.
-- Navigate through the modules for specific tasks such as renaming, organizing, or finding duplicates.
-- Configure settings and preferences via the settings UI.
-- Check for updates automatically or manually through the application interface.
+- Java 8, JavaFX
+- Gson 2.8.6
+- Zstandard JNI 1.5.6-4
+- Imgscalr 4.2
+- XZ (Tukaani.xz) 1.10
+- Apache Commons Compress 1.25
+- JSON (org.json) [optional]
+- JSON-Smart 2.x
+- JSON-Path 2.x
+- JMetro 8.6.14
+- JFoenix 8.0.10
 
 ---
 
-## Development
+## Testing Frameworks
+
+- TestNG 6.14.3
+- JCommander 1.78
+
+---
+
+## Installation Guide
+
+1. Ensure Java 8 or higher is installed on your system.
+2. Download the latest stable release from the [SourceForge File Studio project page](https://sourceforge.net/projects/filestudio/files/latest/download).
+3. Extract the downloaded package if necessary.
+4. Launch the application via the executable or command line using the provided scripts or JAR files.
+
+---
+
+## Getting Started
+
+- Launch File Studio to open the main graphical interface.
+- Utilize drag-and-drop to add files or directories for processing.
+- Access dedicated modules for tasks such as renaming, organizing, and duplicate detection.
+- Customize application settings through the preferences UI.
+- Check for software updates automatically or manually within the application.
+
+---
+
+## Development Environment
 
 - Developed using Java 8 and JavaFX.
-- Built with Apache Ant.
+- Build system: Apache Ant.
 - Recommended IDE: NetBeans (project files included).
-- Optional: Scene Builder for editing FXML UI files.
-- Source code is organized under the `src/filestudio` directory with modular controllers and utilities.
+- Optional: Scene Builder for FXML UI design.
+- Source code is modularized under the `src/filestudio` directory.
 
 ---
 
-## Contributing
+## Contribution Guidelines
 
-Contributions are welcome! To contribute:
+We welcome contributions from the community. To contribute:
 
 1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes with clear commit messages.
-4. Test your changes thoroughly.
-5. Submit a pull request describing your changes.
+2. Create a feature or bugfix branch.
+3. Commit changes with clear, descriptive messages.
+4. Thoroughly test your modifications.
+5. Submit a pull request for review.
 
-Please adhere to the existing code style and conventions.
+Please follow the existing coding standards and project conventions.
 
 ---
 
-## Screenshots
+## Visuals
 
 ![File Studio Banner](fs-1-2.png)  
-![New UI Coming Up](newFS.PNG)
+![Upcoming New UI](newFS.PNG)
 
 ---
 
 ## License
 
-This project is licensed under the terms specified in the LICENSE file.
+This project is licensed under the terms outlined in the LICENSE file.
 
 ---
 
-## Contact
+## Support & Contact
 
-For support or inquiries, please open an issue on the GitHub repository or contact the maintainer directly.
+For support, feature requests, or bug reports, please open an issue on the GitHub repository or contact the maintainer directly.
+
