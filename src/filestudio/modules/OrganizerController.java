@@ -69,7 +69,7 @@ public class OrganizerController implements Initializable, GlobalVars {
         CheckBoxTreeItem<String> rootitem = new CheckBoxTreeItem<>("File Categories");
         rootitem.setExpanded(true);
         organizerTree.setRoot(rootitem);
-        //organizerTree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
+        organizerTree.setCellFactory(CheckBoxTreeCell.<String>forTreeView());
         organizerTree.setShowRoot(true);
         String dirToOrganize = dirPathTbx.getText();
         if (dirToOrganize.equals("") || dirToOrganize.equals(null)) {
@@ -79,50 +79,50 @@ public class OrganizerController implements Initializable, GlobalVars {
         try {
             auds = iOrganizer.iterateAndFilter(dirToOrganize, audex);
             organizerPreviewText.setText("Found: \n" + auds.length + " audio files\n");
-            TreeItem musicTree = new TreeItem<String>("Music");
+            TreeItem<String> musicTree = new TreeItem<>("Music");
             //rootitem.getChildren().add(musicTree);
             for (String s : auds) {
-                musicTree.getChildren().add(s);
+                musicTree.getChildren().add(new TreeItem<>(s));
             }
             Organizer.clearList();
             vids = iOrganizer.iterateAndFilter(dirToOrganize, videx);
             organizerPreviewText.setText(organizerPreviewText.getText() + vids.length + " videos\n");
-            TreeItem vidTree = new TreeItem<String>("Videos");
+            TreeItem<String> vidTree = new TreeItem<>("Videos");
             //rootitem.getChildren().add(vidTree);
             for (String s : vids) {
-                vidTree.getChildren().add(s);
+                vidTree.getChildren().add(new TreeItem<>(s));
             }
             Organizer.clearList();
             pics = iOrganizer.iterateAndFilter(dirToOrganize, picex);
             organizerPreviewText.setText(organizerPreviewText.getText() + pics.length + " pictures\n");
-            TreeItem picTree = new TreeItem<String>("Pictures");
+            TreeItem<String> picTree = new TreeItem<>("Pictures");
             //rootitem.getChildren().add(picTree);
             for (String s : pics) {
-                picTree.getChildren().add(s);
+                picTree.getChildren().add(new TreeItem<>(s));
             }
             Organizer.clearList();
             docs = iOrganizer.iterateAndFilter(dirToOrganize, docex);
             organizerPreviewText.setText(organizerPreviewText.getText() + docs.length + " documents\n");
-            TreeItem docTree = new TreeItem<String>("Documents");
+            TreeItem<String> docTree = new TreeItem<>("Documents");
             //rootitem.getChildren().add(docTree);
             for (String s : docs) {
-                docTree.getChildren().add(s);
+                docTree.getChildren().add(new TreeItem<>(s));
             }
             Organizer.clearList();
             exes = iOrganizer.iterateAndFilter(dirToOrganize, appex);
             organizerPreviewText.setText(organizerPreviewText.getText() + exes.length + " apps\n");
-            TreeItem appTree = new TreeItem<String>("Apps");
+            TreeItem<String> appTree = new TreeItem<>("Apps");
             //rootitem.getChildren().add(musicTree);
             for (String s : exes) {
-                appTree.getChildren().add(s);
+                appTree.getChildren().add(new TreeItem<>(s));
             }
             Organizer.clearList();
             archs = iOrganizer.iterateAndFilter(dirToOrganize, archex);
             organizerPreviewText.setText(organizerPreviewText.getText() + archs.length + " compressed (archived) files.");
-            TreeItem zipTree = new TreeItem<String>("Archived/Compressed Files");
+            TreeItem<String> zipTree = new TreeItem<>("Archived/Compressed Files");
             //rootitem.getChildren().add(zipTree);
             for (String s : archs) {
-                zipTree.getChildren().add(s);
+                zipTree.getChildren().add(new TreeItem<>(s));
             }
             rootitem.getChildren().addAll(musicTree, vidTree, picTree, docTree, appTree, zipTree);
             Organizer.clearList();

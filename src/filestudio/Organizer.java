@@ -6,15 +6,15 @@ package filestudio;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,78 +22,62 @@ import java.util.List;
  */
 public class Organizer {
 
-    static String sts;
-    static String files[] = {""};
-    public static List<String> fileList = new ArrayList<>(Arrays.asList(files));
+    private static final Logger logger = Logger.getLogger(Organizer.class.getName());
 
-    //get files by extension. Not recursive for subfolders (TODO)
-    public String[] iterateAndFilter(String mpath, String ext) throws IOException {
+    // Recursive method to get files by extension (regex) including subdirectories
+    public List<String> iterateAndFilter(String mpath, String ext) throws IOException {
+        List<String> fileList = new ArrayList<>();
         Path dir = Paths.get(mpath);
         File checkIfExists = new File(mpath);
-        File[] iCheck = checkIfExists.listFiles();
-        if(iCheck.length <= 0){
-            return null;
+        if (!checkIfExists.exists() || !checkIfExists.isDirectory()) {
+            logger.warning("Directory does not exist or is not a directory: " + mpath);
+            return fileList;
         }
-        PathMatcher imageFileMatcher
-                = FileSystems.getDefault().getPathMatcher(
-                        ext);
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir,
-                entry -> imageFileMatcher.matches(entry.getFileName()))) {
-            for (Path path : stream) {
-                System.out.println(path.getFileName());
-                System.out.println(path.toString());
-                fileList.add(path.toString());
-                // sts = "Moved "+ext+" files from "+mpath;
-                //sts = "\nFound: "+fflist.size()+" files of type "+ext;
+        PathMatcher matcher = FileSystems.getDefault().getPathMatcher(ext);
+        try {
+            Files.walk(dir)
+                .filter(path -> matcher.matches(path.getFileName()) && Files.isRegularFile(path))
+                .forEach(path -> {
+                    logger.log(Level.FINE, "Matched file: {0}", path.toString());
+                    fileList.add(path.toString());
+                });
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error walking directory: " + mpath, e);
+            throw e;
+        }
+        logger.log(Level.INFO, "Found {0} files matching {1} in {2}", new Object[]{fileList.size(), ext, mpath});
+        return fileList;
+    }
+
+    // Move a single file from source to destination directory
+    public void moveFile(String sourceFilePath, String destDirPath) throws IOException {
+        File sourceFile = new File(sourceFilePath);
+        File destDir = new File(destDirPath);
+        if (!destDir.exists() || !destDir.isDirectory()) {
+            throw new IOException("Destination is not a valid directory: " + destDirPath);
+        }
+        File destFile = new File(destDir, sourceFile.getName());
+        boolean success = sourceFile.renameTo(destFile);
+        if (!success) {
+            String msg = "Failed to move file " + sourceFilePath + " to " + destFile.getAbsolutePath();
+            logger.severe(msg);
+            throw new IOException(msg);
+        } else {
+            logger.log(Level.INFO, "Moved file {0} to {1}", new Object[]{sourceFilePath, destFile.getAbsolutePath()});
+        }
+    }
+
+    // Move multiple files to destination directory
+    public void moveFilesBatch(String destDirPath, List<String> files) throws IOException {
+        int movedCount = 0;
+        for (String filePath : files) {
+            try {
+                moveFile(filePath, destDirPath);
+                movedCount++;
+            } catch (IOException e) {
+                logger.log(Level.WARNING, "Failed to move file: " + filePath, e);
             }
         }
-        files = fileList.toArray(new String[fileList.size()]);
-        System.out.println(files.length);
-        //fss should be a variable to receive the directory path due to current file extension
-        //fss = "C:\\Users\\User\\Music";
-        // moveF(fss);
-        return files;
-    }
-
-    //same as above, but i dont wanna break by removing since i dont know where it is used
-    public void listFiles(String type, String dir) throws IOException {
-        iterateAndFilter(dir, type);
-    }
-
-    //useage: to clear the list of files of a certain extension and call the iterateFilter method again to get files
-    public static void clearList() {
-        fileList.clear();
-        files = fileList.toArray(new String[fileList.size()]);
-    }
-
-    //move files from one dir to another
-    public static void moveFiles(String morig, String mdest) throws IOException {
-
-        File orig = new File(morig);
-        File dest = new File(mdest);
-        //String orr = orig.getAbsolutePath();
-        String nf = dest.getAbsolutePath();
-        String nm = orig.getName();
-        //nf is dir and nm is original file name the\\ take the file into the dir not at dir level
-        File fin = new File(nf + "\\" + nm);
-        System.out.println("\nnf is " + nf + " nm is " + nm);
-        System.out.println("\n==> " + fin.getAbsolutePath());
-        if (dest.isDirectory()) {
-            orig.renameTo(fin);
-            sts = fin.getAbsolutePath();
-        } else {
-            System.err.println("not a directory" + dest.getAbsolutePath());
-        }
-    }
-
-    //just a quick write up to move string[] of files to new destination
-    public void moveFi(String destina, String[] ff) throws IOException {
-        int i = 0;
-        for (String t : ff) {
-            i += 1;
-            System.out.println("\nmoving from " + t + " to " + destina);
-            moveFiles(t, destina);
-            sts += "\nmoved " + i + " files.";
-        }
+        logger.log(Level.INFO, "Moved {0} files to {1}", new Object[]{movedCount, destDirPath});
     }
 }
