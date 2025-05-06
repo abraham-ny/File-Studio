@@ -74,15 +74,16 @@ public class MetroPanelController implements Initializable, GlobalVars {
 
     public static String activeDir;
 
-    String[] titles = {"Bulk Renamer", "Duplicate Finder", "File Organizer", "Archive Handler", "Media Upscale", "Onedrive", "Dropbox", "Google Drive"};
+    String[] titles = {"Bulk Renamer", "Duplicate Finder", "File Organizer", "Archive Handler", "Media Upscale", "Onedrive", "Dropbox", "Google Drive", "Repo Manager"};
     String[] descriptions = {"Rename multiple files based on custom or default criteria", "Find and optionally delete duplicate files occupying useful space on your storage device",
         "Organize files based on custom or default criteria (move files of a certain type such as videos into a common folder etc.), helps to find files faster",
         "Compress/Archive and Extract/Unarchive files and folders into all archive formats, supports ultra compression",
         "Improve video/image quality using advanced image processing technology and OpenUpscaler (improve videos from 360p to 1080p or 4K)",
         "Link to one drive",
         "Connect with a drop box account",
-        "Connect to GDDR"};
-    String[] imagePaths = {"renamer.png", "duplicate.png", "organizer.png", "task_archiver.png", "upscaler.png", "onedrive.png", "Dropbox250.png", "gddr.png"};
+        "Connect to GDDR",
+        "Scan and manage local git repositories easily with GUI."};
+    String[] imagePaths = {"renamer.png", "duplicate.png", "organizer.png", "task_archiver.png", "upscaler.png", "onedrive.png", "Dropbox250.png", "gddr.png", "file_code.png"};
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

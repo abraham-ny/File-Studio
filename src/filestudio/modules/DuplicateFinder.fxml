@@ -11,7 +11,7 @@
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.modules.DuplicateFinderController">
     <children>
         <TextField fx:id="dirPathTbx" layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="465.0" promptText="Path to folder" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="14.0" />
-        <Button fx:id="browseBtn" layoutX="486.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Browse" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
+        <Button fx:id="browseBtn" onAction="#pickFolder" layoutX="486.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Browse" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="14.0" />
         <CheckBox fx:id="ecoCheck" layoutX="12.0" layoutY="53.0" mnemonicParsing="false" text="Eco Mode" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="53.0" />
         <CheckBox fx:id="autoDelCheck" layoutX="118.0" layoutY="53.0" mnemonicParsing="false" text="Auto Delete" AnchorPane.leftAnchor="118.0" AnchorPane.topAnchor="53.0" />
         <TreeView fx:id="dupeTree" layoutX="12.0" layoutY="122.0" prefHeight="237.0" prefWidth="465.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="122.0" />

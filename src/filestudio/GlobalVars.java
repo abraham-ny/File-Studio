@@ -266,6 +266,7 @@ public interface GlobalVars {
             stage.show();
         } catch (IOException ex) {
             alert("listman[IOE]", "Failed to load List Manager for " + str, ex.getMessage(), Alert.AlertType.ERROR);
+            System.out.println("ABU: Organizer failed to launch addlist controller from GlobalVars because: " + ex.getMessage());
             Logger.getLogger(MetroPanelController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
