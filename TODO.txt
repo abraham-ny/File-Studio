@@ -1,0 +1,47 @@
+File Studio - Improvement TODO and Current Code Quality Assessment
+
+1. Logging System
+- Enhance FLogger to support log levels (INFO, WARN, ERROR).
+- Implement asynchronous logging to avoid blocking UI.
+- Improve error handling in logging to report failures.
+- Replace silent exception swallowing with proper error reporting.
+
+2. FileRenamer Improvements
+- Rename method "removeWordFromList" to better reflect functionality.
+- Handle renameTo return value to confirm success or failure.
+- Avoid using replaceAll with unescaped strings to prevent regex issues.
+- Add logging for individual file rename operations and failures.
+- Improve exception handling strategy.
+
+3. Organizer Module
+- Implement recursive file filtering in iterateAndFilter (currently non-recursive).
+- Avoid use of static mutable state for file lists and status messages.
+- Replace System.out.println debugging with proper logging.
+- Check and handle renameTo success in moveFiles method.
+- Improve method and variable naming for clarity.
+- Add better exception handling and user feedback.
+
+4. General Code Quality and Best Practices
+- Increase use of Javadoc comments for all classes and methods.
+- Follow consistent naming conventions and improve code readability.
+- Modularize code further to separate concerns.
+- Add unit and integration tests for critical modules.
+- Improve error handling with user-friendly alerts and logging.
+- Consider adopting a logging framework like Log4j or SLF4J.
+
+5. UI and User Experience
+- Continue development and testing of Metro-style UI.
+- Improve drag-and-drop support robustness.
+- Enhance update notification system with better feedback.
+
+6. Build and Dependency Management
+- Consider migrating from Ant to Maven or Gradle for better dependency management and build automation.
+
+Current Code Quality Score (Estimated):
+- Based on the code structure, documentation, and recent changelog, the project appears to be at a moderate quality level.
+- Basic functionality is implemented with some refactoring and bug fixes ongoing.
+- Logging and error handling need significant improvement.
+- Code modularity and naming conventions are generally followed but can be enhanced.
+- Estimated score: 65-75% (subjective estimate based on available information).
+
+This TODO list aims to guide future improvements to enhance maintainability, robustness, and user experience.
