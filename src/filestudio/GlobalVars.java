@@ -79,6 +79,8 @@ public interface GlobalVars {
         DirectoryChooser dirChooser = new DirectoryChooser();
         if (initialD != null || !"none".equals(initialD)) {
             dirChooser.setInitialDirectory(new File(initialD));
+        } else {
+            initialD = System.getProperty("user.home");
         }
         dirChooser.setTitle(title);
         File selectedFolder = dirChooser.showDialog(owner);

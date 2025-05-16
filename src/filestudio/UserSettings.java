@@ -27,6 +27,7 @@ public class UserSettings {
     public String docsdir = pref.get("docsdir", "C:\\Users\\" + unm + "\\Documents\\FileStudio");
     public String theme = pref.get("theme", "light");
     public String useMetro = pref.get("metro", "yes");
+    public boolean showStartupScreen = pref.getBoolean("showstart", true);
     public String[] dirs = {mp3dir, mp4dir, picdir, archdir, appsdir, docsdir};
     public boolean isSettingsPageOpen = false;
 
@@ -36,6 +37,10 @@ public class UserSettings {
 
     public void setDir(String toUpdate, String val) {
         pref.put(toUpdate, val);//update the prefs.
+    }
+
+    public void setBool(String key, boolean value) {
+        pref.putBoolean(key, value);
     }
 
     public void resetAll() {
@@ -48,6 +53,7 @@ public class UserSettings {
         setDir("docsdir", "C:\\Users\\" + unm + "\\Documents\\FileStudio");
         setDir("theme", "light");//setDir can update any pref value including theme string
         setDir("metro", "yes");
+        pref.putBoolean("showstart", true);
         saveSettings();
         createDir(dirs);
     }

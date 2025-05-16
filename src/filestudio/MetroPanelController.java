@@ -74,7 +74,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
 
     public static String activeDir;
 
-    String[] titles = {"Bulk Renamer", "Duplicate Finder", "File Organizer", "Archive Handler", "Media Upscale", "Onedrive", "Dropbox", "Google Drive", "Repo Manager"};
+    String[] titles = {"Bulk Renamer", "Duplicate Finder", "File Organizer", "Archive Handler", "Media Upscale", "Onedrive", "Dropbox", "Google Drive", "Repo Manager", "Dir Tree"};
     String[] descriptions = {"Rename multiple files based on custom or default criteria", "Find and optionally delete duplicate files occupying useful space on your storage device",
         "Organize files based on custom or default criteria (move files of a certain type such as videos into a common folder etc.), helps to find files faster",
         "Compress/Archive and Extract/Unarchive files and folders into all archive formats, supports ultra compression",
@@ -82,8 +82,8 @@ public class MetroPanelController implements Initializable, GlobalVars {
         "Link to one drive",
         "Connect with a drop box account",
         "Connect to GDDR",
-        "Scan and manage local git repositories easily with GUI."};
-    String[] imagePaths = {"renamer.png", "duplicate.png", "organizer.png", "task_archiver.png", "upscaler.png", "onedrive.png", "Dropbox250.png", "gddr.png", "file_code.png"};
+        "Scan and manage local git repositories easily with GUI.", "Take a snapshot of your current directory tree. Similar to indexing."};
+    String[] imagePaths = {"renamer.png", "duplicate.png", "organizer.png", "task_archiver.png", "upscaler.png", "onedrive.png", "Dropbox250.png", "gddr.png", "file_code.png", "ic_dir_branch.png"};
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
