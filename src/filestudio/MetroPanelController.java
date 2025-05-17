@@ -189,6 +189,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
             Scene scene = metroAnchor.getScene();
             if (rb != null && rb.containsKey("dir")) {
                 iUpdatePath(rb.getString("dir"));
+                System.out.println("rb is not null - " + rb.getString("dir"));
             }
             scene.setOnDragOver(evt -> {
                 if (evt.getDragboard().hasFiles() || evt.getDragboard().hasString() || evt.getDragboard().hasUrl()) {

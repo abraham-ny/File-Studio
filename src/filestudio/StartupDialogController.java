@@ -104,6 +104,7 @@ public class StartupDialogController implements Initializable, GlobalVars {
     }
 
     private void addHistory(String activeDir) {
+        //This method makes sure no path is repeated in the list and the last accessed dir is first! Pretty neat!
         JsonHandler jh = new JsonHandler();
         List<String> sel = new ArrayList<>();
         sel.add(activeDir);

@@ -81,7 +81,7 @@ public class JsonHandler {
 
                 for (int i = 0; i < jsonArray.size(); i++) {
                     names.add(jsonArray.get(i).getAsString());
-                    System.out.println(jsonArray.get(i).getAsString());
+                    //System.out.println(jsonArray.get(i).getAsString());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
