@@ -215,7 +215,7 @@ public class FXMLDocumentController implements Initializable {
                 logger.Log(mi.getText());
                 switch (mi.getText()) {
                     case "Share":
-                        String smailto = "mailto:?subject=" + encodeUrl("Advanced file handler.") + "&body=" + encodeUrl("I use FileStudio" + sfUrl);
+                        String smailto = "mailto:erh3560@gmail.com?subject=" + encodeUrl("Advanced file handler.") + "&body=" + encodeUrl("I use FileStudio" + sfUrl);
                         try {
                             Desktop dt = Desktop.getDesktop();
                             dt.mail(new URI(smailto));
@@ -1285,7 +1285,7 @@ public class FXMLDocumentController implements Initializable {
         compressorDest.setText(new File(path).getParent());
     }
 
-    public void metroTest() {
+    /*public void metroTest() {
         Stage stage = new Stage();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
@@ -1325,4 +1325,5 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     */
 }

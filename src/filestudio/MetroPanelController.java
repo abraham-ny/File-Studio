@@ -37,6 +37,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -183,6 +185,33 @@ public class MetroPanelController implements Initializable, GlobalVars {
             notify(e.getMessage(), true);
             e.printStackTrace();
         }
+        Platform.runLater(() -> {
+            Scene scene = metroAnchor.getScene();
+            if (rb != null && rb.containsKey("dir")) {
+                iUpdatePath(rb.getString("dir"));
+            }
+            scene.setOnDragOver(evt -> {
+                if (evt.getDragboard().hasFiles() || evt.getDragboard().hasString() || evt.getDragboard().hasUrl()) {
+                    evt.acceptTransferModes(TransferMode.COPY);
+                }
+                evt.consume();
+            });
+            scene.setOnDragDropped(evt -> {
+                Dragboard dboard = evt.getDragboard();
+                if (dboard.hasFiles()) {
+                    File firstDir = new File(dboard.getFiles().get(0).getPath());
+                    if (new File(dboard.getFiles().get(0).getPath()).isDirectory()) {
+                        iUpdatePath(firstDir.getAbsolutePath());
+                    }
+                } else if (dboard.hasString()) {
+                    iUpdatePath(dboard.getString());
+                } else if (dboard.hasUrl()) {
+                    iUpdatePath(dboard.getUrl());
+                }
+                evt.setDropCompleted(true);
+                evt.consume();
+            });
+        });
     }
 
     void addTab(String name, String desc, String icon) throws IOException {
@@ -295,11 +324,8 @@ public class MetroPanelController implements Initializable, GlobalVars {
 
     void iUpdatePath(String newPath) {
         topBarPath.setText(newPath);
-        new MetroPanelController().notify(newPath, false);
-    }
-
-    public static void updatePath(String path) {
-
+        activeDir = topBarPath.getText();
+        //new MetroPanelController().notify(newPath, false);
     }
 
     //TO-OD: Apply theme based on prefs

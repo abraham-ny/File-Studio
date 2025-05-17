@@ -292,7 +292,7 @@ public class SettingsUIController implements Initializable, GlobalVars {
         mStage = st;//this method receives the stage for closing purposes
     }
 
-    public void launchMetro() {
+    /*public void launchMetro() {
         Stage stage = new Stage();
         try {
             Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
@@ -331,5 +331,5 @@ public class SettingsUIController implements Initializable, GlobalVars {
         } catch (IOException ex) {
             Logger.getLogger(SettingsUIController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 }
