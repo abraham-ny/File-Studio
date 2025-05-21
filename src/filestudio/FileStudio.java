@@ -60,52 +60,19 @@ public class FileStudio extends Application {
             stage.setResizable(false);
             stage.show();
         } else {
-            if (uss.useMetro.equals("yes")) {
-                Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                JMetro metro = new JMetro(Style.DARK);
-                metro.setScene(scene);
-                Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
-                stage.getIcons().add(i);
-                stage.setTitle("FileStudio v2");
-                stage.resizableProperty().addListener(listener -> {
-                    logger.Log("RESIZING -width " + stage.getWidth() + " -height " + stage.getHeight());
-                });
-                stage.setMaximized(true);
-                stage.show();
-
-            } else {
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-                    Scene scene = new Scene(root);
-                    switch (uss.theme) {
-                        case "dark":
-                            scene.getStylesheets().add("filestudio/style.css");
-                            break;
-                        case "light":
-                            scene.getStylesheets().add("filestudio/light.css");
-                            break;
-                        default:
-                            scene.getStylesheets().add("filestudio/style.css");
-                    }
-                    stage.setScene(scene);
-                    //stage.setIconified(true); //launches the app in minimized state
-                    Image i = new Image(getClass().getResourceAsStream("FileStudioMainIcon.png"));
-                    stage.getIcons().add(i);
-                    stage.initStyle(StageStyle.UNDECORATED);
-                    stage.setResizable(false);
-                    stage.maximizedProperty().addListener((obs, oldv, newv) -> {
-                        if (newv) {
-                            stage.setMaximized(false);
-                        }
-                    });
-                    stage.show();
-                } catch (IOException e) {
-                    System.out.println("File-Studio init Fxml err Abu, " + e.getMessage() + e.getCause().toString());
-                    alert("File-Studio init Fxml err Abu - " + e.getMessage(), e.getMessage() + System.lineSeparator() + e.getLocalizedMessage(), e.getCause().toString(), Alert.AlertType.ERROR);
-                }
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("MetroPanel.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            JMetro metro = new JMetro(uss.getStyle());
+            metro.setScene(scene);
+            Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+            stage.getIcons().add(i);
+            stage.setTitle("FileStudio v2");
+            stage.resizableProperty().addListener(listener -> {
+                logger.Log("RESIZING -width " + stage.getWidth() + " -height " + stage.getHeight());
+            });
+            stage.setMaximized(true);
+            stage.show();
         }
     }
 

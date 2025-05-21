@@ -38,6 +38,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import jfxtras.styles.jmetro.JMetro;
@@ -259,7 +260,8 @@ public interface GlobalVars {
             Stage stage = new Stage();
             Scene scene = new Scene(parent);
             stage.setScene(scene);
-            JMetro metro = new JMetro(Style.DARK);
+            UserSettings uss = new UserSettings();
+            JMetro metro = new JMetro(uss.getStyle());
             metro.setScene(scene);
             Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);

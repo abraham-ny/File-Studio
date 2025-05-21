@@ -169,13 +169,6 @@ public class StartupDialogController implements Initializable, GlobalVars {
         //Launch metro panel with string args
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MetroPanel.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        JMetro metro = new JMetro(Style.DARK);
-        metro.setScene(scene);
-        Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
-        stage.getIcons().add(i);
         if (vars == null || vars.equals("")) {
             stage.setTitle("FileStudio v2");
         } else {
@@ -189,6 +182,14 @@ public class StartupDialogController implements Initializable, GlobalVars {
             };
             loader.setResources(rb);
         }
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        JMetro metro = new JMetro(uss.getStyle());
+        metro.setScene(scene);
+        Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+        stage.getIcons().add(i);
+
         stage.setMaximized(true);
         stage.show();
     }

@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import jfxtras.styles.jmetro.Style;
 
 /**
  *
@@ -41,6 +42,14 @@ public class UserSettings {
 
     public void setBool(String key, boolean value) {
         pref.putBoolean(key, value);
+    }
+
+    public Style getStyle() {
+        if ("light".equals(theme)) {
+            return Style.LIGHT;
+        } else {
+            return Style.DARK;
+        }
     }
 
     public void resetAll() {

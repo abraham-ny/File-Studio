@@ -520,6 +520,7 @@ public class FXMLDocumentController implements Initializable {
                     scene.getStylesheets().add("filestudio/style.css");
             }
             stage.setScene(scene);
+            stage.setTitle("FileStudio Settings");
             stage.initStyle(StageStyle.UNDECORATED);
             Image i = new Image(getClass().getResourceAsStream("FileStudioOtherIcon.png"));
             stage.getIcons().add(i);

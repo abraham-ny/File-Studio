@@ -124,13 +124,11 @@ public class SettingsUIController implements Initializable, GlobalVars {
             default:
                 themeToggle.setText("Theme");
         }
-        aboutLabel.setText("This Version : " + FXMLDocumentController.ver
-                + "\n (c)2024 Abraham Moruri"
+        aboutLabel.setText("This Version : 2.0"
+                + "\n (c)2025 Abraham Moruri"
                 + "\n Project License : Apache 2.0"
                 + "\n Project repository : https://github.com/abraham-ny/File-Studio"
-                + "\n SourceForge (Download): https://sourceforge.net/projects/filestudio"
-                + "\n This is a free and open-source project and only profits from donations."
-                + "\n Consider donating through : " + FXMLDocumentController.pd);
+                + "\n SourceForge (Download): https://sourceforge.net/projects/filestudio");
         themeToggle.selectedProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {

@@ -43,6 +43,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.JMetroStyleClass;
@@ -73,6 +74,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
     TitledPane diskTitlePane;
     @FXML
     Button topBarBrowseBtn;
+    UserSettings uss = new UserSettings();
 
     public static String activeDir;
 
@@ -96,7 +98,11 @@ public class MetroPanelController implements Initializable, GlobalVars {
             pickDir(topBarPath, "Pick Folder", Util.home, topBarPath.getScene().getWindow());
             activeDir = topBarPath.getText();
         });
-        notify("process \"File-Studio\" started", false);
+        if (rb != null && rb.containsKey("dir")) {
+            iUpdatePath(rb.getString("dir"));
+            System.out.println("rb is not null - " + rb.getString("dir"));
+        }
+        //notify("process \"File-Studio\" started", false);
         MenuBar menuBar = new MenuBar();
         Menu fileMenu = new Menu("File");
         Menu tasksMenu = new Menu("Tools");//add shortcuts to stuff like create arch, bulk delete and other tasks
@@ -133,6 +139,9 @@ public class MetroPanelController implements Initializable, GlobalVars {
         MenuItem restoreMenu = new MenuItem("Restore");
         MenuItem prefMenu = new MenuItem("Settings");
         windowMenu.getItems().addAll(maximizeMenu, restoreMenu, prefMenu);
+        prefMenu.setOnAction(value -> {
+            launchSettings();
+        });
         //help menu [how to, source, check updates, about]
         MenuItem howMenu = new MenuItem("User Guide");
         MenuItem srcMenu = new MenuItem("View Source");
@@ -187,10 +196,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
         }
         Platform.runLater(() -> {
             Scene scene = metroAnchor.getScene();
-            if (rb != null && rb.containsKey("dir")) {
-                iUpdatePath(rb.getString("dir"));
-                System.out.println("rb is not null - " + rb.getString("dir"));
-            }
+
             scene.setOnDragOver(evt -> {
                 if (evt.getDragboard().hasFiles() || evt.getDragboard().hasString() || evt.getDragboard().hasUrl()) {
                     evt.acceptTransferModes(TransferMode.COPY);
@@ -259,6 +265,8 @@ public class MetroPanelController implements Initializable, GlobalVars {
         ImageView ic = new ImageView();
         ic.setFitWidth(20);
         ic.setFitHeight(20);
+        ic.maxWidth(ic.getFitWidth());
+        ic.maxHeight(ic.getFitHeight());
         ic.setImage(new Image(getClass().getResourceAsStream(icon)));
         nT.setGraphic(ic);
         nT.setClosable(true);
@@ -270,13 +278,14 @@ public class MetroPanelController implements Initializable, GlobalVars {
             detachTab(nT);
             tabHolder.getTabs().remove(nT);
         });
-        MenuItem closeItem = new MenuItem("Close");
+        MenuItem closeItem = new MenuItem("Close Others");
         closeItem.setOnAction(event -> {
             tabHolder.getTabs().remove(nT);
         });
-        MenuItem closeOthers = new MenuItem("Close Other Tabs");
+        MenuItem closeOthers = new MenuItem("Close");
         closeItem.setOnAction(event -> {
             tabHolder.getTabs().retainAll(tabHolder.getTabs().get(0), nT);
+            //tabHolder.getTabs().retainAll(tabHolder.getSelectionModel().getSelectedItem());
         });
         contextMenu.getItems().addAll(detachItem, closeOthers, closeItem);
         nT.contextMenuProperty().set(contextMenu);
@@ -329,12 +338,17 @@ public class MetroPanelController implements Initializable, GlobalVars {
         //new MetroPanelController().notify(newPath, false);
     }
 
-    //TO-OD: Apply theme based on prefs
+    //DONE: Apply theme based on prefs
     private void detachTab(Tab tab) {
         Stage detachedStage = new Stage();
         detachedStage.setTitle(tab.getText() + " - FileStudio: Detached");
         VBox content = new VBox(tab.getContent());
         Scene detachedScene = new Scene(content, 500, 400);
+        JMetro metro = new JMetro(uss.getStyle());
+        metro.setScene(detachedScene);
+        content.getStyleClass().add(JMetroStyleClass.BACKGROUND);
+        Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+        detachedStage.getIcons().add(i);
         detachedStage.setScene(detachedScene);
         detachedStage.show();
     }
@@ -346,7 +360,7 @@ public class MetroPanelController implements Initializable, GlobalVars {
             Stage stage = new Stage();
             Scene scene = new Scene(parent);
             stage.setScene(scene);
-            JMetro metro = new JMetro(Style.DARK);
+            JMetro metro = new JMetro(uss.getStyle());
             metro.setScene(scene);
             Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);
@@ -357,4 +371,33 @@ public class MetroPanelController implements Initializable, GlobalVars {
             Logger.getLogger(MetroPanelController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    void launchSettings() {
+        Stage stage = new Stage();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("SettingsUI.fxml"));
+            Scene scene = new Scene(root);
+            UserSettings uss = new UserSettings();
+            switch (uss.theme) {
+                case "dark":
+                    scene.getStylesheets().add("filestudio/style.css");
+                    break;
+                case "light":
+                    scene.getStylesheets().add("filestudio/light.css");
+                    break;
+                default:
+                    scene.getStylesheets().add("filestudio/style.css");
+            }
+            stage.setScene(scene);
+            stage.setTitle("FileStudio Settings");
+            stage.initStyle(StageStyle.UNDECORATED);
+            Image i = new Image(getClass().getResourceAsStream("FileStudioOtherIcon.png"));
+            stage.getIcons().add(i);
+            stage.show();
+            SettingsUIController.setStage(stage);
+        } catch (IOException e) {
+            fslog("Fxml settings err Abu, " + e.getMessage() + e.getCause().toString());
+        }
+    }
+
 }
