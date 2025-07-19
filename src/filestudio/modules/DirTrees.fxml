@@ -15,11 +15,7 @@
       <Button fx:id="createDirTreeBtn" defaultButton="true" layoutX="6.0" layoutY="43.0" mnemonicParsing="false" onAction="#createTree" prefHeight="25.0" prefWidth="284.0" text="Create New..." AnchorPane.leftAnchor="6.0" />
       <Button fx:id="browseDirTreeBtn" cancelButton="true" layoutX="313.0" layoutY="43.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="284.0" text="Browse Existing" AnchorPane.leftAnchor="310.0" />
       <ProgressBar fx:id="dirTreesProgress" layoutX="6.0" layoutY="77.0" prefHeight="20.0" prefWidth="588.0" progress="0.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
-      <Label fx:id="progressText" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="249.0" layoutY="78.0" prefHeight="20.0" text="Nothing is happening..." textAlignment="CENTER" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="228.0">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </Label>
+      <Label fx:id="progressText" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="249.0" layoutY="78.0" prefHeight="20.0" text="Nothing is happening..." textAlignment="CENTER" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="228.0"/>
       <TreeView fx:id="dirTreeView" layoutX="6.0" layoutY="100.0" prefHeight="296.0" prefWidth="588.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="100.0" />
       <CheckBox fx:id="formatCheck" layoutX="513.0" layoutY="14.0" mnemonicParsing="false" text="Smaller File" AnchorPane.rightAnchor="14.0" />
    </children>
