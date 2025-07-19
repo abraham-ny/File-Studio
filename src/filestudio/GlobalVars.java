@@ -278,5 +278,9 @@ public interface GlobalVars {
     default void fslog(String... dat) {
         fsLogger.Log(dat);
     }
+    
+    default void print(String str){
+        System.out.println(str);
+    }
 
 }

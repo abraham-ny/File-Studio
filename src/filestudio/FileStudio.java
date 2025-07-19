@@ -52,7 +52,7 @@ public class FileStudio extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("StartupDialog.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            JMetro metro = new JMetro(Style.DARK);
+            JMetro metro = new JMetro(uss.getStyle());
             metro.setScene(scene);
             Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);
@@ -68,9 +68,6 @@ public class FileStudio extends Application {
             Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
             stage.getIcons().add(i);
             stage.setTitle("FileStudio v2");
-            stage.resizableProperty().addListener(listener -> {
-                logger.Log("RESIZING -width " + stage.getWidth() + " -height " + stage.getHeight());
-            });
             stage.setMaximized(true);
             stage.show();
         }

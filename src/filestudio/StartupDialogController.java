@@ -189,9 +189,10 @@ public class StartupDialogController implements Initializable, GlobalVars {
         metro.setScene(scene);
         Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
         stage.getIcons().add(i);
-
         stage.setMaximized(true);
         stage.show();
+        Stage currstage = (Stage) withBtn.getScene().getWindow();
+        currstage.close();
     }
 
     public void showOrNot() {

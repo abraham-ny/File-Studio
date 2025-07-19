@@ -4,6 +4,10 @@
  */
 package filestudio.modules;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import filestudio.GlobalVars;
 import filestudio.UserSettings;
 import java.io.File;
@@ -17,10 +21,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
-import net.minidev.json.JSONStyle;
 
 /**
  * FXML Controller class
@@ -35,6 +37,7 @@ public class DirTreesController implements Initializable, GlobalVars {
     String dirPath;
     UserSettings uss;
     @FXML TextField dirTreePath;
+    @FXML CheckBox formatCheck;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -42,39 +45,48 @@ public class DirTreesController implements Initializable, GlobalVars {
     }
     
     public void createTree(){
-        pickDir(dirTreePath, "Create Tree", System.getProperty("user.home"), dirTreePath.getScene().getWindow());
+        dirTreePath.setText(pickFolder("Create Tree", System.getProperty("user.home"), dirTreePath.getScene().getWindow()));
         dirPath = dirTreePath.getText();
-        JSONObject jsonTree = getTree(new File(dirPath));
+        JsonObject jsonTree = getTree(new File(dirPath));
         // Generate a timestamped filename
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String outputFilePath = "directory_snapshot_" + timestamp + ".json";
+        String outputFilePath = dirPath+File.separator+ "directory_snapshot_" + timestamp + ".json";
         dirPath = outputFilePath;
         // Save JSON to a file
         saveJsonToFile(jsonTree, outputFilePath);
         alert("DirTrees", "Folder structure snapshot creation complete!", dirPath, AlertType.INFORMATION);
     }
     
-    public JSONObject getTree(File dir){
-        JSONObject jsono = new JSONObject();
-        jsono.put("name", dir.getName());
-        jsono.put("isDir", dir.isDirectory());
+    public JsonObject getTree(File dir){
+        JsonObject jsono = new JsonObject();
+        jsono.addProperty("name", dir.getName());
+        jsono.addProperty("isDir", dir.isDirectory());
+        print(jsono.toString());
         if(dir.isDirectory()){
-            JSONArray childArray = new JSONArray();
+            JsonArray childArray = new JsonArray();
             File[] files = dir.listFiles();
             if(files!=null){
                 for(File file:files){
-                    childArray.appendElement(getTree(file));
+                    childArray.add(getTree(file));
                 }
             }
-            jsono.put("children", childArray);
+            jsono.add("children", childArray);
+            print("children");
+            print(childArray.toString());
         }
-        alert("DevMode-tree", jsono.toString(), "jsono", null);
+        print(jsono.toString());
+        //alert("DevMode-tree", jsono.toString(), "jsono", null);
         return jsono;
     }
     
-    private void saveJsonToFile(JSONObject jsonObject, String filePath) {
+    private void saveJsonToFile(JsonObject jsonObject, String filePath) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
-            fileWriter.write(jsonObject.toString(JSONStyle.LT_COMPRESS));
+            if(!formatCheck.isSelected()){
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                gson.toJson(jsonObject, fileWriter);
+            }else{
+                fileWriter.write(jsonObject.toString());
+            }
             fileWriter.flush();
         } catch (IOException e) {
             alert("DirTrees::Error", "Failed to complete the tree snapshot procedure", dirPath, AlertType.ERROR);
