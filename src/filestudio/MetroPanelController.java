@@ -259,6 +259,10 @@ public class MetroPanelController implements Initializable, GlobalVars {
                 AnchorPane serviceParent = FXMLLoader.load(getClass().getResource("modules/LoadingService.fxml"));
                 nT.setContent(serviceParent);
                 break;
+            case "Dir Tree":
+                AnchorPane treesParent = FXMLLoader.load(getClass().getResource("modules/DirTrees.fxml"));
+                nT.setContent(treesParent);
+                break;
         }
         Tooltip toolTip = new Tooltip(desc);
         nT.setTooltip(toolTip);
