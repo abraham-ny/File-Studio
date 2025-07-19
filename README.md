@@ -29,19 +29,10 @@ The application supports a comprehensive suite of functionalities including bulk
 
 ---
 
-## Technology Stack & Libraries
+## Tools
 
-- Java 8, JavaFX
-- Gson 2.8.6
-- Zstandard JNI 1.5.6-4
-- Imgscalr 4.2
-- XZ (Tukaani.xz) 1.10
-- Apache Commons Compress 1.25
-- JSON (org.json) [optional]
-- JSON-Smart 2.x
-- JSON-Path 2.x
-- JMetro 8.6.14
-- JFoenix 8.0.10
+- NetBeans, Ant (included with netbeans), Java 8, JavaFX (included with java 8)
+- Libraries included in the ```lib/``` folder
 
 ---
 
