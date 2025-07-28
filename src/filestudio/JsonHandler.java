@@ -30,6 +30,9 @@ public class JsonHandler {
     // Function to get the file reference
     private File getJsonFile() {
         File dir = new File(Util.home + "\\" + FILE_NAME);
+        if(!dir.exists()){
+            return null;
+        }
         return new File(dir.getPath());
     }
 
