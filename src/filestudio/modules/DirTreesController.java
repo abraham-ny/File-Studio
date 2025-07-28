@@ -35,10 +35,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -56,7 +62,17 @@ public class DirTreesController implements Initializable, GlobalVars {
     @FXML CheckBox formatCheck;
     @FXML ProgressBar dirTreesProgress;
     @FXML Label progressText;
-    @FXML TreeView dirTreeView;
+    //@FXML TreeView dirTreeView;
+    @FXML ListView<DirNode> listView;
+    
+    //private Label pathLabel;
+
+    private final Image folderIcon = new Image(getClass().getResourceAsStream("/filestudio/ic_dir.png"));
+    private final Image fileIcon = new Image(getClass().getResourceAsStream("/filestudio/file_pdf.png"));
+    private final Image backIcon = new Image(getClass().getResourceAsStream("/filestudio/hdd.png"));
+
+    private DirNode root;
+    private DirNode current;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -73,9 +89,80 @@ public class DirTreesController implements Initializable, GlobalVars {
             saveJsonToFile(res, outputFilePath);
             count = 0;
             alert("DirTrees", "Folder structure snapshot creation complete!", dirPath, AlertType.INFORMATION);
+            root = loadJson(outputFilePath);
+        if (root == null) {
+            alert("Tree reader Error [null]", "Failed to read tree", "The file might be corrupt or inaccessible", AlertType.ERROR);
+            return;
+        }
+        updateList(root);
             progressText.setText("Done creating tree snapshot");
             dirTreesProgress.setProgress(1.0);
-            readTree(outputFilePath);
+            //readTree(outputFilePath);
+        });
+        
+        listView.setCellFactory(param -> new ListCell<DirNode>() {
+            @Override
+            protected void updateItem(DirNode item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(item.name);
+                    ImageView icon;
+                    if (item.name.equals("..")) {
+                        icon = new ImageView(backIcon);
+                    } else {
+                        icon = new ImageView(item.isDirectory() ? folderIcon : fileIcon);
+                    }
+                    icon.setFitWidth(16);
+                    icon.setFitHeight(16);
+                    setGraphic(icon);
+                }
+            }
+        });
+
+        listView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                DirNode selected = listView.getSelectionModel().getSelectedItem();
+                if (selected == null) return;
+
+                if ("..".equals(selected.name)) {
+                    if (current.parent != null) {
+                        updateList(current.parent);
+                    }
+                } else if (selected.isDirectory()) {
+                    selected.parent = current;
+                    updateList(selected);
+                }
+            }else if(event.getClickCount() == 1){
+                //DirNode selected = listView.getSelectionModel().getSelectedItem();
+                if ("..".equals(listView.getSelectionModel().getSelectedItem().name)) {
+                    if (current.parent != null) {
+                        updateList(current.parent);
+                    }
+                }
+            }
+        });
+        
+        listView.setOnKeyPressed(value -> {
+            if(value.getCode() == KeyCode.BACK_SPACE){
+                if (current.parent != null) {
+                        updateList(current.parent);
+                    }
+            }else if(value.getCode() == KeyCode.ENTER){
+                DirNode selected = listView.getSelectionModel().getSelectedItem();
+                if (selected == null) return;
+
+                if ("..".equals(selected.name)) {
+                    if (current.parent != null) {
+                        updateList(current.parent);
+                    }
+                } else if (selected.isDirectory()) {
+                    selected.parent = current;
+                    updateList(selected);
+                }
+            }
         });
         
     }
@@ -89,9 +176,21 @@ public class DirTreesController implements Initializable, GlobalVars {
     
     //opens a dirTree file for viewing
     public void readTree(){
-        dirTreePath.setText(pickFolder("Open Tree", System.getProperty("user.home"), dirTreePath.getScene().getWindow()));
-        dirPath = dirTreePath.getText();
+        FileChooser filePicker = new FileChooser();
+        filePicker.setTitle("Select Tree File");
+        //filePicker.setInitialDirectory(new File(activeDir));
+        FileChooser.ExtensionFilter archiveFilter = new FileChooser.ExtensionFilter("Tree Files", "*.tres", "*.tree", "*.json", "*.dtr", "*.fsd");
+        filePicker.getExtensionFilters().add(archiveFilter);
+        File toExtract = filePicker.showOpenDialog(listView.getScene().getWindow());
+        root = loadJson(toExtract.getAbsolutePath());
+        if (root == null) {
+            alert("Tree reader Error [null]", "Failed to read tree", "The file might be corrupt or inaccessible", AlertType.ERROR);
+            return;
+        }
+        updateList(root);
+        progressText.setText("Read Mode");
     }
+    /*
     //read treeFiles to treeView
     public void readTree(String path){
         JsonObject jsono = new JsonObject();
@@ -129,7 +228,7 @@ public class DirTreesController implements Initializable, GlobalVars {
             Logger.getLogger(DirTreesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    */
     
     public JsonObject getTree(File dir){
         JsonObject jsono = new JsonObject();
@@ -216,6 +315,42 @@ public class DirTreesController implements Initializable, GlobalVars {
     };
     
     //read
-    
+    private DirNode loadJson(String path) {
+        try (FileReader reader = new FileReader(path)) {
+            Gson gson = new GsonBuilder().create();
+            return gson.fromJson(reader, DirNode.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private void updateList(DirNode node) {
+        current = node;
+        //pathLabel.setText("Path: " + getFullPath(node));
+        ObservableList<DirNode> items = FXCollections.observableArrayList();
+
+        if (node.parent != null) {
+            DirNode back = new DirNode();
+            back.name = "..";
+            items.add(back);
+        }
+
+        if (node.children != null) {
+            items.addAll(node.children);
+        }
+
+        listView.setItems(items);
+    }
+
+    private String getFullPath(DirNode node) {
+        StringBuilder path = new StringBuilder(node.name);
+        DirNode walker = node.parent;
+        while (walker != null) {
+            path.insert(0, walker.name + "/");
+            walker = walker.parent;
+        }
+        return "/" + path.toString();
+    }
     
 }
