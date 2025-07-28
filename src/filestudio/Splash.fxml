@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" style="-fx-background-image: url('@blurbg.png'); -fx-background-size: cover; -fx-background-repeat: no-repeat;" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="filestudio.SplashController">
+   <children>
+      <ProgressBar fx:id="progressBar" layoutX="14.0" layoutY="324.0" prefHeight="18.0" prefWidth="569.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Label fx:id="progressText" layoutX="14.0" layoutY="289.0" prefHeight="17.0" prefWidth="569.0" text="Loading..." />
+      <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="21.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@task_organizer.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="21.0" layoutY="133.0" prefHeight="54.0" prefWidth="202.0" text="FileStudio">
+         <font>
+            <Font size="42.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="21.0" layoutY="200.0" prefHeight="48.0" prefWidth="569.0" text="First time setup, internet connection needed. Don not close this window or process, this is a critical setup process. You can use other apps, we will notify you when setup is done." wrapText="true">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

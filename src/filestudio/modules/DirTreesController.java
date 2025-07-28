@@ -58,48 +58,52 @@ public class DirTreesController implements Initializable, GlobalVars {
      */
     String dirPath;
     UserSettings uss;
-    @FXML TextField dirTreePath;
-    @FXML CheckBox formatCheck;
-    @FXML ProgressBar dirTreesProgress;
-    @FXML Label progressText;
+    @FXML
+    TextField dirTreePath;
+    @FXML
+    CheckBox formatCheck;
+    @FXML
+    ProgressBar dirTreesProgress;
+    @FXML
+    Label progressText;
     //@FXML TreeView dirTreeView;
-    @FXML ListView<DirNode> listView;
-    
-    //private Label pathLabel;
+    @FXML
+    ListView<DirNode> listView;
 
+    //private Label pathLabel;
     private final Image folderIcon = new Image(getClass().getResourceAsStream("/filestudio/ic_dir.png"));
     private final Image fileIcon = new Image(getClass().getResourceAsStream("/filestudio/file_pdf.png"));
     private final Image backIcon = new Image(getClass().getResourceAsStream("/filestudio/hdd.png"));
 
     private DirNode root;
     private DirNode current;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         dirTreesProgress.progressProperty().bind(buildTreeTask.progressProperty());
-        buildTreeTask.messageProperty().addListener((obs,old,newVal)->{
+        buildTreeTask.messageProperty().addListener((obs, old, newVal) -> {
             progressText.setText(newVal);
         });
-        buildTreeTask.setOnSucceeded(e->{
+        buildTreeTask.setOnSucceeded(e -> {
             JsonObject res = buildTreeTask.getValue();
             String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            String outputFilePath = dirPath+File.separator+ "directory_snapshot_" + timestamp + ".json";
+            String outputFilePath = dirPath + File.separator + "directory_snapshot_" + timestamp + ".json";
             dirPath = outputFilePath;
             // Save JSON to a file
             saveJsonToFile(res, outputFilePath);
             count = 0;
             alert("DirTrees", "Folder structure snapshot creation complete!", dirPath, AlertType.INFORMATION);
             root = loadJson(outputFilePath);
-        if (root == null) {
-            alert("Tree reader Error [null]", "Failed to read tree", "The file might be corrupt or inaccessible", AlertType.ERROR);
-            return;
-        }
-        updateList(root);
+            if (root == null) {
+                alert("Tree reader Error [null]", "Failed to read tree", "The file might be corrupt or inaccessible", AlertType.ERROR);
+                return;
+            }
+            updateList(root);
             progressText.setText("Done creating tree snapshot");
             dirTreesProgress.setProgress(1.0);
             //readTree(outputFilePath);
         });
-        
+
         listView.setCellFactory(param -> new ListCell<DirNode>() {
             @Override
             protected void updateItem(DirNode item, boolean empty) {
@@ -125,7 +129,9 @@ public class DirTreesController implements Initializable, GlobalVars {
         listView.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2) {
                 DirNode selected = listView.getSelectionModel().getSelectedItem();
-                if (selected == null) return;
+                if (selected == null) {
+                    return;
+                }
 
                 if ("..".equals(selected.name)) {
                     if (current.parent != null) {
@@ -135,7 +141,7 @@ public class DirTreesController implements Initializable, GlobalVars {
                     selected.parent = current;
                     updateList(selected);
                 }
-            }else if(event.getClickCount() == 1){
+            } else if (event.getClickCount() == 1) {
                 //DirNode selected = listView.getSelectionModel().getSelectedItem();
                 if ("..".equals(listView.getSelectionModel().getSelectedItem().name)) {
                     if (current.parent != null) {
@@ -144,15 +150,17 @@ public class DirTreesController implements Initializable, GlobalVars {
                 }
             }
         });
-        
+
         listView.setOnKeyPressed(value -> {
-            if(value.getCode() == KeyCode.BACK_SPACE){
+            if (value.getCode() == KeyCode.BACK_SPACE) {
                 if (current.parent != null) {
-                        updateList(current.parent);
-                    }
-            }else if(value.getCode() == KeyCode.ENTER){
+                    updateList(current.parent);
+                }
+            } else if (value.getCode() == KeyCode.ENTER) {
                 DirNode selected = listView.getSelectionModel().getSelectedItem();
-                if (selected == null) return;
+                if (selected == null) {
+                    return;
+                }
 
                 if ("..".equals(selected.name)) {
                     if (current.parent != null) {
@@ -164,18 +172,18 @@ public class DirTreesController implements Initializable, GlobalVars {
                 }
             }
         });
-        
+
     }
-    
+
     //creates a dirTree for save
-    public void createTree(){
+    public void createTree() {
         dirTreePath.setText(pickFolder("Create Tree", System.getProperty("user.home"), dirTreePath.getScene().getWindow()));
         dirPath = dirTreePath.getText();
         new Thread(buildTreeTask).start();
     }
-    
+
     //opens a dirTree file for viewing
-    public void readTree(){
+    public void readTree() {
         FileChooser filePicker = new FileChooser();
         filePicker.setTitle("Select Tree File");
         //filePicker.setInitialDirectory(new File(activeDir));
@@ -190,6 +198,7 @@ public class DirTreesController implements Initializable, GlobalVars {
         updateList(root);
         progressText.setText("Read Mode");
     }
+
     /*
     //read treeFiles to treeView
     public void readTree(String path){
@@ -228,19 +237,19 @@ public class DirTreesController implements Initializable, GlobalVars {
             Logger.getLogger(DirTreesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    */
-    
-    public JsonObject getTree(File dir){
+     */
+
+    public JsonObject getTree(File dir) {
         JsonObject jsono = new JsonObject();
         jsono.addProperty("name", dir.getName());
         jsono.addProperty("isDir", dir.isDirectory());
-        
+
         print(jsono.toString());
-        if(dir.isDirectory()){
+        if (dir.isDirectory()) {
             JsonArray childArray = new JsonArray();
             File[] files = dir.listFiles();
-            if(files!=null){
-                for(File file:files){
+            if (files != null) {
+                for (File file : files) {
                     childArray.add(getTree(file));
                 }
             }
@@ -249,13 +258,13 @@ public class DirTreesController implements Initializable, GlobalVars {
         //alert("DevMode-tree", jsono.toString(), "jsono", null);
         return jsono;
     }
-    
+
     private void saveJsonToFile(JsonObject jsonObject, String filePath) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
-            if(!formatCheck.isSelected()){
+            if (!formatCheck.isSelected()) {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 gson.toJson(jsonObject, fileWriter);
-            }else{
+            } else {
                 fileWriter.write(jsonObject.toString());
             }
             fileWriter.flush();
@@ -264,9 +273,9 @@ public class DirTreesController implements Initializable, GlobalVars {
             e.printStackTrace();
         }
     }
-    
+
     int count = 0;
-    Task<JsonObject> buildTreeTask = new Task<JsonObject>(){
+    Task<JsonObject> buildTreeTask = new Task<JsonObject>() {
         @Override
         protected JsonObject call() throws Exception {
             File root = new File(dirPath);
@@ -275,36 +284,36 @@ public class DirTreesController implements Initializable, GlobalVars {
             //return progressTree(root, totalNodes, currentCount);
             return progressTree(root, totalNodes, currentCount);
         }
-        
+
         private int countHeads(File root) {
             count++;
             File[] files = root.listFiles();
-            if(files!=null){
-                for(File f:files){
-                    if(f.isDirectory()){
-                        count+=countHeads(f);
-                    }else{
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        count += countHeads(f);
+                    } else {
                         count++;
-                        updateMessage("Scanning "+count+" items");
+                        updateMessage("Scanning " + count + " items");
                     }
                 }
             }
             return count;
         }
-        
+
         private JsonObject progressTree(File dir, int totalNodes, int[] currentCount) {
-            
+
             JsonObject jsono = new JsonObject();
             jsono.addProperty("name", dir.getName());
             jsono.addProperty("isDir", dir.isDirectory());
             currentCount[0]++;
             updateProgress(currentCount[0], totalNodes);
-            updateMessage("Procesing "+currentCount[0]+" of "+totalNodes);
-            if(dir.isDirectory()){
+            updateMessage("Procesing " + currentCount[0] + " of " + totalNodes);
+            if (dir.isDirectory()) {
                 JsonArray childArray = new JsonArray();
                 File[] files = dir.listFiles();
-                if(files!=null){
-                    for(File file:files){
+                if (files != null) {
+                    for (File file : files) {
                         childArray.add(progressTree(file, totalNodes, currentCount));
                     }
                 }
@@ -313,7 +322,7 @@ public class DirTreesController implements Initializable, GlobalVars {
             return jsono;
         }
     };
-    
+
     //read
     private DirNode loadJson(String path) {
         try (FileReader reader = new FileReader(path)) {
@@ -352,5 +361,5 @@ public class DirTreesController implements Initializable, GlobalVars {
         }
         return "/" + path.toString();
     }
-    
+
 }

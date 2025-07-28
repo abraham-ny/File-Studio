@@ -47,7 +47,7 @@ public class FileStudio extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        if (uss.showStartupScreen) {
+        /*if (uss.showStartupScreen) {
             //show startup pane
             Parent root = FXMLLoader.load(getClass().getResource("StartupDialog.fxml"));
             Scene scene = new Scene(root);
@@ -70,7 +70,18 @@ public class FileStudio extends Application {
             stage.setTitle("FileStudio v2");
             stage.setMaximized(true);
             stage.show();
-        }
+        }*/
+        Parent root = FXMLLoader.load(getClass().getResource("Splash.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        JMetro metro = new JMetro(uss.getStyle());
+        metro.setScene(scene);
+        Image i = new Image(getClass().getResourceAsStream("filestudio.png"));
+        stage.getIcons().add(i);
+        stage.setTitle("FileStudio v2");
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(false);
+        stage.show();
     }
 
     private static final String REPO_API_URL = "https://api.github.com/repos/abraham-ny/file-studio/releases/latest";
