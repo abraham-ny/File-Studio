@@ -62,12 +62,13 @@ public class SplashController implements Initializable, GlobalVars {
 
         @Override
         protected String call() throws Exception {
-            File appDir = new File(FileStudio.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            //File appDir = new File(FileStudio.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+            File appDir = new File(System.getProperty("user.home"));
             File logDir = new File(appDir, "tres");
             if(!logDir.exists()){
                 logDir.mkdirs();
             }
-            File setupLogFile = new File(logDir, "init.json");
+            File setupLogFile = new File(logDir, "fs-init.json");
             
             String rootPath = System.getProperty("user.home");
             DirNode tree = buildTree(new File(rootPath));
@@ -92,7 +93,7 @@ public class SplashController implements Initializable, GlobalVars {
         public boolean hasInternet(){
             try{
                 URL setuprl = new URL("https://clients3.google.com/generate_204");
-                updateMessage("Checking internet connection");
+                updateMessage("Almost there.");
                 HttpURLConnection conn = (HttpURLConnection) setuprl.openConnection();
                 conn.setConnectTimeout(4000);
                 conn.setReadTimeout(4000);
@@ -140,7 +141,7 @@ public class SplashController implements Initializable, GlobalVars {
                 meta.ipAddress = "Unknown";
                 updateMessage("no account");
             }
-            meta.email = "user@example.com";
+            meta.email = "user@filestudio.desk";
 
             return meta;
         }
