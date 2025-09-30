@@ -10,7 +10,7 @@
 
 File Studio is a robust and versatile desktop application developed in Java, engineered to streamline and enhance file management tasks for end-users and professionals alike. Featuring an intuitive and customizable graphical user interface, File Studio empowers users to efficiently perform complex file operations with ease and precision.
 
-The application supports a comprehensive suite of functionalities including bulk file renaming, folder organization, duplicate file detection and removal, file compression and archiving, disk scanning and formatting, as well as media upscaling capabilities. With dual UI modes—classic and modern Metro style—alongside theme customization and drag-and-drop support, File Studio delivers a seamless and productive user experience.
+The application supports a comprehensive suite of functionalities including bulk file renaming, folder organization, duplicate file detection and removal, file compression and archiving, disk scanning and formatting, as well as media upscaling capabilities. With dual UI modes: classic and modern Metro style alongside theme customization and drag and drop support, File Studio delivers a seamless and productive user experience.
 
 ---
 
@@ -22,9 +22,9 @@ The application supports a comprehensive suite of functionalities including bulk
 - **Media Upscaling:** Enhance image and video quality through advanced upscaling algorithms (feature under development).
 - **File Compression & Archiving:** Compress files and archive directories to optimize storage.
 - **Disk Utilities:** Perform disk compression, scanning, and formatting operations.
-- **Customizable User Interface:** Choose between classic and Metro-style UI with dark and light themes.
+- **Customizable User Interface:** Choose between classic and Metro style UI with dark and light themes.
 - **Drag-and-Drop Support:** Simplify file and folder input via intuitive drag-and-drop functionality.
-- **Automatic Update Notifications:** Stay up-to-date with built-in update checking and notification system.
+- **Automatic Update Notifications:** Stay up to date with built-in update checking and notification system.
 - **Cross-Platform Compatibility:** Built on Java 8 and JavaFX, ensuring broad platform support.
 
 ---
